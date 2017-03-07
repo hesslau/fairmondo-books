@@ -1,0 +1,127 @@
+***REMOVED***
+***REMOVED***
+    'fields' => [
+        'title',
+        'categories',
+        'condition',
+        'content',
+        'quantity',
+        'price_cents',
+        'vat',
+        'external_title_image_url',
+        'transport_type1',
+        'transport_type1_provider',
+        'transport_type1_price_cents',
+        'transport_type1_number',
+        'transport_details',
+        'transport_time',
+        'unified_transport',
+        'payment_bank_transfer',
+        'payment_paypal',
+        'payment_invoice',
+        'payment_voucher',
+        'payment_details',
+        'gtin',
+        'custom_seller_identifier',
+        'action'
+***REMOVED***,
+    'default' => [
+        'condition'                 => 'new',
+        'transport_type1'           => true,
+        'transport_type1_provider'  => 'Post/DHL',
+        'transport_type1_price_cents'=> 300,
+        'transport_type1_number'    => 9,
+        'transport_details'         => '',
+        'unified_transport'         => true,
+        'payment_bank_transfer'     => true,
+        'payment_paypal'            => true,
+        'payment_invoice'           => false,
+        'payment_voucher'           => true,
+        'payment_details'           => ''
+***REMOVED***,
+    'maps' => [
+        'ProductForm' => [
+            'BA' => 'Buch',
+            'BB' => 'Gebundenes Buch',
+            'BC' => 'Taschenbuch',
+            'BG' => 'Ledergebundenes Buch',
+            'BH' => 'Gebundenes Buch',
+            'BI' => 'Gebundenes Buch',
+            'BP' => 'Buch',
+            'BZ' => 'Buch',
+            'AC' => 'Audio CD',     //27
+            'DB' => 'CD',           //27
+            'DA' => 'MP3 CD',       //27
+            'AI' => 'Audio DVD',    //28
+            'VI' => 'Video DVD',    //24
+            'VO' => 'Blue Ray',     //25
+            'ZE' => 'Spiel',        //85
+            'DG' => 'eBook',        //116
+            'PC' => 'Kalender',     //1654
+            '00' => 'Hardware',     //1122
+***REMOVED***
+        // map Libri Product Form to a Fairmondo Category
+        'ProductForm2FairmondoCategory' => [
+            'AC' => 27,
+            'DB' => 27,
+            'DA' => 27,
+            'AI' => 28,
+            'VI' => 24,
+            'VO' => 25,
+            'ZE' => 85,
+            'DG' => 116,
+            'PC' => 1654,
+            '00' => 1122,
+            'ZZ' => 1122    // assumption based on productformdescriptions
+***REMOVED***
+        'ProductLanguage' => [
+             'ger' => 'Deutsch',
+             'eng' => 'Englisch',
+             'fre' => 'Französisch',
+             'spa' => 'Spanisch',
+             'ita' => 'Italienisch',
+             'fin' => 'Finnisch',
+             'tur' => 'Türkisch',
+             'dan' => 'Dänisch'
+***REMOVED***
+        'ProductReferenceType' => [
+            15  => 'EAN',
+            03  => 'ISBN13',
+            02  => 'ISBN10'
+    ***REMOVED***
+***REMOVED***,
+    'conditions' => [
+        'AvailabilityStatus' => 20,
+        'invalidAudienceCodeValues' => [16,17,18]
+***REMOVED***,
+    'templates' => [
+        'DistinctiveTitle'  => '<h3>%s</h3>',
+        'Author'            => '<p>von <b>%s</b></p>',
+        'ProductLanguage'   => '%s, ',
+        'NumberOfPages'     => '%s Seiten, ',
+        'PublicationDate'   => '%s, ',
+        'PublisherName'     => '%s, ',
+        'ProductForm'       => '%s, ',
+        'ProductReference'  => 'EAN %s',
+        'Blurb'             => '<p><b>Beschreibung</b></p><p>%s</p>',
+        'AudioBook'         => 'Hörbuch, '
+***REMOVED***,
+    'CustomSellerIdentifierTemplate' => 'LIB-%013s',
+    'TitleTemplate' => "%Author%Title (%ProductForm%AudioBook%ProductReference)",
+    'ContentTemplate' => '
+                  %DistinctiveTitle%Author<p>
+                    %ProductLanguage
+                    %NumberOfPages
+                    %PublicationDate
+                    %AudioBook 
+                    %PublisherName
+                    %ProductForm
+                    %ProductReference
+                </p>
+                <p>
+                    %Blurb
+                 </p>',
+    'DigitalTemplate' => '%DistinctiveTitle%Author<p>%PublicationDate%PublisherName%ProductForm%ProductReference</p>%Blurb',
+    'CoverLinkBaseUrl' => 'http://media.fairmondo.de/',
+    'AudiobookDescription' => 'Hörbuch'
+***REMOVED***

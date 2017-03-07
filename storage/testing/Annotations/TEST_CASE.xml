@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ONIXmessage>
+<product>
+	<a001>A12647581</a001>
+	<a002>03</a002>
+	<productidentifier>
+	<b221>03</b221>
+	<b244>1111111111111</b244>
+	</productidentifier>
+	<b012>BB</b012>
+	<title><b202>01</b202><b203>Poland The beauty of architecture</b203></title>
+	<title><b202>05</b202><b203>Bilinska, A: Poland The beauty of
+	architecture</b203></title>
+	<publisher><b081> </b081></publisher>
+	<supplydetail><j137>Libri GmbH</j137>
+	<j141>OP</j141>
+	<j396>43</j396>
+	<price><j148>02</j148><j266>02</j266><j151>8.61</j151>
+	<j152>EUR</j152><b251>DE</b251><j153>R</j153>
+	<j154>7</j154>
+	<j161>20110324</j161>
+	</price>
+	</supplydetail>
+</product>
+</ONIXmessage>

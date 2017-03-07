@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ONIXmessage>
+    <header>
+        <m172>4026635100003</m172>
+        <senderidentifier>
+            <m379>02</m379>
+            <b244>LIB_GESAMT</b244>
+        </senderidentifier>
+        <m174>Libri GmbH</m174>
+        <m175>Katalog</m175>
+        <m180>10040</m180>
+        <m182>20160829</m182>
+    </header>
+<product>
+<a001>A7451880</a001>
+<a002>03</a002>
+<productidentifier><b221>03</b221><b244>0886974413646</b244></productidentifier>
+<productidentifier><b221>01</b221><b233>LI</b233><b244>6186971</b244></productidentifier>
+<b246>00</b246>
+<b012>AA</b012>
+<b385>02</b385>
+<productclassification><b274>02</b274><b275>85232933</b275></productclassification><productclassification><b274>04</b274><b275>85232933</b275></productclassification>
+<series><seriesidentifier><b273>01</b273><b233>COLLECTION</b233><b244>1092</b244></seriesidentifier><b018>Die drei ??? (Audio)</b018><b019>136</b019></series>
+<title><b202>01</b202><b203>Die drei ??? 136 und das versunkene Dorf (drei Fragezeichen) Kassette</b203></title>
+<title><b202>05</b202><b203>Die drei ??? 136 und das versunkene Dorf Kassette</b203></title>
+<n386/>
+<language><b253>01</b253><b252>ger</b252></language>
+<mainsubject><b191>26</b191><b069>52500</b069><b070>AUDIO/Kinder-/Jugendromane u. -erzählungen</b070></mainsubject>
+<subject><b067>24</b067><b171>Schlagworte von Libri</b171><b069>HOER2320</b069><b070>Hörbuch für Kinder / 8 - 12 Jahre</b070></subject><subject><b067>24</b067><b171>Schlagworte von Libri</b171><b069>HOER2430</b069><b070>Hörbuch für Kinder / Hörspiel / Detektiv- u. Kriminalgeschichten</b070></subject>
+<audiencerange><b074>18</b074><b075>03</b075><b076>8</b076></audiencerange>
+
+<publisher><b291>01</b291><b241>04</b241><b243>74760</b243><b081>Sony Music Entertainment</b081></publisher><publisher><b291>01</b291><b241>02</b241><b242>LXO</b242><b243>O7463</b243><b081>Sony Music Entertainment</b081></publisher>
+<b003>201002</b003>
+<measure><c093>01</c093><c094>109</c094><c095>mm</c095></measure><measure><c093>02</c093><c094>71</c094><c095>mm</c095></measure><measure><c093>03</c093><c094>20</c094><c095>mm</c095></measure><measure><c093>08</c093><c094>58</c094><c095>gr</c095></measure>
+<supplydetail><j137>Libri GmbH</j137><j396>20</j396><stock><j349>BH</j349><j350>1</j350></stock><price><j148>02</j148><j267>20</j267><j266>02</j266><j151>7.99</j151><j152>EUR</j152><b251>DE</b251><j153>S</j153><j154>19</j154><j161>20170101</j161></price></supplydetail>
+<lieferantintern>
+<einband><ei01>01</ei01><ei02>CAS</ei02></einband>
+<katalog><ka01>01</ka01><ka02>LIBRI</ka02></katalog>
+<katalog><ka01>01</ka01><ka02>LIB_GESAMT</ka02></katalog>
+<katalog><ka01>01</ka01><ka02>LIB_MEDIEN</ka02></katalog>
+<subkatalog><sk01>01</sk01><sk02>AV</sk02></subkatalog>
+<subkatalog><sk01>01</sk01><sk02>HB</sk02></subkatalog>
+<subkatalog><sk01>01</sk01><sk02>AK</sk02></subkatalog>
+<subkatalog><sk01>01</sk01><sk02>LG</sk02></subkatalog>
+<so01>DIE DREI ??? 136 UND DAS VERSUNKENE DORF (DREI FRAGEZEICHEN) KASS000</so01><so02>0.223653268749943</so02><so03>0000001</so03>
+<kt01>Die drei ??? 136 und das versunkene Dorf (drei Fragezeichen) Kassette</kt01>
+<kt02>20091028</kt02>
+<herst><he01>O7463</he01></herst>
+<gt01>Hörspiel</gt01>
+<mwst><mw01>DE</mw01><mw02>A2</mw02></mwst>
+<re01>0006</re01>
+<re02>+1</re02>
+<thema><th01>AV</th01></thema><thema><th01>HB</th01></thema><thema><th01>AK</th01></thema><thema><th01>LG</th01></thema>
+<ge01>xx</ge01>
+<ge02>Importe</ge02>
+<at01>PHY</at01>
+</lieferantintern>
+</product>
+</ONIXmessage>
