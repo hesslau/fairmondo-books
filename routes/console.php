@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Foundation\Inspiring;
+use App\DatabaseSupervisor;
+
+/*
+|--------------------------------------------------------------------------
+| Console Routes
+|--------------------------------------------------------------------------
+|
+| This file is where you may define all of your Closure based console
+| commands. Each Closure is bound to a command instance allowing a
+| simple approach to interacting with each command's IO methods.
+|
+*/
+
+Artisan::command('inspire', function () {
+    $this->comment(Inspiring::quote());
+})->describe('Display an inspiring quote');
+
+Artisan::command('import:onix {file}',function($file) {
+    $controller = App\Http\Controllers\Controller::get();
+    $controller->importONIXMessage($file);
+});
+/*
+Artisan::command('pull:pause', function (DatabaseSupervisor $supervisor) {
+    $supervisor->haltInsertions();
+});
+
+Artisan::command('pull:continue', function(DatabaseSupervisor $supervisor) {
+    $supervisor->allowInsertions();
+});
+
+Artisan::command('pull:state', function(DatabaseSupervisor $supervisor) {
+    echo ($supervisor->insertionsHalted()) ? "insertions are halted." : "insertions are allowed.";
+});*/
+
+Artisan::command('pull:annotations {--options}', function($options){
+    $downloadManager = new App\Managers\DownloadManager(
+        new \App\FtpSettings(config("ftp.annotations")),
+        new \App\Factories\AnnotationFactory(),
+        function($filepath) {
+            return (substr(basename($filepath),0,6) == "GKTEXT");
+        }
+    );
+
+    $downloadManager->startPulling($options);
+});
+
+Artisan::command('fairmondobooks:export {--since} {--test}', function($since, $test) {
+    App\Http\Controllers\ExportController::makeDelta($since, $test);
+});
