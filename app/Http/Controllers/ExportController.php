@@ -8,6 +8,8 @@ use League\Csv\Writer;
 use App\Models\FairmondoProduct;
 use App\Models\LibriProduct;
 use App\Factories\FairmondoProductBuilder;
+use Exception;
+use SebastianBergmann\Environment\Console;
 
 class ExportController extends Controller
 {
@@ -16,45 +18,65 @@ class ExportController extends Controller
      */
     public static function makeDelta($startDate, $testrun = false) {
         $export = self::getExportBuffer();
-        $lastDelta = '2017-01-01';
-        $query = LibriProduct::where('updated_at','>',$lastDelta);
-
-        // if this is a testrun, break this loop early
-        if($testrun) $query->take(50);
-
-        // apply query
-        $products = $query->get();
+        $numberOfItems = LibriProduct::count();
+        $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
+        $chunkSize = 10000;
 
         // generate progress bar
-        $progress = ConsoleOutput::progress(count($products));
+        $progress = ConsoleOutput::progress($numberOfItems);
 
-        foreach ($products as $product) {
-            if(FairmondoProductBuilder::meetsRequirements($product)) {
+        // if this is a testrun, break this loop early
+        if($testrun) $chunkSize = 100;
 
-                // convert data into Fairmondo Product
-                $fairmondoProduct = FairmondoProductBuilder::create($product);
+        $chunkCount = 1;
+        LibriProduct::chunk($chunkSize, function($products)
+            use ($progress,$export,&$chunkCount,$filepath) {
+            foreach ($products as $product) {
 
-                // delete previous records
-                FairmondoProduct::destroy($fairmondoProduct->gtin);
+                // get Fairmondo Product
+                $fairmondoProduct = self::getFairmondoProduct($product);
 
-                // save new record
-                $fairmondoProduct->save();
+                // write to export file
+                if(!is_null($fairmondoProduct)) $export->insertOne($fairmondoProduct->toArray());
 
-                // write to export
-                $export->insertOne($fairmondoProduct->toArray());
-            } else {
-                // product doesn't meet required conditions to become fairmondo product
+                // advance progress bar
+                ConsoleOutput::advance($progress);
             }
 
-            // advance progressbar
-            ConsoleOutput::advance($progress);
-        }
+            // finally write all to export file
+            $filename = sprintf($filepath,$chunkCount);
+            self::writeToFile($export->__toString(),$filename);
+            ConsoleOutput::info("\nChunk exported to $filename.");
 
-        self::writeToFile($export->__toString());
+            // move to next chunk
+            $chunkCount++;
+        });
+
     }
 
-    private static function writeToFile($content) {
-        $exportFileHandle = fopen(storage_path('app/export/export.csv'),'w');
+    private static function getFairmondoProduct($product) {
+        if(FairmondoProductBuilder::meetsRequirements($product)) {
+
+            // convert data into Fairmondo Product
+            $fairmondoProduct = FairmondoProductBuilder::create($product);
+
+            // delete previous records
+            FairmondoProduct::destroy($fairmondoProduct->gtin);
+
+            // save new record
+            $fairmondoProduct->save();
+            return $fairmondoProduct;
+        } else {
+            // product doesn't meet required conditions to become fairmondo product
+            return null;
+        }
+    }
+
+    private static function writeToFile($content,$filename) {
+        if(file_exists($filename)) {
+            throw new Exception("File $filename already exists.");
+        }
+        $exportFileHandle = fopen($filename,'w');
         fwrite($exportFileHandle,$content);
     }
 
