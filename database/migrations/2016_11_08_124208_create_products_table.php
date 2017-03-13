@@ -15,12 +15,12 @@ class CreateProductsTable extends Migration
     {
         Schema::create('libri_products', function (Blueprint $table) {
             $table->primary('ProductReference');
-            $table->string('ProductReference');
-            $table->string('ProductReferenceType');
-            $table->string('RecordReference');
-            $table->string('ProductForm');
-            $table->string('DistinctiveTitle');
-            $table->string('NotificationType');
+            $table->string('ProductReference',13);
+            $table->string('ProductReferenceType',2);
+            $table->string('RecordReference',10);
+            $table->string('ProductForm',5);
+            $table->string('DistinctiveTitle',500);
+            $table->string('NotificationType',2);
 
             $table->string('ProductEAN')->nullable();
             $table->string('ProductISBN10')->nullable();
