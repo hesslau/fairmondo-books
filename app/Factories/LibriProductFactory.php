@@ -65,6 +65,7 @@ class LibriProductFactory implements IFactory {
         return $products;
     }
 
+    // todo: implement memory friendly version of this
     public static function store(array $products): bool {
         $progress = ConsoleOutput::progress(count($products));
 
@@ -90,6 +91,7 @@ class LibriProductFactory implements IFactory {
         return true;
     }
 
+    // todo: implement memory friendly version of this
     static function create(PONIpar\Product $onix){
         $libriProduct = new LibriProduct;
         $controller = new LibriProductFactory();
