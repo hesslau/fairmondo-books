@@ -26,7 +26,7 @@ class CreateProductsTable extends Migration
             $table->string('ProductISBN10')->nullable();
             $table->string('ProductISBN13')->nullable();
 
-            $table->string('Author')->nullable();
+            $table->string('Author',100)->nullable();
             $table->string('CoverLink')->nullable();
             $table->string('AudienceCodeValue')->nullable();
             $table->string('ProductLanguage')->nullable();

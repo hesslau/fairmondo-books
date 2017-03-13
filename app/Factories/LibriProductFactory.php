@@ -271,7 +271,7 @@ class LibriProductFactory implements IFactory {
                 }
 
                 // if the first author string is too long (might be a collections of authors), skip to the next
-                if(strlen($author) < 50) return $author;
+                if(strlen($author) < 100) return $author;
                 else continue;
 
             }
