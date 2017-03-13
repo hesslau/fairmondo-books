@@ -61,7 +61,7 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->string('categories')->nullable();
             $table->string('condition')->nullable();
-            $table->string('content',50000)->nullable();
+            $table->text('content',30000)->nullable();
             $table->integer('quantity')->nullable();
             $table->integer('price_cents')->nullable();
             $table->integer('vat')->nullable();
