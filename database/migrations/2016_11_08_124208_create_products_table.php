@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('libri_products', function (Blueprint $table) {
             $table->primary('ProductReference');
-            $table->integer('ProductReference');
+            $table->string('ProductReference');
             $table->string('ProductReferenceType');
             $table->string('RecordReference');
             $table->string('ProductForm');
