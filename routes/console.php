@@ -23,18 +23,6 @@ Artisan::command('import:onix {file}',function($file) {
     $controller = App\Http\Controllers\Controller::get();
     $controller->importONIXMessage($file);
 });
-/*
-Artisan::command('pull:pause', function (DatabaseSupervisor $supervisor) {
-    $supervisor->haltInsertions();
-});
-
-Artisan::command('pull:continue', function(DatabaseSupervisor $supervisor) {
-    $supervisor->allowInsertions();
-});
-
-Artisan::command('pull:state', function(DatabaseSupervisor $supervisor) {
-    echo ($supervisor->insertionsHalted()) ? "insertions are halted." : "insertions are allowed.";
-});*/
 
 Artisan::command('pull:annotations {--options}', function($options){
     $downloadManager = new App\Managers\DownloadManager(
