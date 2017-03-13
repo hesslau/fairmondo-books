@@ -267,11 +267,13 @@ class LibriProductFactory implements IFactory {
                 }
                 elseif(key_exists('PersonNameInverted',$value)) {
                     $inverted = $value['PersonNameInverted'***REMOVED***
-                    return implode(' ',array_reverse(explode(', ',$inverted)));
+                    $author = implode(' ',array_reverse(explode(', ',$inverted)));
                 }
-                else {
-                    continue;
-                }
+
+                // if the first author string is too long (might be a collections of authors), skip to the next
+                if(strlen($author) < 50) return $author;
+                else continue;
+
             }
         }
         // if we reach this that means we haven't found an author
