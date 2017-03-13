@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('ProductReferenceType');
             $table->string('RecordReference');
             $table->string('ProductForm');
-            $table->string('DistinctiveTitle');
+            $table->string('DistinctiveTitle',500);
             $table->string('NotificationType');
 
             $table->string('ProductEAN')->nullable();
