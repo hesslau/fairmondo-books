@@ -128,7 +128,8 @@ class FairmondoProductBuilder {
             $title = str_replace("%$key",$value,$title);
         }
 
-        return $title;
+        // trim title to maximal length
+        return substr($title,0,255);
     }
 
     /*
@@ -287,6 +288,9 @@ class FairmondoProductBuilder {
 
         // remove new lines
         $content = trim(preg_replace('/\s\s+/', ' ', $content));
+
+        // trim to max 30000 characters
+        $content = substr($content,0,30000);
 
         return $content;
     }
