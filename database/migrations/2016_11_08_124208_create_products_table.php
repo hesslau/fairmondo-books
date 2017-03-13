@@ -32,7 +32,7 @@ class CreateProductsTable extends Migration
             $table->string('ProductLanguage')->nullable();
             $table->string('PublisherName')->nullable();
             $table->integer('NumberOfPages')->nullable();
-            $table->integer('PublicationDate')->nullable();
+            $table->string('PublicationDate')->nullable();
             $table->integer('VLBSchemeOld')->nullable();
             // unused field
             // $table->string('ProductGroupDescription')->nullable();
