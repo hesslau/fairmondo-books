@@ -17,7 +17,7 @@ class CreateAnnotationsTable extends Migration
             $table->increments('id');
             $table->string('ProductReference');
             $table->string('AnnotationType');
-            $table->string('AnnotationContent');
+            $table->text('AnnotationContent',50000);
             $table->string('AnnotationLanguage')->nullable();
 
             $table->timestamps();
