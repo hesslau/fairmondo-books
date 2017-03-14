@@ -33,6 +33,7 @@ Artisan::command('pull:annotations', function(){
         }
     );
 
+    $downloadManager->chunksize = 5;
     $downloadManager->startPulling([]);
 });
 
