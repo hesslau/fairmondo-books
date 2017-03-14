@@ -14,7 +14,7 @@ use SebastianBergmann\Environment\Console;
 class ExportController extends Controller
 {
     /**
-     * Collects all changes made to libri database since specified date and exports them into FairmondoProduct format.
+     * Converts all LibriProducts into FairmondoProducts and writes them to disc.
      */
     public static function makeDelta($startDate, $testrun = false) {
         $export = self::getExportBuffer();
