@@ -18,7 +18,7 @@ class ExportController extends Controller
      */
     public static function makeDelta($startDate, $testrun = false) {
         $export = self::getExportBuffer();
-        $numberOfItems = LibriProduct::count();
+        $numberOfItems = $testrun? 100 : LibriProduct::count();
         $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
         $chunkSize = 10000;
 
@@ -30,7 +30,7 @@ class ExportController extends Controller
 
         $chunkCount = 1;
         LibriProduct::chunk($chunkSize, function($products)
-            use ($progress,$export,&$chunkCount,$filepath) {
+            use ($progress,$export,&$chunkCount,$filepath,$testrun) {
             foreach ($products as $product) {
 
                 // get Fairmondo Product
@@ -50,6 +50,7 @@ class ExportController extends Controller
 
             // move to next chunk
             $chunkCount++;
+            if($testrun) return;
         });
 
     }
