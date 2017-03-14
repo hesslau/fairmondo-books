@@ -59,9 +59,13 @@ class Pull extends Command
 
         $message = $libriProductDownloadManager->startPulling(compact('startTime','endTime','reverse'));
 
-        // DownloadManager will return a message when all files have been downloaded.
-        // If not, we're sending exit status 2 to tell the bash script that there is more to download.
-        // This is part of the workaround to free allocated memory.
+        /* DownloadManager will return a message when all files have been downloaded.
+         * If not, we're sending exit status 2 to tell the bash script that there is more to download.
+         * This is part of the workaround to free allocated memory.
+         * The Bash command would look like this:
+
+           > php artisan pull --reverse; while [ $? -eq 2 ***REMOVED*** do php artisan pull --reverse; done;
+         */
         if($message != App\Managers\DownloadManager::FINISHED) exit(2);
         else exit(0);
     }
