@@ -34,7 +34,10 @@ Artisan::command('pull:annotations', function(){
     );
 
     $downloadManager->chunksize = 5;
-    $downloadManager->startPulling([]);
+    $exitCode = $downloadManager->startPulling([]);
+
+    if($exitCode == $downloadManager::FINISHED) exit(0);
+    else exit(2);
 });
 
 Artisan::command('fairmondobooks:export {--since} {--test}', function($since, $test) {
