@@ -24,7 +24,7 @@ Artisan::command('import:onix {file}',function($file) {
     $controller->importONIXMessage($file);
 });
 
-Artisan::command('pull:annotations {--options}', function($options){
+Artisan::command('pull:annotations', function(){
     $downloadManager = new App\Managers\DownloadManager(
         new \App\FtpSettings(config("ftp.annotations")),
         new \App\Factories\AnnotationFactory(),
@@ -33,7 +33,7 @@ Artisan::command('pull:annotations {--options}', function($options){
         }
     );
 
-    $downloadManager->startPulling($options);
+    $downloadManager->startPulling([]);
 });
 
 Artisan::command('fairmondobooks:export {--since} {--test}', function($since, $test) {
