@@ -54,7 +54,7 @@ class DownloadManager
     /**
      * Synchronizes the remote Files with Local Database
      */
-    public function startPulling($options = []) {
+    public function startPulling(array $options = []) {
 
         // get filelist
         $this->ftpController = new FtpController($this->ftpSettings);
