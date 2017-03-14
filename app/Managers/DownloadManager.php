@@ -80,7 +80,7 @@ class DownloadManager
 
             // to avoid memory allocation failures, break the download after
             // a few files and let the parent function call this again
-            $index++; if($index > self::$chunksize) return false;
+            $index++; if($index > $this->chunksize) return false;
 
             /*$datestring = sprintf("%s %s %s",$file['month'],$file['day'],$file['time']);
             $date = DateTime::createFromFormat("M d H:i", $datestring);
