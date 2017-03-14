@@ -41,6 +41,9 @@ class DownloadManager
      */
     private $factory;
 
+    const FINISHED = 'Synchronization finished.';
+    const CHUNKSIZE = 1;
+
     public function __construct(FtpSettings $ftpSettings, IFactory $factory, callable $fileFilter = null)
     {
         $this->ftpSettings = $ftpSettings;
@@ -73,7 +76,11 @@ class DownloadManager
         // iterate through filelist and download updates
         $index = 0;
         foreach($availableFiles as $filepath) {
-            $index++;
+
+            // to avoid memory allocation failures, break the download after
+            // a few files and let the parent function call this again
+            $index++; if($index > self::CHUNKSIZE) return false;
+
             /*$datestring = sprintf("%s %s %s",$file['month'],$file['day'],$file['time']);
             $date = DateTime::createFromFormat("M d H:i", $datestring);
 

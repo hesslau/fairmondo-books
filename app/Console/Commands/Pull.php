@@ -49,13 +49,21 @@ class Pull extends Command
             $reverse = $this->option('reverse');
         } catch(\Exception $e) {
             echo $e->getMessage();
+            // todo: send notification to developer
             exit(1);
         }
 
         $libriProductDownloadManager = new App\Managers\DownloadManager(
             new App\FtpSettings(config('ftp.updates')),
             new App\Factories\LibriProductFactory());
-        return $libriProductDownloadManager->startPulling(compact('startTime','endTime','reverse'));
+
+        $message = $libriProductDownloadManager->startPulling(compact('startTime','endTime','reverse'));
+
+        // DownloadManager will return a message when all files have been downloaded.
+        // If not, we're sending exit status 2 to tell the bash script that there is more to download.
+        // This is part of the workaround to free allocated memory.
+        if($message != App\Managers\DownloadManager::FINISHED) exit(2);
+        else exit(0);
     }
 
 }
