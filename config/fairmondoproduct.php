@@ -62,6 +62,14 @@ return [
         ],
         // map Libri Product Form to a Fairmondo Category
         'ProductForm2FairmondoCategory' => [
+            'BA' => 56,
+            'BB' => 56,
+            'BC' => 56,
+            'BH' => 56,
+            'BG' => 56,
+            'BI' => 56,
+            'BP' => 56,
+            'BZ' => 56,
             'AC' => 27,
             'DB' => 27,
             'DA' => 27,
