@@ -2,6 +2,7 @@
 
 namespace App\Factories;
 
+use App\Exceptions\MissingDataException;
 use App\Models\FairmondoProduct;
 use App\Models\LibriProduct;
 use App\Models\Annotation;
@@ -164,6 +165,10 @@ class FairmondoProductBuilder {
         if(key_exists($source->ProductForm, $map)) {
             $categories[] = $map[$source->ProductForm];
         }
+
+        if(!$categories) throw new MissingDataException("Product doesn't belong to any categories.");
+
+        // todo: find better category matching that doesn't rely on VLBSchemeOld
 
         return $categories;
     }
