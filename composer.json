@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "name": "hesslau/fairmondobooks",
+    "description": "FairmondoBooks",
+    "keywords": ["fairmondo", "libri"],
+    "license": "NOT SET",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.0",
         "laravel/framework": "5.3.*",
         "kjantzer/ponipar" : ">=0.1.0",
         "league/csv": ">=8.1.2",
@@ -44,7 +44,8 @@
 ***REMOVED***
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "php artisan optimize",
+            "mkdir storage/app/download storage/app/annotations storage/app/media storage/app/export"
 ***REMOVED***
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
