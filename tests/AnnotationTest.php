@@ -49,4 +49,22 @@ class AnnotationTest extends TestCase
 
         $downloadManager->startPulling();
     }
+
+    public function testPictureAnnotation() {
+        $testfile = storage_path('testing/Annotations/EN_9789944387255_30_CBILD.JPG');
+        $testfileCopy = storage_path('app/annotations').DIRECTORY_SEPARATOR.basename($testfile);
+        $productReference = '9789944387255';
+        $annotationType = 'CBILD';
+        $expectedPath = storage_path('app/media').DIRECTORY_SEPARATOR.'255'.DIRECTORY_SEPARATOR.$productReference.'.JPG';
+
+        copy($testfile,$testfileCopy);
+        list($annotation) = AnnotationFactory::makeFromFile($testfileCopy);
+
+        $this->assertEquals($productReference,$annotation->ProductReference);
+        $this->assertEquals($annotationType,$annotation->AnnotationType);
+        $this->assertEquals($expectedPath,storage_path($annotation->AnnotationContent));
+        $this->assertTrue(file_exists($expectedPath));
+        unlink($expectedPath);
+
+    }
 }

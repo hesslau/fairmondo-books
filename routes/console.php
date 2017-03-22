@@ -29,7 +29,8 @@ Artisan::command('pull:annotations', function(){
         new \App\FtpSettings(config("ftp.annotations")),
         new \App\Factories\AnnotationFactory(),
         function($filepath) {
-            return (substr(basename($filepath),0,6) == "GKTEXT");
+            $annotationTypes = ["GKTEXT","GCBILD"];
+            return in_array(substr(basename($filepath),0,6),$annotationTypes);
         }
     );
 
