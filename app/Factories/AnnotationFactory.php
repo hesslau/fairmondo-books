@@ -12,11 +12,48 @@ use App\Models\Annotation;
 use DOMDocument;
 use ErrorException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class AnnotationFactory implements IFactory
 {
     public static function makeFromFile(string $filepath): array
     {
+
+        switch (substr($filepath,-3,3)) {
+            case "HTM":
+                $annotation = self::makeTextAnnotation($filepath);
+                break;
+            case "JPG":
+                $annotation = self::makePictureAnnotation($filepath);
+                break;
+            default:
+                throw new Exception("Unsupported Annotation.");
+        }
+
+        ***REMOVED***$annotation***REMOVED***
+    }
+
+    private static function makePictureAnnotation($filepath) {
+        $parts = explode('_',basename($filepath));
+        $productReference = $parts[1***REMOVED***
+        list($annotationType,$extension) = explode('.',$parts[3]);
+
+        $destination = 'app/media'.DIRECTORY_SEPARATOR
+                        .substr($productReference,-3,3).DIRECTORY_SEPARATOR
+                        .$productReference.'.'.$extension;
+
+        @mkdir(dirname(storage_path($destination)));
+        copy($filepath,storage_path($destination));
+
+        $annotation = new Annotation();
+        $annotation->AnnotationType = $annotationType;
+        $annotation->ProductReference = $productReference;
+        $annotation->AnnotationContent = $destination;
+
+        return $annotation;
+    }
+
+    private static function makeTextAnnotation($filepath) {
         $dom = new DOMDocument();
         libxml_use_internal_errors(true);   // don't throw errors on malformed html
         $dom->loadHTMLFile($filepath);
@@ -43,7 +80,7 @@ class AnnotationFactory implements IFactory
             ***REMOVED***null***REMOVED***
         }
 
-        ***REMOVED***$annotation***REMOVED***
+        return $annotation;
     }
 
     public static function store(array $annotations): bool
