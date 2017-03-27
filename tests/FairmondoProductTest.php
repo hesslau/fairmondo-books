@@ -174,6 +174,31 @@ class FairmondoProductTest extends TestCase
         LibriProduct::where('ProductReference','1111111111111')->delete();
     }
 
+    public function testBlacklist() {
+        $p = new LibriProduct();
+        $failedConditions = FairmondoProductBuilder::checkConditions($p);
+        $this->assertNotContains("NotOnBlacklist",$failedConditions);
+
+        $p->PublisherName = config('fairmondoproduct.Blacklist.PublisherName')[0***REMOVED***
+        $failedConditions = FairmondoProductBuilder::checkConditions($p);
+        $this->assertContains("NotOnBlacklist",$failedConditions);
+        $p->PublisherName = "Some Publisher";
+
+        $p->Author = config('fairmondoproduct.Blacklist.Author')[0***REMOVED***
+        $failedConditions = FairmondoProductBuilder::checkConditions($p);
+        $this->assertContains("NotOnBlacklist",$failedConditions);
+        $p->Author = "Some Author";
+
+        $p->ProductReference = config('fairmondoproduct.Blacklist.ProductReference')[0***REMOVED***;
+        $failedConditions = FairmondoProductBuilder::checkConditions($p);
+        $this->assertContains("NotOnBlacklist",$failedConditions);
+        $p->ProductReference = "1111111111111";
+
+        $p->Blurb = config('fairmondoproduct.Blacklist.Blurb')[0***REMOVED***;
+        $failedConditions = FairmondoProductBuilder::checkConditions($p);
+        $this->assertContains("NotOnBlacklist",$failedConditions);
+    }
+
     public function testRealData() {
         $csv = Reader::createFromPath(storage_path("testing/ONIXToolsData/170303114731/170303114731-Fairmondo-0000001.csv"));
         $csv->setDelimiter(';');
@@ -189,7 +214,7 @@ class FairmondoProductTest extends TestCase
         for($i=0;$i<$offset;$i++) $csvIterator->next();
 
         $productsToSkip = [9780008202132,9780008181833,9783125354029,9783125620421, 9783125613096,4009750255766,9780007161850,9780199545469,9780295989075,9780300123999,9780393329810***REMOVED*** //['0028947920717','0028947970439','0028948303939','0042284302821','0091037567970','0602498717004','0602517810266'***REMOVED***
-        $fieldsToSkip = ['quantity','content','transport_time','action'***REMOVED***
+        $fieldsToSkip = ['quantity','content','transport_time','action','price_cents','title'***REMOVED***
 
         while ($csvIterator->valid()) {
             // get current product

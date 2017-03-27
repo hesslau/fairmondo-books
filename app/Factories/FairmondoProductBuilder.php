@@ -76,7 +76,8 @@ class FairmondoProductBuilder {
             //"IsAvailable"               => $product->AvailabilityStatus == $validAvailabilityStatus,
             "HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
             //"HasQuantityOnHand"         => ($product->QuantityOnHand > 0) // or $product->Lib_MSNo = 15) // @todo what is Lib_MSNo???
-            "HasCategory"               => ($product->VLBSchemeOld !== 0)
+            "HasCategory"               => ($product->VLBSchemeOld !== 0),
+            "NotOnBlacklist"            => !self::isBlacklisted($product)
         );
 
         // filter out the failed conditions
@@ -112,6 +113,23 @@ class FairmondoProductBuilder {
 	   and AvailabilityStatus = 'LFB'
 	       )
          */
+    }
+
+    /**
+     * Checks if product is blacklisted.
+     * @param LibriProduct $product
+     * @return bool True if product is blacklisted.
+     */
+    private static function isBlacklisted(LibriProduct $product) {
+        foreach (config("fairmondoproduct.Blacklist") as $field => $blacklist) {
+            foreach ($blacklist as $item) {
+                if($product->$field != "" && substr_count($product->$field,$item) > 0) {
+                    //echo "$field is Blacklisted ('".$product->$field."')";
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     // @todo use templating engine
