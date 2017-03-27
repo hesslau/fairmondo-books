@@ -76,6 +76,7 @@ class FairmondoProductBuilder {
             //"IsAvailable"               => $product->AvailabilityStatus == $validAvailabilityStatus,
             "HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
             //"HasQuantityOnHand"         => ($product->QuantityOnHand > 0) // or $product->Lib_MSNo = 15) // @todo what is Lib_MSNo???
+            "HasCategory"               => ($product->VLBSchemeOld !== 0)
         );
 
         // filter out the failed conditions
