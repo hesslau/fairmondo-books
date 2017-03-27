@@ -70,14 +70,14 @@ class AnnotationFactory implements IFactory
                     break;
                 case "LIBRI":
                     // since we're not listing Libri's internal products, skip this one
-                    return [null];
+                    return null;
             }
         }
         try {
             $annotation->AnnotationContent = trim($dom->getElementsByTagName("body")->item(0)->nodeValue);
         } catch (ErrorException $e) {
             Log::info("ErrorException parsing $filepath",[$e]);
-            return [null];
+            return null;
         }
 
         return $annotation;
@@ -93,7 +93,7 @@ class AnnotationFactory implements IFactory
             // adance progress bar
             ConsoleOutput::advance($progress);
 
-            if(is_null($annotation) or is_array($annotation)) continue; // todo: figure out why $annotation could be an array
+            if(is_null($annotation) or is_array($annotation)) continue;
 
             // delete previous records
             /*Annotation::where([
