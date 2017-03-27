@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Exception;
-use ConsoleOutput;
 use Illuminate\Routing\Controller as BaseController;
 use App\FtpSettings;
 use ErrorException;
+use Illuminate\Support\Facades\Log;
+use App\Facades\ConsoleOutput;
 
 class FtpController extends BaseController
 {
@@ -82,7 +83,7 @@ class FtpController extends BaseController
      * @param null $downloadDirectory
      * @return bool|string False on failure otherwise the path to downloaded file.
      */
-    public function downloadFile($remoteFilepath, $downloadDirectory=null) {
+    public function downloadFile($remoteFilepath, $downloadDirectory=null, $retries = 0) {
         if(!$this->connection) $this->connect();
 
         // if no download Directory was given, download to default dir
@@ -91,10 +92,43 @@ class FtpController extends BaseController
         $localFilepath = $downloadDirectory.DIRECTORY_SEPARATOR.basename($remoteFilepath);
 
         if(ftp_get($this->connection,$localFilepath,$remoteFilepath, FTP_BINARY)) {
-            return $localFilepath;
+
+            // check for integrity by filesize
+            $localFilesize = filesize($localFilepath);
+            $remoteFilesize = $this->remote_filesize($remoteFilepath);
+            if($localFilesize == $remoteFilesize) {
+                return $localFilepath;
+            } else {
+                if($retries >= 3) {
+                    $message = "Couldn't download $remoteFilepath (filesize verification failed $retries times).";
+                    Log::error($message);
+                    ConsoleOutput::error($message);
+                    return false;
+                }
+                // if filesize doesn't match, download again
+                $message = "Filesize doesn't match (Local: $localFilesize Remote: $remoteFilesize). Redownloading.";
+                Log::warning($message);
+                ConsoleOutput::info($message);
+                $this->downloadFile($remoteFilepath,$downloadDirectory,$retries+1);
+            }
         } else {
             return false;
         }
 
+    }
+
+    private function remote_filesize($path) {
+        $url = sprintf("ftp://%s:%s@%s%s", $this->settings->user,$this->settings->password,$this->settings->host,$path);
+        static $regex = '/^Content-Length: *+\K\d++$/im';
+        if (!$fp = @fopen($url, 'rb')) {
+            return false;
+        }
+        if (
+            isset($http_response_header) &&
+            preg_match($regex, implode("\n", $http_response_header), $matches)
+        ) {
+            return (int)$matches[0***REMOVED***
+        }
+        return strlen(stream_get_contents($fp));
     }
 }
