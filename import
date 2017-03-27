@@ -1,8 +1,13 @@
 #!/bin/bash
+LOCKFILE_UPDATE=update.lock
+LOCKFILE_EXPORT=export.lock
+
 function repeatUntilCleanExit {
 	EXITCODE=1
 	while [ $EXITCODE -ne 0 ]; do
-		if [ -d ~/export.lock ]; then
+		if [ -d "$LOCKFILE_EXPORT" ]; then
+			echo "update lock active";
+			removeLockfile;
 			exit 0;
 		else
 			$@;
@@ -12,12 +17,12 @@ function repeatUntilCleanExit {
 }
 
 function removeLockfile {
-	rmdir $LOCKFILE;
+	rmdir "$LOCKFILE_UPDATE";
 }
 
 trap "removeLockfile; exit 1;" SIGINT SIGTERM
-LOCKFILE=update.lock
-if mkdir $LOCKFILE; then
+
+if mkdir "$LOCKFILE_UPDATE"; then
         echo "locking suceeded" >&2
 
         # import catalog updates
