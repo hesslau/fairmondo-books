@@ -92,7 +92,7 @@ class DownloadManager
             $download->remote_filepath = $filepath;
 
             ConsoleOutput::section("Downloading $filepath ($index of ".count($availableFiles).")");
-            $localFile = $this->download($filepath);
+            $localFile = $this->download($filepath);    // zipFile
 
             ConsoleOutput::section("Extracting $filepath");
             $unpackedFiles = $this->unpack($localFile);
@@ -147,7 +147,7 @@ class DownloadManager
         // and return an array ofdelta paths to the unpacked files
         $unpackedFiles = array_map(function($file) use ($archive) {
             $unpackedFile = dirname($archive).DIRECTORY_SEPARATOR.$file;
-            if(!file_exists($unpackedFile)) throw new UnpackingFailedException("Unpacked file '$file' from archive '$archive' doesn't exist.");
+            if(!file_exists($unpackedFile)) throw new UnpackingFailedException("Unpacked file '$file' from archive '$archive' doesn't exist at '$unpackedFile'.");
             return $unpackedFile;
         }, $packedFiles);
 
@@ -176,7 +176,7 @@ class DownloadManager
     }
 
     private function remove($file) {
-        unlink($file);
+        @unlink($file);
         if(file_exists($file)) throw new RemovingFileFailedException("Removing '$file' failed.");
     }
 }
