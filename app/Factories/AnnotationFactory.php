@@ -96,11 +96,11 @@ class AnnotationFactory implements IFactory
             if(is_null($annotation)) continue;
 
             // delete previous records
-            Annotation::where([
+            /*Annotation::where([
                 'ProductReference' => $annotation->ProductReference,
                 'AnnotationType' => $annotation->AnnotationType,
                 'AnnotationLanguage' => $annotation->AnnotationLanguage
-            ])->delete();
+            ])->delete();*/
 
             // insert new record
             $annotation->save();
