@@ -131,5 +131,16 @@ return [
                  </p>',
     'DigitalTemplate' => '%DistinctiveTitle%Author<p>%PublicationDate%PublisherName%ProductForm%ProductReference</p>%Blurb',
     'CoverLinkBaseUrl' => 'http://media.fairmondo.de/',
-    'AudiobookDescription' => 'Hörbuch'
+    'AudiobookDescription' => 'Hörbuch',
+    'Blacklist' => [
+        "DistinctiveTitle" => ['Ron Hubbard'],
+        "Author" => ['Jan van Helsing','Ron Hubbard'],
+        "PublisherName" => ['Books LLC','Chronicle Books','Nabu Press','Winkelried Verlag'],
+        "Blurb" => ['Source: Wikipedia','High Quality Content by WIKIPEDIA articles'],
+        "ProductReference" => ['4005556186013', '3558380002666', '9783902778772', '9783902778789', '9783902778796', '9783902778802', '9783902778840', '9783902778857'
+            , '9783990230220', '9783990230244', '9783902778765', '9783902778796', '9783902778802', '9783902778857'
+            , '9783892915508', '9783456854427', '9781681766942', '9783898798907', '9783862486861', '9783862486854'
+            , '4020628842833', '4020628842840', '9783664356508', '9783954981830', '9783959490047', '9783959490504'
+            , '9783710400377', '9780875802381', '9783432102399', '9783432102412', '9783432102405']
+        ]
 ];
