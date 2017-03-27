@@ -41,11 +41,11 @@ class FtpController extends BaseController
 
     public function reconnect() {
         $this->closeConnection();
-        $this->connect();
+        return $this->connect();
     }
 
     public function closeConnection() {
-        ftp_close($this->connection);
+        return ftp_close($this->connection);
     }
 
     public function getFileList($detailed=false) {
