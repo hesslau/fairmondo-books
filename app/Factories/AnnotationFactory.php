@@ -93,7 +93,7 @@ class AnnotationFactory implements IFactory
             // adance progress bar
             ConsoleOutput::advance($progress);
 
-            if(is_null($annotation)) continue;
+            if(is_null($annotation) or is_array($annotation)) continue; // todo: figure out why $annotation could be an array
 
             // delete previous records
             /*Annotation::where([
