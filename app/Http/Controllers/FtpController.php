@@ -40,8 +40,12 @@ class FtpController extends BaseController
     }
 
     public function reconnect() {
-        ftp_close($this->connection);
+        $this->closeConnection();
         $this->connect();
+    }
+
+    public function closeConnection() {
+        ftp_close($this->connection);
     }
 
     public function getFileList($detailed=false) {
@@ -97,12 +101,14 @@ class FtpController extends BaseController
             $localFilesize = filesize($localFilepath);
             $remoteFilesize = $this->remote_filesize($remoteFilepath);
             if($localFilesize == $remoteFilesize) {
+                $this->closeConnection();
                 return $localFilepath;
             } else {
                 if($retries >= 3) {
                     $message = "Couldn't download $remoteFilepath (filesize verification failed $retries times).";
                     Log::error($message);
                     ConsoleOutput::error($message);
+                    $this->closeConnection();
                     return false;
                 }
                 // if filesize doesn't match, download again
@@ -112,6 +118,7 @@ class FtpController extends BaseController
                 $this->downloadFile($remoteFilepath,$downloadDirectory,$retries+1);
             }
         } else {
+            $this->closeConnection();
             return false;
         }
 
