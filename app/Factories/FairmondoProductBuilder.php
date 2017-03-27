@@ -181,7 +181,7 @@ class FairmondoProductBuilder {
 
         // Third we check if the ProductForm has a corresponding category defined in the config.
         $map = config('fairmondoproduct.maps.ProductForm2FairmondoCategory');
-        if(key_exists($source->ProductForm, $map)) {
+        if(count($categories) <= 1 && key_exists($source->ProductForm, $map)) {
             $categories[] = $map[$source->ProductForm***REMOVED***
         }
 
