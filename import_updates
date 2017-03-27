@@ -1,0 +1,36 @@
+#!/bin/bash
+function repeatUntilCleanExit {
+	EXITCODE=1
+	while [ $EXITCODE -ne 0 ]; do
+		if [ -d ~/export.lock ]; then
+			exit 0;
+		else
+			$@;
+			EXITCODE=$?;
+		fi;
+	done;
+}
+
+function removeLockfile {
+	rmdir $LOCKFILE;
+}
+
+trap "removeLockfile; exit 1;" SIGINT SIGTERM
+LOCKFILE=update.lock
+if mkdir $LOCKFILE; then
+        echo "locking suceeded" >&2
+
+        # import catalog updates
+        repeatUntilCleanExit php artisan pull --reverse;
+
+        # import annotations
+        repeatUntilCleanExit php artisan pull:annotations;
+
+        # remove lockfile
+        removeLockfile;
+        exit 0;
+else
+        echo "locking failed - exit"
+        exit 1
+fi
+
