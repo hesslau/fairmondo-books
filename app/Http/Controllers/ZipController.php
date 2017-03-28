@@ -29,6 +29,20 @@ class ZipController extends Controller
         }
     }
 
+    public static function makeArchive($filename,$files) {
+        $zip = new \ZipArchive();
+        if ($zip->open($filename, \ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file) {
+                $zip->addFile($file, basename($file));
+            }
+            $zip->close();
+            return true;
+        } else {
+            throw new Exception("Could not create archive at $filename");
+            return false;
+        }
+    }
+
     public static function extractAll($directory) {
         $files = scandir($directory);
 

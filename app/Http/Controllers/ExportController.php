@@ -20,17 +20,19 @@ class ExportController extends Controller
     public static function makeDelta($startDate, $testrun = false) {
         $numberOfItems = $testrun? 100 : LibriProduct::count();
         $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
+        $zipArchive = storage_path('app/export/')."Export-".time().".zip";
         $chunkSize = 10000;
 
         // generate progress bar
         $progress = ConsoleOutput::progress($numberOfItems);
 
-        // if this is a testrun, break this loop early
-        if($testrun) $chunkSize = 100;
+        $files = [***REMOVED***
+        $productHandler = function($products) use ($progress,&$files,$filepath,$testrun) {
 
-        $chunkCount = 1;
-        LibriProduct::chunk($chunkSize, function($products)
-            use ($progress,&$chunkCount,$filepath,$testrun) {
+            // limit number of files for testruns
+            if($testrun && count($files) > 0) {
+                return;
+            }
 
             // intiate csv holder
             $export = self::getExportBuffer();
@@ -49,14 +51,24 @@ class ExportController extends Controller
             }
 
             // finally write all to export file
-            $filename = sprintf($filepath,$chunkCount);
+            $filename = sprintf($filepath,count($files));
             self::writeToFile($export->__toString(),$filename);
             ConsoleOutput::info("\nChunk exported to $filename.");
 
             // move to next chunk
-            $chunkCount++;
-            if($testrun) return;
-        });
+            $files[] = $filename;
+        };
+
+        if($testrun) $productHandler(LibriProduct::take(100)->get());
+        else LibriProduct::chunk($chunkSize, $productHandler);
+
+        ConsoleOutput::info("Export finished.");
+
+        if(ZipController::makeArchive($zipArchive,$files) && file_exists($zipArchive)) {
+            ConsoleOutput::info("Created ZipArchive at $zipArchive.");
+        } else {
+            ConsoleOutput::error("Creating ZipArchive at $zipArchive failed.");
+        }
 
     }
 
