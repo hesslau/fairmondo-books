@@ -21,18 +21,19 @@ class ExportController extends Controller
         $numberOfItems = $testrun? 100 : LibriProduct::count();
         $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
         $zipArchive = storage_path('app/export/')."Export-".time().".zip";
-        $chunkSize = 10000;
+        $chunkSize = 40000;
+        $lastExport = FairmondoProduct::orderBy('updated_at','desc')->take(1)->get();
+        if(count($lastExport) > 0) {
+            $query = LibriProduct::where('updated_at','>',$lastExport[0]['updated_at']);
+        } else {
+            $query = LibriProduct::where('updated_at','<>','');
+        }
 
         // generate progress bar
         $progress = ConsoleOutput::progress($numberOfItems);
 
         $files = [***REMOVED***
         $productHandler = function($products) use ($progress,&$files,$filepath,$testrun) {
-
-            // limit number of files for testruns
-            if($testrun && count($files) > 0) {
-                return;
-            }
 
             // intiate csv holder
             $export = self::getExportBuffer();
@@ -59,11 +60,12 @@ class ExportController extends Controller
             $files[] = $filename;
         };
 
-        if($testrun) $productHandler(LibriProduct::take(100)->get());
-        else LibriProduct::chunk($chunkSize, $productHandler);
+        if($testrun) $productHandler($query->take(100)->get());
+        else $query->chunk($chunkSize, $productHandler);
 
         ConsoleOutput::info("Export finished.");
 
+        // make Zip Archive
         if(ZipController::makeArchive($zipArchive,$files) && file_exists($zipArchive)) {
             ConsoleOutput::info("Created ZipArchive at $zipArchive.");
         } else {
