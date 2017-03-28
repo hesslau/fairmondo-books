@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Facades\ConsoleOutput;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use League\Csv\Writer;
 use App\Models\FairmondoProduct;
@@ -17,7 +18,6 @@ class ExportController extends Controller
      * Converts all LibriProducts into FairmondoProducts and writes them to disc.
      */
     public static function makeDelta($startDate, $testrun = false) {
-        $export = self::getExportBuffer();
         $numberOfItems = $testrun? 100 : LibriProduct::count();
         $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
         $chunkSize = 10000;
@@ -30,8 +30,13 @@ class ExportController extends Controller
 
         $chunkCount = 1;
         LibriProduct::chunk($chunkSize, function($products)
-            use ($progress,$export,&$chunkCount,$filepath,$testrun) {
+            use ($progress,&$chunkCount,$filepath,$testrun) {
+
+            // intiate csv holder
+            $export = self::getExportBuffer();
+
             foreach ($products as $product) {
+
 
                 // get Fairmondo Product
                 $fairmondoProduct = self::getFairmondoProduct($product);
@@ -55,7 +60,7 @@ class ExportController extends Controller
 
     }
 
-    private static function getFairmondoProduct($product) {
+    public static function getFairmondoProduct($product) {
         if(FairmondoProductBuilder::meetsRequirements($product)) {
 
             // convert data into Fairmondo Product
@@ -65,8 +70,15 @@ class ExportController extends Controller
             FairmondoProduct::destroy($fairmondoProduct->gtin);
 
             // save new record
-            $fairmondoProduct->save();
-            return $fairmondoProduct;
+            try {
+                $fairmondoProduct->save();
+                return $fairmondoProduct;
+            } catch (QueryException $e) {
+                $msg = "Query Exception:". $e->getMessage();
+                ConsoleOutput::error($msg);
+                Log::error($msg);
+                return null;
+            }
         } else {
             // product doesn't meet required conditions to become fairmondo product
             return null;
