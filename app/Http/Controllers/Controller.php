@@ -45,7 +45,16 @@ class Controller extends BaseController
     }
 
     public function index() {
-        return "todo: make welcome page"; // todo make welcome page
+        $stats = [
+            'numberOfLibriProducts' => \App\Models\LibriProduct::count(),
+            'numberOfFairmondoProducts' => \App\Models\FairmondoProduct::count(),
+            'numberOfAnnotations'       => \App\Models\Annotation::count(),
+            'numberOfDownloads'     => \App\Models\Download::count(),
+            'latestDownload'          => \App\Models\Download::all()->last()
+
+    ***REMOVED***;
+        dd($stats); // todo make welcome page
+        return var_export($stats);
     }
 
     public function showLibriProducts() {
