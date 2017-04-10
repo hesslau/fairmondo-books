@@ -6,7 +6,7 @@ function repeatUntilCleanExit {
 	EXITCODE=1
 	while [ $EXITCODE -ne 0 ***REMOVED*** do
 		if [ -d "$LOCKFILE_EXPORT" ***REMOVED*** then
-			echo "update lock active";
+			echo "export lock active";
 			removeLockfile;
 			exit 0;
 		else
