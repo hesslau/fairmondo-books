@@ -29,7 +29,7 @@ class Controller extends BaseController
 {
     private $isTestrun = false;
 
-    private function __construct() {}
+    public function __construct() {}
 
     public static function get() {
         static $controller = null;
