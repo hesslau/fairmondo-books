@@ -70,4 +70,9 @@ class LibriProductTest extends TestCase
         $this->assertEquals(14261,$product->CatalogUpdate);
     }
 
+    public function testMissingProductReference() {
+        $products = $this->createLibriProductFromFile("testing/MISSINGPRODUCTREFERENCE.XML");
+        $this->assertEquals(1,count($products));
+    }
+
 }
