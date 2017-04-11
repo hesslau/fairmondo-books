@@ -1,0 +1,414 @@
+ProductGroupID;ProductGroupDescription;BooksEcobookstoreDescription;BooksFairnopolyID;BooksFairnopolyDescription;BooksGoogleDescription
+100;Belletristik;Sonstiges;56;Bücher;Medien > Bücher > Belletristik 
+111;Belletristik/Romane, Erzählungen;Romane & Erzählungen;112;Bücher/Romane & Erzählungen;Medien > Bücher > Belletristik
+112;Belletristik/Gesamtausgaben;Romane & Erzählungen;202;Bücher/Romane & Erzählungen/Gesamtausgaben;Medien > Bücher > Belletristik 
+120;Belletristik/Kriminalromane;Krimis & Thriller;115;Bücher/Krimis & Thriller;Medien > Bücher > Belletristik > Kriminalromane
+130;Belletristik/Science Fiction, Fantasy;Science Fiction & Fantasy;181;Bücher/Fantasy;Medien > Bücher > Belletristik > Science Fiction- & Fantasy-Romane
+140;Belletristik/Märchen, Sagen, Legenden;Märchen & Sagen;197;Bücher/Romane & Erzählungen/Märchen & Sagen;Medien > Bücher > Belletristik 
+150;Belletristik/Lyrik, Dramatik, Essays;Gedichte & Drama;196;Bücher/Romane & Erzählungen/Gedichte & Drama;Medien > Bücher > Belletristik
+160;Belletristik/Biografien, Erinnerungen;Romane & Erzählungen;180;Bücher/Biografien;Medien > Bücher > Sachliteratur > Biografien
+180;Belletristik/Humor, Cartoons, Comics ;Comics & Manga;114;Bücher/Comics & Manga;Medien > Bücher > Belletristik > Comics
+190;Belletristik/Geschenkbücher;Sonstiges;56;Bücher;Medien > Bücher > Belletristik 
+200;Kinderbuch, Jugendbuch;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Belletristik > Kinderbücher
+210;Kinderbuch, Jugendbuch/Bilderbücher;Kinder & Jugend;218;Bücher/Kinder- & Jugendbücher/Bilderbücher;Medien > Bücher > Belletristik > Kinderbücher 
+220;Kinderbuch, Jugendbuch/Sachbilderbücher;Kinder & Jugend;218;Bücher/Kinder- & Jugendbücher/Bilderbücher;Medien > Bücher > Belletristik > Kinderbücher
+230;Kinderbuch, Jugendbuch/Geschichten, Reime;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Belletristik > Kinderbücher
+240;Kinderbuch, Jugendbuch/Erstlesealter;Kinder & Jugend;217;Bücher/Kinder- & Jugendbücher/Leseanfänger;Medien > Bücher > Belletristik > Kinderbücher
+250;Kinderbuch, Jugendbuch/Romane, Erzählungen;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Belletristik > Kinderbücher 
+260;Kinderbuch, Jugendbuch/Märchen, Sagen;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Belletristik > Kinderbücher
+270;Kinderbuch, Jugendbuch/Tiergeschichten;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Belletristik > Kinderbücher
+280;Kinderbuch, Jugendbuch/Sachbücher;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche 
+281;Kinderbuch, Jugendbuch/Sachbücher/Nachschlagewerke;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche
+282;Kinderbuch, Jugendbuch/Sachbücher/Tiere, Pflanzen, Natur;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche
+283;Kinderbuch, Jugendbuch/Sachbücher/Naturwissenschaften, Technik;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche
+284;Kinderbuch, Jugendbuch/Sachbücher/Recht, Wirtschaft;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche 
+285;Kinderbuch, Jugendbuch/Sachbücher/Mensch;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche
+286;Kinderbuch, Jugendbuch/Sachbücher/Geschichte, Politik;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche
+287;Kinderbuch, Jugendbuch/Sachbücher/Religion, Philosophie;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche
+288;Kinderbuch, Jugendbuch/Sachbücher/Kunst, Musik;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche
+289;Kinderbuch, Jugendbuch/Sachbücher/Sonstiges;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Sachliteratur für Jugendliche
+290;Kinderbuch, Jugendbuch/Kinderbeschäftigung;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung 
+291;Kinderbuch, Jugendbuch/Kinderbeschäftigung/Lernen;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung
+292;Kinderbuch, Jugendbuch/Kinderbeschäftigung/Kreativität;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung 
+293;Kinderbuch, Jugendbuch/Kinderbeschäftigung/Spielgeschichten;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung
+294;Kinderbuch, Jugendbuch/Kinderbeschäftigung/Quiz, Rätsel;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung
+295;Kinderbuch, Jugendbuch/Kinderbeschäftigung/Sonstiges;Kinder & Jugend;113;Bücher/Kinder- & Jugendbücher;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung
+300;Reise;Ratgeber & Reiseführer;184;Bücher/Reise;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+310;Reise/Reiseführer, Kunstreiseführer;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+311;Reise/Reiseführer, Kunstreiseführer/Deutschland;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+312;Reise/Reiseführer, Kunstreiseführer/Europa;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+313;Reise/Reiseführer, Kunstreiseführer/Afrika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+314;Reise/Reiseführer, Kunstreiseführer/Naher Osten;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+315;Reise/Reiseführer, Kunstreiseführer/Asien;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+316;Reise/Reiseführer, Kunstreiseführer/Nordamerika, Mittelamerika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+317;Reise/Reiseführer, Kunstreiseführer/Südamerika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+318;Reise/Reiseführer, Kunstreiseführer/Australien, Ozeanien;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+319;Reise/Reiseführer, Kunstreiseführer/Welt;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+320;Reise/Reiseführer Sport;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+321;Reise/Reiseführer Sport/Deutschland;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+322;Reise/Reiseführer Sport/Europa;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+323;Reise/Reiseführer Sport/Afrika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+324;Reise/Reiseführer Sport/Naher Osten;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+325;Reise/Reiseführer Sport/Asien;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+326;Reise/Reiseführer Sport/Nordamerika, Mittelamerika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+327;Reise/Reiseführer Sport/Südamerika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+328;Reise/Reiseführer Sport/Australien, Ozeanien;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+329;Reise/Reiseführer Sport/Welt;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+330;Reise/Hotel-, Restaurant-, Campingführer;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+331;Reise/Hotel-, Restaurant-, Campingführer/Deutschland;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+332;Reise/Hotel-, Restaurant-, Campingführer/Europa;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+333;Reise/Hotel-, Restaurant-, Campingführer/Afrika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+334;Reise/Hotel-, Restaurant-, Campingführer/Naher Osten;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+335;Reise/Hotel-, Restaurant-, Campingführer/Asien;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+336;Reise/Hotel-, Restaurant-, Campingführer/Nordamerika, Mittelamerika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+337;Reise/Hotel-, Restaurant-, Campingführer/Südamerika;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+338;Reise/Hotel-, Restaurant-, Campingführer/Australien, Ozeanien;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+339;Reise/Hotel-, Restaurant-, Campingführer/Welt;Ratgeber & Reiseführer;237;Bücher/Reise/Reiseführer;Medien > Bücher > Sachliteratur > Nachschlagewerke
+340;Reise/Karten/Stadtpläne;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+341;Reise/Karten/Stadtpläne/Deutschland;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+342;Reise/Karten/Stadtpläne/Europa;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke
+343;Reise/Karten/Stadtpläne/Afrika;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke
+344;Reise/Karten/Stadtpläne/Naher Osten;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+345;Reise/Karten/Stadtpläne/Asien;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+346;Reise/Karten/Stadtpläne/Nordamerika, Mittelamerika;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+347;Reise/Karten/Stadtpläne/Südamerika;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke
+348;Reise/Karten/Stadtpläne/Australien, Ozeanien;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+349;Reise/Karten/Stadtpläne/Welt;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke
+350;Reise/Bildbände;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke
+351;Reise/Bildbände/Deutschland;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke
+352;Reise/Bildbände/Europa;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+353;Reise/Bildbände/Afrika;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+354;Reise/Bildbände/Naher Osten;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke
+355;Reise/Bildbände/Asien;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke
+356;Reise/Bildbände/Nordamerika, Mittelamerika;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke
+357;Reise/Bildbände/Südamerika;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke
+358;Reise/Bildbände/Australien, Ozeanien;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke
+359;Reise/Bildbände/Welt;Ratgeber & Reiseführer;241;Bücher/Reise/Bildbände;Medien > Bücher > Sachliteratur > Nachschlagewerke
+360;Reise/Reiseberichte/Reiseerzählungen;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+361;Reise/Reiseberichte/Deutschland;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke
+362;Reise/Reiseberichte/Europa;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke
+363;Reise/Reiseberichte/Afrika;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke
+364;Reise/Reiseberichte/Naher Osten;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke
+365;Reise/Reiseberichte/Asien;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke
+366;Reise/Reiseberichte/Nordamerika, Mittelamerika;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke
+367;Reise/Reiseberichte/Südamerika;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+368;Reise/Reiseberichte/Australien, Ozeanien;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke
+369;Reise/Reiseberichte/Welt;Ratgeber & Reiseführer;238;Bücher/Reise/Reiseberichte;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+370;Reise/Atlanten;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+371;Reise/Weltatlanten;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke
+372;Reise/Autoatlanten;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke
+373;Reise/Thematische Atlanten;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+379;Reise/Atlanten;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+380;Reise/Globen;Ratgeber & Reiseführer;235;Bücher/Reise/Karten & Atlanten;Medien > Bücher > Sachliteratur > Nachschlagewerke
+390;Reise/Kartenzubehör, Sonstiges;Ratgeber & Reiseführer;184;Bücher/Reise;Medien > Bücher > Sachliteratur > Nachschlagewerke
+400;Sachbuch, Ratgeber;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Nachschlagewerke
+410;Sachbuch, Ratgeber/Nachschlagewerke;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Nachschlagewerke 
+411;Sachbuch, Ratgeber/Nachschlagewerke/Lexika;Ratgeber & Reiseführer;264;Bücher/Sachbücher/Wörterbücher & Lexika;Medien > Bücher > Sachliteratur > Nachschlagewerke
+412;Sachbuch, Ratgeber/Deutsche Wörterbücher/Regelwerke;Ratgeber & Reiseführer;264;Bücher/Sachbücher/Wörterbücher & Lexika;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher
+413;Sachbuch, Ratgeber/Fremdsprachige Wörterbücher;Ratgeber & Reiseführer;264;Bücher/Sachbücher/Wörterbücher & Lexika;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher 
+414;Sachbuch, Ratgeber/Sprachführer;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher 
+415;Sachbuch, Ratgeber/Nachschlagewerke/Telefonbücher, Kursbücher;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Nachschlagewerke
+419;Sachbuch, Ratgeber/Nachschlagewerke/Sonstiges;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Nachschlagewerke
+420;Sachbuch, Ratgeber/Hobby, Freizeit, Natur;Ratgeber & Reiseführer;185;Bücher/Freizeit, Hobby, Natur;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung 
+421;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Basteln, Handarbeiten;Ratgeber & Reiseführer;242;Bücher/Freizeit, Hobby, Natur/Basteln & Handarbeiten;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung 
+422;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Heimwerken, Do it yourself;Ratgeber & Reiseführer;244;Bücher/Freizeit, Hobby, Natur/Heimwerken;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung
+423;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Malen, Zeichnen;Ratgeber & Reiseführer;185;Bücher/Freizeit, Hobby, Natur;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung
+424;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Fotografieren, Filmen, Videofilmen;Ratgeber & Reiseführer;187;Bücher/Film, Kunst & Kultur;Medien > Bücher > Sachliteratur > Fotografiebücher
+425;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Spielen, Raten;Ratgeber & Reiseführer;185;Bücher/Freizeit, Hobby, Natur;Medien > Bücher > Sachliteratur > Spielbücher 
+426;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Sammlerkataloge, Antiquitäten;Ratgeber & Reiseführer;185;Bücher/Freizeit, Hobby, Natur;Medien > Bücher > Sachliteratur > Bücher zu Handwerk, Hobby & Beschäftigung 
+427;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Garten, Pflanzen, Natur;Ratgeber & Reiseführer;243;Bücher/Freizeit, Hobby, Natur/Garten & Natur;Medien > Bücher > Sachliteratur > Tier- & Naturbücher
+428;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Tiere, Jagen, Angeln;Ratgeber & Reiseführer;246;Bücher/Freizeit, Hobby, Natur/Tierhaltung;Medien > Bücher > Sachliteratur > Tier- & Naturbücher
+429;Sachbuch, Ratgeber/Hobby, Freizeit, Natur/Sonstiges;Ratgeber & Reiseführer;185;Bücher/Freizeit, Hobby, Natur;Medien > Bücher > Sachliteratur
+430;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen 
+431;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Allgemein;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen
+432;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Auto, Motorrad, Moped;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen
+433;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Fahrrad;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen
+434;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Nutzfahrzeuge;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen
+435;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Schienenfahrzeuge;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen 
+436;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Schiffe;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen
+437;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Flugzeuge;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen
+438;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Militärfahrzeuge, Militärflugzeuge, Militärschiffe;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen 
+439;Sachbuch, Ratgeber/Fahrzeuge, Flugzeuge, Schiffe/Modellbau;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zum Verkehrswesen
+440;Sachbuch, Ratgeber/Sport;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher
+441;Sachbuch, Ratgeber/Sport/Lexika/Allgemein, Lexika, Handbücher;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher 
+442;Sachbuch, Ratgeber/Sport/Auto-, Motorrad-, Rad-, Flugsport;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher 
+443;Sachbuch, Ratgeber/Sport/Wassersport, Segeln;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher
+444;Sachbuch, Ratgeber/Sport/Wintersport;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher
+445;Sachbuch, Ratgeber/Sport/Ballsport;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher 
+446;Sachbuch, Ratgeber/Sport/Leichtathletik, Turnen;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher
+447;Sachbuch, Ratgeber/Sport/Kampfsport, Selbstverteidigung;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher 
+448;Sachbuch, Ratgeber/Sport/Pferdesport;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher
+449;Sachbuch, Ratgeber/Sport/Sonstige Sportarten;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Sportbücher
+450;Sachbuch, Ratgeber/Essen, Trinken;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher 
+451;Sachbuch, Ratgeber/Essen, Trinken/Allgemein, Lexika;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher 
+452;Sachbuch, Ratgeber/Essen, Trinken/Ernährungswissenschaft, Lebensmittelkunde;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher 
+453;Sachbuch, Ratgeber/Essen, Trinken/Kochbücher, Grundkochbücher;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher
+454;Sachbuch, Ratgeber/Essen, Trinken/Länderküchen, Regionalküchen;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher
+455;Sachbuch, Ratgeber/Essen, Trinken/Themenkochbücher;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher
+456;Sachbuch, Ratgeber/Essen, Trinken/Gesunde Küche, Schlanke Küche;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher 
+457;Sachbuch, Ratgeber/Essen, Trinken/Backen;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher
+458;Sachbuch, Ratgeber/Essen, Trinken/Getränke;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher 
+459;Sachbuch, Ratgeber/Essen, Trinken/Sonstiges;Ernährung & Diät;266;Bücher/Ratgeber/Ernährung & Diät;Medien > Bücher > Sachliteratur > Kochbücher
+460;Sachbuch, Ratgeber/Gesundheit, Körperpflege;Ratgeber & Reiseführer;268;Bücher/Ratgeber/Gesundheit;Medien > Bücher > Sachliteratur > Gesundheits- & Fitnessbücher
+461;Sachbuch, Ratgeber/Gesundheit, Körperpflege/Allgemein, Lexika;Ratgeber & Reiseführer;268;Bücher/Ratgeber/Gesundheit;Medien > Bücher > Sachliteratur > Gesundheits- & Fitnessbücher
+462;Sachbuch, Ratgeber/Gesundheit, Körperpflege/Ratgeber;Ratgeber & Reiseführer;268;Bücher/Ratgeber/Gesundheit;Medien > Bücher > Sachliteratur > Gesundheits- & Fitnessbücher
+463;Sachbuch, Ratgeber/Gesundheit, Körperpflege/Gesunde Ernährung;Ratgeber & Reiseführer;268;Bücher/Ratgeber/Gesundheit;Medien > Bücher > Sachliteratur > Gesundheits- & Fitnessbücher
+464;Sachbuch, Ratgeber/Gesundheit, Körperpflege/Fitness, Aerobic, Bodybuilding, Gymnastik;Ratgeber & Reiseführer;268;Bücher/Ratgeber/Gesundheit;Medien > Bücher > Sachliteratur > Gesundheits- & Fitnessbücher
+465;Sachbuch, Ratgeber/Gesundheit, Körperpflege/Entspannung, Yoga, Meditation, Autogenes Training;Ratgeber & Reiseführer;268;Bücher/Ratgeber/Gesundheit;Medien > Bücher > Sachliteratur > Gesundheits- & Fitnessbücher 
+466;Sachbuch, Ratgeber/Gesundheit, Körperpflege/Schönheit, Kosmetik;Ratgeber & Reiseführer;268;Bücher/Ratgeber/Gesundheit;Medien > Bücher > Sachliteratur > Gesundheits- & Fitnessbücher 
+469;Sachbuch, Ratgeber/Gesundheit, Körperpflege/Sonstiges;Ratgeber & Reiseführer;268;Bücher/Ratgeber/Gesundheit;Medien > Bücher > Sachliteratur > Gesundheits- & Fitnessbücher
+470;Sachbuch, Ratgeber/Esoterik, Anthroposophie/Allgemein;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele 
+471;Sachbuch, Ratgeber/Esoterik, Anthroposophie;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele
+472;Sachbuch, Ratgeber/Esoterik, Anthroposophie/Esoterik;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele
+473;Sachbuch, Ratgeber/Esoterik, Anthroposophie/Astrologie;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele
+474;Sachbuch, Ratgeber/Esoterik, Anthroposophie/Tarot, Lebensdeutung, Orakel;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele
+475;Sachbuch, Ratgeber/Esoterik, Anthroposophie/Grenzwissenschaften;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele
+478;Sachbuch, Ratgeber/Esoterik, Anthroposophie/Anthroposophie;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele
+479;Sachbuch, Ratgeber/Esoterik, Anthroposophie/Sonstiges;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele 
+480;Sachbuch, Ratgeber/Ratgeber;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Selbsthilfebücher
+481;Sachbuch, Ratgeber/Ratgeber/Lebensführung;Ratgeber & Reiseführer;269;Bücher/Ratgeber/Lebenshilfe;Medien > Bücher > Sachliteratur > Selbsthilfebücher
+482;Sachbuch, Ratgeber/Ratgeber;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Selbsthilfebücher
+483;Sachbuch, Ratgeber/Ratgeber/Partnerschaft, Beziehungen;Ratgeber & Reiseführer;272;Bücher/Ratgeber/Partnerschaft;Medien > Bücher > Sachliteratur > Selbsthilfebücher
+485;Sachbuch, Ratgeber/Ratgeber/Praktische Tipps;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Bücher zu Körper, Geist & Seele 
+487;Sachbuch, Ratgeber/Ratgeber/Briefe, Bewerbungen, Wissenschaftliche Arbeiten, Rhetorik;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Selbsthilfebücher 
+489;Sachbuch, Ratgeber/Ratgeber/Sonstiges;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Selbsthilfebücher 
+490;Sachbuch, Ratgeber/Ratgeber/Sachbuch;Ratgeber & Reiseführer;186;Bücher/Ratgeber;Medien > Bücher > Sachliteratur > Selbsthilfebücher
+500;Geisteswissenschaften, Kunst, Musik;Fachbücher;189;Bücher/Fachbücher;Medien > Bücher > Sachliteratur
+510;Geisteswissenschaften, Kunst, Musik/Allgemein;Fachbücher;189;Bücher/Fachbücher;Medien > Bücher > Sachliteratur
+520;Geisteswissenschaften, Kunst, Musik/Philosophie;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher 
+521;Geisteswissenschaften, Kunst, Musik/Philosophie/Populäre Darstellungen;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher
+522;Geisteswissenschaften, Kunst, Musik/Philosophie/Allgemein, Lexika;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher 
+523;Geisteswissenschaften, Kunst, Musik/Philosophie/Antike;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher
+524;Geisteswissenschaften, Kunst, Musik/Philosophie/Mittelalter;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher 
+525;Geisteswissenschaften, Kunst, Musik/Philosophie/Renaissance und Aufklärung;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher 
+526;Geisteswissenschaften, Kunst, Musik/Philosophie/Deutscher Idealismus 19. Jahrhundert;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher
+527;Geisteswissenschaften, Kunst, Musik/Philosophie/Philosophie im 20. und 21. Jahrhundert;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher 
+528;Geisteswissenschaften, Kunst, Musik/Philosophie/Östliche Philosophie;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher 
+529;Geisteswissenschaften, Kunst, Musik/Philosophie/Sonstiges;Fachbücher;298;Bücher/Fachbücher/Philosophie;Medien > Bücher > Sachliteratur > Philosophiebücher
+530;Geisteswissenschaften, Kunst, Musik/Psychologie;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher 
+531;Geisteswissenschaften, Kunst, Musik/Psychologie/Psychologische Ratgeber;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher 
+532;Geisteswissenschaften, Kunst, Musik/Psychologie/Allgemein, Lexika;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher 
+533;Geisteswissenschaften, Kunst, Musik/Psychologie/Grundlagen, Methodik, Statistik;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher
+534;Geisteswissenschaften, Kunst, Musik/Psychologie/Theoretische Psychologie;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher
+535;Geisteswissenschaften, Kunst, Musik/Psychologie/Angewandte Psychologie;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher
+536;Geisteswissenschaften, Kunst, Musik/Psychologie/Psychoanalyse;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher
+538;Geisteswissenschaften, Kunst, Musik/Psychologie/Einzelne Psychologen;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher 
+539;Geisteswissenschaften, Kunst, Musik/Psychologie/Sonstiges;Fachbücher;301;Bücher/Fachbücher/Psychologie;Medien > Bücher > Sachliteratur > Psychologiebücher
+540;Geisteswissenschaften, Kunst, Musik/Religion, Theologie;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+541;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Populäre Schriften;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+542;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Allgemein, Lexika;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+543;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Biografien;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher 
+544;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Christentum;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+545;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Praktische Theologie;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+546;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Judentum;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+547;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Nichtchristliche Religionen;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+548;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Bibelausgaben, Gesangbücher, Predigthilfen;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+549;Geisteswissenschaften, Kunst, Musik/Religion, Theologie/Sonstiges;Fachbücher;305;Bücher/Fachbücher/Theologie;Medien > Bücher > Sachliteratur > Religionsbücher
+550;Geisteswissenschaften, Kunst, Musik/Geschichte;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher 
+551;Geisteswissenschaften, Kunst, Musik/Geschichte/Regionalgeschichte;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher
+552;Geisteswissenschaften, Kunst, Musik/Geschichte/Allgemein, Lexika;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher 
+553;Geisteswissenschaften, Kunst, Musik/Geschichte/Vorgeschichte, Frühgeschichte;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher 
+554;Geisteswissenschaften, Kunst, Musik/Geschichte/Altertum;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher 
+555;Geisteswissenschaften, Kunst, Musik/Geschichte/Mittelalter;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher 
+556;Geisteswissenschaften, Kunst, Musik/Geschichte/Neuzeit;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher
+557;Geisteswissenschaften, Kunst, Musik/Geschichte/Geschichte im 20. Jahrhundert;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher 
+558;Geisteswissenschaften, Kunst, Musik/Geschichte/Zeitgeschichte, Politik ab 1949;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher
+559;Geisteswissenschaften, Kunst, Musik/Geschichte/Sonstiges;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Geschichtsbücher
+560;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher
+561;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Nachschlagewerke;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher
+562;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Allgemein;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher 
+563;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Deutschsprachige;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher
+564;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Englische, Amerikanische;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher 
+565;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Germanische;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher
+566;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Romanische;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher
+567;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Klassische;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher
+568;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Slawische;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher 
+569;Geisteswissenschaften, Kunst, Musik/Sprachwissenschaft/Sonstiges;Fachbücher;303;Bücher/Fachbücher/Sprachwissenschaft;Medien > Bücher > Sachliteratur > Sprach- & Linguistikbücher 
+570;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften
+571;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Allgemein, Lexika;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften
+572;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Gattungen, Methoden;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften
+573;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Deutschsprachige;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften
+574;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Englische, Amerikanische;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften 
+575;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Germanische;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften
+576;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Romanische;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften
+577;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Klassische;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften
+578;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Slawische;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften 
+579;Geisteswissenschaften, Kunst, Musik/Literaturwissenschaft/Sonstiges;Fachbücher;292;Bücher/Fachbücher/Literaturwissenschaft;Medien > Bücher > Sachliteratur > Literaturwissenschaften 
+580;Geisteswissenschaften, Kunst, Musik/Kunst;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur > Kunstbücher 
+581;Geisteswissenschaften, Kunst, Musik/Kunst/Antiquitäten;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur
+582;Geisteswissenschaften, Kunst, Musik/Kunst/Allgemein;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur > Kunstbücher
+583;Geisteswissenschaften, Kunst, Musik/Kunst/Kunstgeschichte;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur > Kunstbücher
+584;Geisteswissenschaften, Kunst, Musik/Kunst/Bildende Kunst;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur > Kunstbücher 
+585;Geisteswissenschaften, Kunst, Musik/Kunst/Architektur;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur > Kunstbücher 
+586;Geisteswissenschaften, Kunst, Musik/Kunst/Innenarchitektur, Design;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur > Kunstbücher
+587;Geisteswissenschaften, Kunst, Musik/Kunst/Fotografie;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur > Kunstbücher
+588;Geisteswissenschaften, Kunst, Musik/Kunst/Theater, Ballett, Film, Fernsehen;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur
+589;Geisteswissenschaften, Kunst, Musik/Kunst/Sonstiges;Fachbücher;291;Bücher/Fachbücher/Kunst;Medien > Bücher > Sachliteratur > Kunstbücher
+590;Geisteswissenschaften, Kunst, Musik/Musik;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher 
+591;Geisteswissenschaften, Kunst, Musik/Musik/Liederbücher, Operntexte, Musik-CDs;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher 
+592;Geisteswissenschaften, Kunst, Musik/Musik/Allgemein, Handbücher, Lexika;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher 
+593;Geisteswissenschaften, Kunst, Musik/Musik/Musikgeschichte;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher
+594;Geisteswissenschaften, Kunst, Musik/Musik/Musiktheorie, Musiklehre;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher
+595;Geisteswissenschaften, Kunst, Musik/Musik/Instrumentenunterricht;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher
+596;Geisteswissenschaften, Kunst, Musik/Musik/Instrumentenkunde;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher 
+597;Geisteswissenschaften, Kunst, Musik/Musik/Biografien, Monographien;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher
+598;Geisteswissenschaften, Kunst, Musik/Musikalien;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher
+599;Geisteswissenschaften, Kunst, Musik/Musik/Sonstiges;Fachbücher;296;Bücher/Fachbücher/Musikwissenschaft;Medien > Bücher > Sachliteratur > Musikbücher
+600;Mathematik, Naturwissenschaften, Technik, Medizin;Fachbücher;189;Bücher/Fachbücher;Medien > Bücher > Sachliteratur 
+610;Mathematik, Naturwissenschaften, Technik, Medizin/Naturwissenschaften, Technik;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur
+620;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher
+621;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Populäre Darstellungen;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher
+622;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Allgemein, Lexika;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher
+623;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Grundlagen;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher
+624;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Arithmetik, Algebra;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher
+625;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Geometrie;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher 
+626;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Topologie;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher 
+627;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Analysis;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher
+628;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Wahrscheinlichkeitstheorie;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher
+629;Mathematik, Naturwissenschaften, Technik, Medizin/Mathematik/Sonstiges;Fachbücher;293;Bücher/Fachbücher/Mathematik;Medien > Bücher > Sachliteratur > Mathematikbücher 
+630;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher
+631;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Allgemein, Lexika;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher
+632;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Informatik, Softwareentwicklung;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher
+633;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Programmiersprachen;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher
+634;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Betriebssysteme, Benutzeroberflächen;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher 
+635;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Anwendungssoftware;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher 
+636;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Internet, Datenkommunikation, Netzwerke;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher 
+637;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Hardware;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher
+638;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Computerspiele;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher
+639;Mathematik, Naturwissenschaften, Technik, Medizin/Informatik, EDV/Sonstiges;Fachbücher;288;Bücher/Fachbücher/Informatik;Medien > Bücher > Sachliteratur > Computerbücher 
+640;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+641;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Populäre Darstellungen;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+642;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Allgemein, Lexika;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+643;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Mechanik, Akustik;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+644;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Elektrizität, Magnetismus, Optik;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+645;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Thermodynamik;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+646;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Atomphysik, Kernphysik;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+647;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Theoretische Physik;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+648;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Astronomie;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+649;Mathematik, Naturwissenschaften, Technik, Medizin/Physik, Astronomie/Sonstiges;Fachbücher;299;Bücher/Fachbücher/Physik & Astronomie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+650;Mathematik, Naturwissenschaften, Technik, Medizin/Chemie;Fachbücher;284;Bücher/Fachbücher/Chemie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+651;Mathematik, Naturwissenschaften, Technik, Medizin/Chemie/Populäre Darstellungen;Fachbücher;284;Bücher/Fachbücher/Chemie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+652;Mathematik, Naturwissenschaften, Technik, Medizin/Chemie/Allgemein, Lexika;Fachbücher;284;Bücher/Fachbücher/Chemie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+653;Mathematik, Naturwissenschaften, Technik, Medizin/Chemie/Theoretische Chemie;Fachbücher;284;Bücher/Fachbücher/Chemie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+654;Mathematik, Naturwissenschaften, Technik, Medizin/Chemie/Anorganische Chemie;Fachbücher;284;Bücher/Fachbücher/Chemie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+655;Mathematik, Naturwissenschaften, Technik, Medizin/Chemie/Organische Chemie;Fachbücher;284;Bücher/Fachbücher/Chemie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+656;Mathematik, Naturwissenschaften, Technik, Medizin/Chemie/Physikalische Chemie;Fachbücher;284;Bücher/Fachbücher/Chemie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+659;Mathematik, Naturwissenschaften, Technik, Medizin/Chemie/Sonstiges;Fachbücher;284;Bücher/Fachbücher/Chemie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+660;Mathematik, Naturwissenschaften, Technik, Medizin/Geowissenschaften;Fachbücher;286;Bücher/Fachbücher/Geowissenschaft;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+661;Mathematik, Naturwissenschaften, Technik, Medizin/Geowissenschaften/Populäre Darstellungen;Fachbücher;286;Bücher/Fachbücher/Geowissenschaft;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+662;Mathematik, Naturwissenschaften, Technik, Medizin/Geowissenschaften/Allgemein, Lexika;Fachbücher;286;Bücher/Fachbücher/Geowissenschaft;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+663;Mathematik, Naturwissenschaften, Technik, Medizin/Geowissenschaften/Geografie;Fachbücher;286;Bücher/Fachbücher/Geowissenschaft;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+664;Mathematik, Naturwissenschaften, Technik, Medizin/Geowissenschaften/Geologie;Fachbücher;286;Bücher/Fachbücher/Geowissenschaft;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+665;Mathematik, Naturwissenschaften, Technik, Medizin/Geowissenschaften/Paläontologie;Fachbücher;286;Bücher/Fachbücher/Geowissenschaft;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+666;Mathematik, Naturwissenschaften, Technik, Medizin/Geowissenschaften/Mineralogie, Petrographie;Fachbücher;286;Bücher/Fachbücher/Geowissenschaft;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+669;Mathematik, Naturwissenschaften, Technik, Medizin/Geowissenschaften/Sonstiges;Fachbücher;286;Bücher/Fachbücher/Geowissenschaft;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+670;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+671;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Populäre Darstellungen;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+672;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Allgemein, Lexika;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+673;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Grundlagen;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+674;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Botanik;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+675;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Zoologie;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+676;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Biochemie, Biophysik;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+677;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Ökologie;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+678;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Genetik, Gentechnologie;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+679;Mathematik, Naturwissenschaften, Technik, Medizin/Biologie/Sonstiges;Fachbücher;283;Bücher/Fachbücher/Biologie;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+680;Mathematik, Naturwissenschaften, Technik, Medizin/Technik;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+681;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Populäre Darstellungen;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+682;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Allgemein;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+683;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Maschinenbau, Fertigungstechnik;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+684;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Wärme-, Energie-, Kraftwerktechnik;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+685;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Elektronik, Elektrotechnik, Nachrichtentechnik;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+686;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Bau-, Umwelttechnik;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+687;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Luftfahrt-, Raumfahrttechnik, Bergbau, Hüttenwesen;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+688;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Chemische Technik;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher
+689;Mathematik, Naturwissenschaften, Technik, Medizin/Technik/Sonstiges;Fachbücher;304;Bücher/Fachbücher/Technik;Medien > Bücher > Sachliteratur > Wissenschaftsbücher 
+690;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher
+691;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Ratgeber;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher
+692;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Allgemein, Lexika;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher
+693;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Allgemeinmedizin, Diagnostik, Therapie;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher
+694;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Innere Medizin, Chirurgie;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher 
+695;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Zahnmedizin, Mundheilkunde, Kieferheilkunde;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher 
+696;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Andere Fachgebiete;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher
+697;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Alternative Medizin, Naturmedizin, Homöopathie;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher 
+698;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Tiermedizin;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher
+699;Mathematik, Naturwissenschaften, Technik, Medizin/Medizin, Pharmazie/Pharmazie, Pharmakologie, Toxikologie;Fachbücher;295;Bücher/Fachbücher/Medizin;Medien > Bücher > Sachliteratur > Medizinische Bücher 
+700;Sozialwissenschaften, Recht, Wirtschaft;Fachbücher;189;Bücher/Fachbücher;Medien > Bücher > Sachliteratur
+710;Sozialwissenschaften, Recht, Wirtschaft/Allgemein;Fachbücher;189;Bücher/Fachbücher;Medien > Bücher > Sachliteratur 
+720;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung 
+721;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Erziehungsratgeber;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung
+722;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Allgemein, Lexika;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung 
+723;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Bildungswesen, Schule, Hochschule;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung
+724;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Didaktik, Methodik, Schulpädagogik, Fachdidaktik;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung
+725;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Kindergarten, Vorschulpädagogik;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung
+726;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Erwachsenenbildung;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung
+727;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Sozialpädagogik ;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung
+728;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Sonderpädagogik, Behindertenpädagogik;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung
+729;Sozialwissenschaften, Recht, Wirtschaft/Erziehung, Bildung, Unterricht/Erziehung, Bildung/Sonstiges;Fachbücher;297;Bücher/Fachbücher/Pädagogik;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung
+730;Sozialwissenschaften, Recht, Wirtschaft/Medienwissenschaften;Fachbücher;294;Bücher/Fachbücher/Medienwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+731;Sozialwissenschaften, Recht, Wirtschaft/Medienwissenschaften/Populäre Darstellungen;Fachbücher;294;Bücher/Fachbücher/Medienwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+732;Sozialwissenschaften, Recht, Wirtschaft/Medienwissenschaften/Allgemein, Lexika;Fachbücher;294;Bücher/Fachbücher/Medienwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+733;Sozialwissenschaften, Recht, Wirtschaft/Medienwissenschaften/Journalistik, Presse, Film, Funk, TV;Fachbücher;294;Bücher/Fachbücher/Medienwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+734;Sozialwissenschaften, Recht, Wirtschaft/Medienwissenschaften/Verlagswesen, Buchhandel, Bibliothekswesen;Fachbücher;294;Bücher/Fachbücher/Medienwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+735;Sozialwissenschaften, Recht, Wirtschaft/Medienwissenschaften/Kommunikationswissenschaften;Fachbücher;294;Bücher/Fachbücher/Medienwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+739;Sozialwissenschaften, Recht, Wirtschaft/Medienwissenschaften/Sonstiges;Fachbücher;294;Bücher/Fachbücher/Medienwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+740;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+741;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Populäre Darstellungen;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+742;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Allgemein;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+743;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Politikwissenschaft;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+744;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Soziologie;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+745;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Angewandte Soziologie;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+746;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Sozialarbeit;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+747;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Öffentliche Verwaltung;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+748;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Arbeits-, Interessenvertretung;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+749;Sozialwissenschaften, Recht, Wirtschaft/Politikwissenschaft, Soziologie/Sonstiges;Fachbücher;300;Bücher/Fachbücher/Politikwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+750;Sozialwissenschaften, Recht, Wirtschaft/Völkerkunde, Volkskunde;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+751;Sozialwissenschaften, Recht, Wirtschaft/Völkerkunde, Volkskunde/Populäre Darstellungen;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+752;Sozialwissenschaften, Recht, Wirtschaft/Völkerkunde, Volkskunde/Allgemein, Lexika;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+753;Sozialwissenschaften, Recht, Wirtschaft/Völkerkunde, Volkskunde/Völkerkunde;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+754;Sozialwissenschaften, Recht, Wirtschaft/Völkerkunde, Volkskunde/Volkskunde;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+759;Sozialwissenschaften, Recht, Wirtschaft/Völkerkunde, Volkskunde/Sonstiges;Fachbücher;287;Bücher/Fachbücher/Geschichte;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+760;Sozialwissenschaften, Recht, Wirtschaft/Umwelt, Ökologie;Fachbücher;306;Bücher/Fachbücher/Umweltwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+761;Sozialwissenschaften, Recht, Wirtschaft/Umwelt, Ökologie/Umwelt;Fachbücher;306;Bücher/Fachbücher/Umweltwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+765;Sozialwissenschaften, Recht, Wirtschaft/Umwelt, Ökologie/Landwirtschaft, Gartenbau;Fachbücher;306;Bücher/Fachbücher/Umweltwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+766;Sozialwissenschaften, Recht, Wirtschaft/Umwelt, Ökologie/Forstwirtschaft, Fischerei;Fachbücher;306;Bücher/Fachbücher/Umweltwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+769;Sozialwissenschaften, Recht, Wirtschaft/Umwelt, Ökologie/Sonstiges;Fachbücher;306;Bücher/Fachbücher/Umweltwissenschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+770;Sozialwissenschaften, Recht, Wirtschaft/Recht;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher
+771;Sozialwissenschaften, Recht, Wirtschaft/Recht/Rechtsratgeber;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher
+772;Sozialwissenschaften, Recht, Wirtschaft/Recht/Allgemein, Lexika;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher
+773;Sozialwissenschaften, Recht, Wirtschaft/Recht/Privatrecht, BGB;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher 
+774;Sozialwissenschaften, Recht, Wirtschaft/Recht/Öffentliches Recht;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher
+775;Sozialwissenschaften, Recht, Wirtschaft/Recht/Steuern;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher 
+776;Sozialwissenschaften, Recht, Wirtschaft/Recht/Strafrecht;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher 
+777;Sozialwissenschaften, Recht, Wirtschaft/Recht/Handels-, Wirtschafts-, Arbeits-, Sozialrecht;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher
+778;Sozialwissenschaften, Recht, Wirtschaft/Recht/Internationales Recht;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher
+779;Sozialwissenschaften, Recht, Wirtschaft/Recht/Sonstiges;Fachbücher;290;Bücher/Fachbücher/Jura;Medien > Bücher > Sachliteratur > Rechtsbücher
+780;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+781;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/Wirtschaftsratgeber;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+782;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/Allgemein, Lexika;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+783;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/Volkswirtschaft;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+784;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/Betriebswirtschaft;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+785;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/Management;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+786;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/Werbung, Marketing;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+787;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/Einzelne Wirtschaftszweige;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher 
+788;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/International;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+789;Sozialwissenschaften, Recht, Wirtschaft/Wirtschaft/Sonstiges;Fachbücher;307;Bücher/Fachbücher/Wirtschaft;Medien > Bücher > Sachliteratur > Sozialwissenschaftliche Bücher
+800;Schule, Lernen;Schule & Lernen;190;Bücher/Schule & Lernen;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+810;Schule, Lernen/Schulbücher;Schule & Lernen;309;Bücher/Schule & Lernen/Schulbücher;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+820;Schule, Lernen/Unterrichtsmaterialien;Schule & Lernen;309;Bücher/Schule & Lernen/Schulbücher;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+830;Schule, Lernen/Berufsschulbücher;Schule & Lernen;309;Bücher/Schule & Lernen/Schulbücher;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+840;Schule, Lernen/Lernhilfen, Abiturwissen;Schule & Lernen;311;Bücher/Schule & Lernen/Lernhilfen;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+850;Schule, Lernen/Lektüren, Interpretationen;Schule & Lernen;310;Bücher/Schule & Lernen/Schullektüren;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+860;Schule, Lernen/VHS, Erwachsenenbildung;Schule & Lernen;313;Bücher/Schule & Lernen/Erwachsenenbildung;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen 
+870;Schule, Lernen/Deutsch als Fremdsprache;Schule & Lernen;308;Bücher/Schule & Lernen/Sprachen & Wörterbücher;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen 
+880;Schule, Lernen/Lernsoftware;Schule & Lernen;190;Bücher/Schule & Lernen;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen 
+881;Schule, Lernen/Lernsoftware/Sprachen/Deutsch;Schule & Lernen;308;Bücher/Schule & Lernen/Sprachen & Wörterbücher;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+882;Schule, Lernen/Lernsoftware/Sprachen/Englisch;Schule & Lernen;308;Bücher/Schule & Lernen/Sprachen & Wörterbücher;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen 
+883;Schule, Lernen/Lernsoftware/Sprachen/Französisch;Schule & Lernen;308;Bücher/Schule & Lernen/Sprachen & Wörterbücher;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen 
+886;Schule, Lernen/Lernsoftware/Sprachen;Schule & Lernen;308;Bücher/Schule & Lernen/Sprachen & Wörterbücher;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen 
+887;Schule, Lernen/Lernsoftware/Mathematik;Schule & Lernen;190;Bücher/Schule & Lernen;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+889;Schule, Lernen/Lernsoftware//Sonstige Fächer;Schule & Lernen;190;Bücher/Schule & Lernen;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen
+890;Schule, Lernen/Sonstiges;Schule & Lernen;190;Bücher/Schule & Lernen;Medien > Bücher > Sachliteratur > Bücher zu Bildung & Erziehung > Lernhilfen 
+900;Musikstilrichtungen;Kunst & Kultur;256;Bücher/Film, Kunst & Kultur/Musik;Medien > Musik 
+910;Musikstilrichtungen/Rock, Pop;Kunst & Kultur;256;Bücher/Film, Kunst & Kultur/Musik;Medien > Musik
+920;Musikstilrichtungen/Jazz;Kunst & Kultur;256;Bücher/Film, Kunst & Kultur/Musik;Medien > Musik
+930;Musikstilrichtungen/Klassik;Kunst & Kultur;256;Bücher/Film, Kunst & Kultur/Musik;Medien > Musik
