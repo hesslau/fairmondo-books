@@ -88,7 +88,7 @@ class FtpController extends BaseController
      * @return bool|string False on failure otherwise the path to downloaded file.
      */
     public function downloadFile($remoteFilepath, $downloadDirectory=null, $retries = 0) {
-        if(!$this->connection) $this->connect();
+        if(!$this->connection or ($this->connection && get_resource_type($this->connection) == 'Unknown')) $this->connect();
 
         // if no download Directory was given, download to default dir
         if(!$downloadDirectory) $downloadDirectory = $this->settings->downloadDirectory;
