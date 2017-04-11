@@ -11,6 +11,7 @@ use App\Models\LibriProduct;
 use App\Factories\FairmondoProductBuilder;
 use Exception;
 use SebastianBergmann\Environment\Console;
+use App\Models\Export;
 
 class ExportController extends Controller
 {
@@ -22,7 +23,7 @@ class ExportController extends Controller
         $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
         $zipArchive = storage_path('app/export/')."Export-".time().".zip";
         $chunkSize = 40000;
-        $lastExport = FairmondoProduct::orderBy('updated_at','desc')->take(1)->get();
+        $lastExport = Export::orderBy('created_at','desc')->take(1)->get();
         if(count($lastExport) > 0) {
             $query = LibriProduct::where('updated_at','>',$lastExport[0]['updated_at']);
         } else {
@@ -40,12 +41,17 @@ class ExportController extends Controller
 
             foreach ($products as $product) {
 
-
                 // get Fairmondo Product
                 $fairmondoProduct = self::getFairmondoProduct($product);
 
-                // write to export file
-                if(!is_null($fairmondoProduct)) $export->insertOne($fairmondoProduct->toArray());
+
+                if(!is_null($fairmondoProduct)) {
+                    // write to export file
+                    $export->insertOne($fairmondoProduct->toArray());
+
+                    // save the product to database
+                    if(!$testrun) self::storeFairmondoProduct($fairmondoProduct);
+                }
 
                 // advance progress bar
                 ConsoleOutput::advance($progress);
@@ -68,31 +74,41 @@ class ExportController extends Controller
         // make Zip Archive
         if(ZipController::makeArchive($zipArchive,$files) && file_exists($zipArchive)) {
             ConsoleOutput::info("Created ZipArchive at $zipArchive.");
+
+            // Save Export Info to Database
+            if(!$testrun) {
+                $export = new Export();
+                $export->numberOfProducts = $numberOfItems;
+                $export->exportFile = basename($zipArchive);
+                $export->save();
+            }
+
         } else {
             ConsoleOutput::error("Creating ZipArchive at $zipArchive failed.");
         }
 
     }
 
-    public static function getFairmondoProduct($product) {
+    private static function storeFairmondoProduct($product) {
+        // delete previous records
+        FairmondoProduct::destroy($product->gtin);
+
+        // save new record
+        try {
+            $product->save();
+            return true;
+        } catch (QueryException $e) {
+            $msg = "Query Exception:". $e->getMessage();
+            ConsoleOutput::error($msg);
+            Log::error($msg);
+            return false;
+        }
+    }
+
+    public static function getFairmondoProduct(LibriProduct $product) {
         if(FairmondoProductBuilder::meetsRequirements($product)) {
-
             // convert data into Fairmondo Product
-            $fairmondoProduct = FairmondoProductBuilder::create($product);
-
-            // delete previous records
-            FairmondoProduct::destroy($fairmondoProduct->gtin);
-
-            // save new record
-            try {
-                $fairmondoProduct->save();
-                return $fairmondoProduct;
-            } catch (QueryException $e) {
-                $msg = "Query Exception:". $e->getMessage();
-                ConsoleOutput::error($msg);
-                Log::error($msg);
-                return null;
-            }
+            return FairmondoProductBuilder::create($product);
         } else {
             // product doesn't meet required conditions to become fairmondo product
             return null;
