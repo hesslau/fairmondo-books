@@ -40,7 +40,7 @@ class AnnotationFactory implements IFactory
 
         $destination = 'app/media'.DIRECTORY_SEPARATOR
                         .substr($productReference,-3,3).DIRECTORY_SEPARATOR
-                        .$productReference.'.'.$extension;
+                        .sprintf('/EAN_%013s.%s',$productReference,$extension);
 
         @mkdir(dirname(storage_path($destination)));
         copy($filepath,storage_path($destination));
