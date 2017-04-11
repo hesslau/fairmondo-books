@@ -17,6 +17,7 @@ class CreateExportTable extends Migration
             $table->integer('id');
             $table->primary('id');
             $table->integer('number_of_products');
+            $table->string('export_file');
             $table->timestamps();
         });
     }
