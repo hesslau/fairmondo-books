@@ -11,13 +11,11 @@ class AnnotationTest extends TestCase
     public function testMakeAnnotation() {
         $testfile = storage_path("testing/Annotations/EN_9780141024677_35337_KTEXT.HTM");
         $productReference = "9780141024677";
-        $annotationType = "KTEXT";
         $annotationContent = "This sociopolitical comedy";
 
         $annotation = AnnotationFactory::makeFromFile($testfile)[0];
 
         $this->assertEquals($productReference, $annotation->ProductReference);
-        $this->assertEquals($annotationType, $annotation->AnnotationType);
         $this->assertEquals($annotationContent, $annotation->AnnotationContent);
     }
 
@@ -28,13 +26,7 @@ class AnnotationTest extends TestCase
         AnnotationFactory::store($annotations);
 
         $annotation = $annotations[0];
-
-        $query = Annotation::where([
-            'ProductReference' => $annotation->ProductReference,
-            'AnnotationType' => $annotation->AnnotationType,
-            'AnnotationLanguage' => $annotation->AnnotationLanguage
-        ]);
-
+        $query = \App\Models\KtextAnnotation::where('ProductReference',$annotation->ProductReference);
         $this->assertNotEmpty($query->get(), "Couldn't find stored Annotation.");
     }
 
@@ -54,15 +46,11 @@ class AnnotationTest extends TestCase
         $testfile = storage_path('testing/Annotations/EN_9789944387255_30_CBILD.JPG');
         $testfileCopy = storage_path('app/annotations').DIRECTORY_SEPARATOR.basename($testfile);
         $productReference = '9789944387255';
-        $annotationType = 'CBILD';
-        $expectedPath = storage_path('app/media').DIRECTORY_SEPARATOR.'255'.DIRECTORY_SEPARATOR.$productReference.'.JPG';
+        $expectedPath = storage_path('app/media').DIRECTORY_SEPARATOR.'255'.DIRECTORY_SEPARATOR.'EAN_'.$productReference.'.JPG';
 
         copy($testfile,$testfileCopy);
-        list($annotation) = AnnotationFactory::makeFromFile($testfileCopy);
+        AnnotationFactory::makeFromFile($testfileCopy);
 
-        $this->assertEquals($productReference,$annotation->ProductReference);
-        $this->assertEquals($annotationType,$annotation->AnnotationType);
-        $this->assertEquals($expectedPath,storage_path($annotation->AnnotationContent));
         $this->assertTrue(file_exists($expectedPath));
         unlink($expectedPath);
 

@@ -9,6 +9,7 @@
 namespace App\Factories;
 use App\Facades\ConsoleOutput;
 use App\Models\Annotation;
+use App\Models\KtextAnnotation;
 use DOMDocument;
 use ErrorException;
 use Illuminate\Support\Facades\Log;
@@ -45,12 +46,8 @@ class AnnotationFactory implements IFactory
         @mkdir(dirname(storage_path($destination)));
         copy($filepath,storage_path($destination));
 
-        $annotation = new Annotation();
-        $annotation->AnnotationType = $annotationType;
-        $annotation->ProductReference = $productReference;
-        $annotation->AnnotationContent = $destination;
-
-        return $annotation;
+        // no need to return an object since we're not storing picture annotations in the database
+        return null;
     }
 
     private static function makeTextAnnotation($filepath) {
@@ -58,13 +55,10 @@ class AnnotationFactory implements IFactory
         libxml_use_internal_errors(true);   // don't throw errors on malformed html
         $dom->loadHTMLFile($filepath);
 
-        $annotation = new Annotation();
+        $annotation = new KtextAnnotation();
 
         foreach ($dom->getElementsByTagName('meta') as $node) {
             switch($node->getAttribute("name")) {
-                case "TYPE":
-                    $annotation->AnnotationType = $node->getAttribute("content");
-                    break;
                 case "EAN":
                     $annotation->ProductReference = $node->getAttribute("content");
                     break;
@@ -96,11 +90,7 @@ class AnnotationFactory implements IFactory
             if(is_null($annotation) or is_array($annotation)) continue;
 
             // delete previous records
-            /*Annotation::where([
-                'ProductReference' => $annotation->ProductReference,
-                'AnnotationType' => $annotation->AnnotationType,
-                'AnnotationLanguage' => $annotation->AnnotationLanguage
-            ])->delete();*/
+            KtextAnnotation::where('ProductReference',$annotation->ProductReference)->delete();
 
             // insert new record
             $annotation->save();

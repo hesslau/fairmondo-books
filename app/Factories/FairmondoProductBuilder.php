@@ -4,6 +4,7 @@ namespace App\Factories;
 
 use App\Exceptions\MissingDataException;
 use App\Models\FairmondoProduct;
+use App\Models\KtextAnnotation;
 use App\Models\LibriProduct;
 use App\Models\Annotation;
 use Illuminate\Support\Facades\Log;
@@ -455,7 +456,7 @@ class FairmondoProductBuilder {
     }
 
     public static function getBlurb(LibriProduct $source) {
-        $result = Annotation::where('ProductReference', $source->ProductReference)->take(1)->get();
+        $result = KtextAnnotation::where('ProductReference', $source->ProductReference)->take(1)->get();
         if(count($result) > 0) return $result[0]->AnnotationContent;
         else return null;
     }
