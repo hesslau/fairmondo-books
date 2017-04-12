@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Facades\ConsoleOutput;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use League\Csv\Writer;
 use App\Models\FairmondoProduct;
 use App\Models\LibriProduct;
@@ -28,11 +29,11 @@ class ExportController extends Controller
             $query = LibriProduct::where('updated_at','>',$lastExport[0]['created_at']);
         } else {
             ConsoleOutput::info("No previous export found. Selecting all records");
-            $query = LibriProduct::all();
+            $query = LibriProduct::where('updated_at','>','');                          // don't use ::all() ! will result in memory exhaust
         }
 
         // generate progress bar
-        $numberOfItems = $testrun? 100 : $query->count();
+        $numberOfItems = $testrun ? 100 : $query->count();
         $progress = ConsoleOutput::progress($numberOfItems);
 
         $files = [];
@@ -44,15 +45,18 @@ class ExportController extends Controller
             foreach ($products as $product) {
 
                 // get Fairmondo Product
+                $startTime = time();
                 $fairmondoProduct = self::getFairmondoProduct($product);
-
+                ConsoleOutput::info("getting FairmdondoProduct took ".($startTime-microtime()));
 
                 if(!is_null($fairmondoProduct)) {
                     // write to export file
                     $export->insertOne($fairmondoProduct->toArray());
 
                     // save the product to database
+                    $startTime = time();
                     if(!$testrun) self::storeFairmondoProduct($fairmondoProduct);
+                    ConsoleOutput::info("getting FairmdondoProduct took ".($startTime-microtime()));
                 }
 
                 // advance progress bar
