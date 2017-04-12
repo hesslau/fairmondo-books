@@ -25,7 +25,7 @@ class ExportController extends Controller
         $chunkSize = 40000;
         $lastExport = Export::orderBy('created_at','desc')->take(1)->get();
         if(count($lastExport) > 0) {
-            $query = LibriProduct::where('updated_at','>',$lastExport[0]['updated_at']);
+            $query = LibriProduct::where('updated_at','>',$lastExport[0]['created_at']);
         } else {
             $query = LibriProduct::where('updated_at','<>','');
         }
