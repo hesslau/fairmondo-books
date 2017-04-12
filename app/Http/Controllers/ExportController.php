@@ -19,18 +19,20 @@ class ExportController extends Controller
      * Converts all LibriProducts into FairmondoProducts and writes them to disc.
      */
     public static function makeDelta($startDate, $testrun = false) {
-        $numberOfItems = $testrun? 100 : LibriProduct::count();
         $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
         $zipArchive = storage_path('app/export/')."Export-".time().".zip";
         $chunkSize = 40000;
         $lastExport = Export::orderBy('created_at','desc')->take(1)->get();
         if(count($lastExport) > 0) {
+            ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
             $query = LibriProduct::where('updated_at','>',$lastExport[0]['created_at']);
         } else {
-            $query = LibriProduct::where('updated_at','<>','');
+            ConsoleOutput::info("No previous export found. Selecting all records");
+            $query = LibriProduct::all();
         }
 
         // generate progress bar
+        $numberOfItems = $testrun? 100 : $query->count();
         $progress = ConsoleOutput::progress($numberOfItems);
 
         $files = [];
