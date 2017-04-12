@@ -45,7 +45,7 @@ class ExportController extends Controller
             foreach ($products as $product) {
 
                 // get Fairmondo Product
-                $startTime = time();
+                $startTime = microtime();
                 $fairmondoProduct = self::getFairmondoProduct($product);
                 ConsoleOutput::info("getting FairmdondoProduct took ".($startTime-microtime()));
 
@@ -54,7 +54,7 @@ class ExportController extends Controller
                     $export->insertOne($fairmondoProduct->toArray());
 
                     // save the product to database
-                    $startTime = time();
+                    $startTime = microtime();
                     if(!$testrun) self::storeFairmondoProduct($fairmondoProduct);
                     ConsoleOutput::info("getting FairmdondoProduct took ".($startTime-microtime()));
                 }
