@@ -45,14 +45,20 @@ class ExportController extends Controller
             foreach ($products as $product) {
 
                 // get Fairmondo Product
+                $startTime = microtime();
                 $fairmondoProduct = self::getFairmondoProduct($product);
+                ConsoleOutput::info("getting FairmdondoProduct took ".(microtime()-$startTime));
 
                 if(!is_null($fairmondoProduct)) {
                     // write to export file
+                    $startTime = microtime();
                     $export->insertOne($fairmondoProduct->toArray());
+                    ConsoleOutput::info("inserting FairmdondoProduct took ".(microtime()-$startTime));
 
                     // save the product to database
+                    $startTime = microtime();
                     if(!$testrun) self::storeFairmondoProduct($fairmondoProduct);
+                    ConsoleOutput::info("storing FairmdondoProduct took ".(microtime()-$startTime));
                 }
 
                 // advance progress bar
