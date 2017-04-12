@@ -78,8 +78,8 @@ class ExportController extends Controller
             // Save Export Info to Database
             if(!$testrun) {
                 $export = new Export();
-                $export->numberOfProducts = $numberOfItems;
-                $export->exportFile = basename($zipArchive);
+                $export->number_of_products = $numberOfItems;
+                $export->export_file = basename($zipArchive);
                 $export->save();
             }
 
