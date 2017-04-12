@@ -16,6 +16,11 @@ use App\Models\Export;
 
 class ExportController extends Controller
 {
+    private static function microtime_float()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float)$usec + (float)$sec);
+    }
     /**
      * Converts all LibriProducts into FairmondoProducts and writes them to disc.
      */
@@ -45,21 +50,21 @@ class ExportController extends Controller
             foreach ($products as $product) {
 
                 // get Fairmondo Product
-                $startTime = microtime();
+                $startTime = self::microtime_float();
                 $fairmondoProduct = self::getFairmondoProduct($product);
-                ConsoleOutput::info("getting FairmdondoProduct took ".(microtime()-$startTime));
+                ConsoleOutput::info("getting FairmdondoProduct took ".(self::microtime_float()-$startTime));
 
 
                 if(!is_null($fairmondoProduct)) {
                     // write to export file
-                    $startTime = microtime();
+                    $startTime = self::microtime_float();
                     $export->insertOne($fairmondoProduct->toArray());
-                    ConsoleOutput::info("inserting FairmdondoProduct took ".(microtime()-$startTime));
+                    ConsoleOutput::info("inserting FairmdondoProduct took ".(self::microtime_float()-$startTime));
 
                     // save the product to database
-                    $startTime = microtime();
+                    $startTime = self::microtime_float();
                     if(!$testrun) self::storeFairmondoProduct($fairmondoProduct);
-                    ConsoleOutput::info("storing FairmdondoProduct took ".(microtime()-$startTime));
+                    ConsoleOutput::info("storing FairmdondoProduct took ".(self::microtime_float()-$startTime));
                 }
 
                 // advance progress bar
