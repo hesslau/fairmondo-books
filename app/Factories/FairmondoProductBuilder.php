@@ -284,7 +284,7 @@ class FairmondoProductBuilder {
                 case 'Blurb':
                     $start = microtime(true);
                     $value = self::getBlurb($source);
-                    print "getting blurb too ".(microtime(true)-$start);
+                    print "getting blurb took ".(microtime(true)-$start)." seconds. ";
                     break;
                 case 'AudioBook':
                     $value = $source->isAudioBook();
@@ -455,10 +455,7 @@ class FairmondoProductBuilder {
     }
 
     public static function getBlurb(LibriProduct $source) {
-        $result = Annotation::where([
-            'ProductReference' => $source->ProductReference,
-            'AnnotationType' => 'KTEXT'
-    ***REMOVED***)->take(1)->get();
+        $result = Annotation::where('ProductReference', $source->ProductReference)->take(1)->get();
         if(count($result) > 0) return $result[0]->AnnotationContent;
         else return null;
     }
