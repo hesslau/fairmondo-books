@@ -105,6 +105,8 @@ class LibriProductFactory implements IFactory {
         $libriProduct->DistinctiveTitle         = $controller->getDistinctiveTitle();
 
         $tmpReference                           = $controller->getProductReference();
+        if(!$tmpReference) return null;         // if no valid reference was found, this product is invalid
+
         $libriProduct->ProductReference         = (String) $tmpReference[0];
         $libriProduct->ProductReferenceType     = (String) $tmpReference[1];
 
@@ -214,7 +216,8 @@ class LibriProductFactory implements IFactory {
                 return array((String) $productReference,$identifierType);
             }
         }
-        throw new MissingDataException("No allowed product identifier for ".$this->getRecordReference());
+        return false;
+        // throw new MissingDataException("No allowed product identifier for ".$this->getRecordReference());
     }
 
     /* Verarbeitungsregel für Feld "pr.ProductReference"
