@@ -15,11 +15,13 @@ use App\Factories\IFactory,
 
 // Facades
 use App\Facades\ConsoleOutput;
+use Illuminate\Support\Facades\Log;
 
 // Exceptions
 use App\Exceptions\UnpackingFailedException;
 use App\Exceptions\RemovingFileFailedException;
 use App\Exceptions\DownloadFailedException;
+use ErrorException;
 
 /**
  * Class DownloadManager
@@ -160,12 +162,17 @@ class DownloadManager
         $items = array();
 
         foreach ($files as $file) {
+            try {
 
-            // make models from file and merge with previously created objects
-            $items = array_merge($items,$this->factory->makeFromFile($file));
+                // make models from file and merge with previously created objects
+                $items = array_merge($items,$this->factory->makeFromFile($file));
+                // delete parsed file
+                @unlink($file);
 
-            // delete parsed file
-            @unlink($file);
+            } catch (ErrorException $e) {
+                ConsoleOutput::error("Skipping $file: ". $e->getMessage());
+                Log::error("File $file was skipped. Error: ".$e->getMessage());
+            }
         }
 
         return $items;
