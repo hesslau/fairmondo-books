@@ -50,21 +50,16 @@ class ExportController extends Controller
             foreach ($products as $product) {
 
                 // get Fairmondo Product
-                $startTime = self::microtime_float();
+                // todo optimize this! needs about 2.4s per item
                 $fairmondoProduct = self::getFairmondoProduct($product);
-                ConsoleOutput::info("getting FairmdondoProduct took ".(self::microtime_float()-$startTime));
 
 
                 if(!is_null($fairmondoProduct)) {
                     // write to export file
-                    $startTime = self::microtime_float();
                     $export->insertOne($fairmondoProduct->toArray());
-                    ConsoleOutput::info("inserting FairmdondoProduct took ".(self::microtime_float()-$startTime));
 
                     // save the product to database
-                    $startTime = self::microtime_float();
                     if(!$testrun) self::storeFairmondoProduct($fairmondoProduct);
-                    ConsoleOutput::info("storing FairmdondoProduct took ".(self::microtime_float()-$startTime));
                 }
 
                 // advance progress bar
@@ -122,7 +117,10 @@ class ExportController extends Controller
     public static function getFairmondoProduct(LibriProduct $product) {
         if(FairmondoProductBuilder::meetsRequirements($product)) {
             // convert data into Fairmondo Product
-            return FairmondoProductBuilder::create($product);
+            $startTime = self::microtime_float();
+            $p = FairmondoProductBuilder::create($product);
+            ConsoleOutput::info("storing FairmdondoProduct took ".(self::microtime_float()-$startTime));
+            return $p;
         } else {
             // product doesn't meet required conditions to become fairmondo product
             return null;
