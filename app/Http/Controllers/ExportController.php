@@ -49,6 +49,7 @@ class ExportController extends Controller
                 $fairmondoProduct = self::getFairmondoProduct($product);
                 ConsoleOutput::info("getting FairmdondoProduct took ".(microtime()-$startTime));
 
+
                 if(!is_null($fairmondoProduct)) {
                     // write to export file
                     $startTime = microtime();
