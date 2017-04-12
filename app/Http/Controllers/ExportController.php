@@ -117,7 +117,10 @@ class ExportController extends Controller
     public static function getFairmondoProduct(LibriProduct $product) {
         if(FairmondoProductBuilder::meetsRequirements($product)) {
             // convert data into Fairmondo Product
-            return FairmondoProductBuilder::create($product);
+            $startTime = self::microtime_float();
+            $p = FairmondoProductBuilder::create($product);
+            ConsoleOutput::info("storing FairmdondoProduct took ".(self::microtime_float()-$startTime));
+            return $p;
         } else {
             // product doesn't meet required conditions to become fairmondo product
             return null;
