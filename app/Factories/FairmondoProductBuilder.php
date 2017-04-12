@@ -458,7 +458,7 @@ class FairmondoProductBuilder {
         $result = Annotation::where([
             'ProductReference' => $source->ProductReference,
             'AnnotationType' => 'KTEXT'
-        ])->orderBy('updated_at', 'desc')->take(1)->get();
+        ])->take(1)->get();
         if(count($result) > 0) return $result[0]->AnnotationContent;
         else return null;
     }
