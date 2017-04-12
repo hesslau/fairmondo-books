@@ -4,6 +4,7 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Symfony\Component\Console\Helper\ProgressBar; //starthere
+use DateTime;
 
 class ConsoleOutput extends Facade {
     protected static function getFacadeAccessor()
@@ -51,8 +52,9 @@ class ConsoleOutput extends Facade {
     }
 
     public static function section($string, $verbosity = null) {
-
-        $section = "======== $string ========";
+        $now = new DateTime();
+        $datetime = $now->format('Y-m-d H:i:s');
+        $section = "[$datetime] $string ========";
         self::info($section, $verbosity);
     }
 
