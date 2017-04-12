@@ -14,10 +14,9 @@ class CreateExportTable extends Migration
     public function up()
     {
         Schema::create('exports', function(Blueprint $table) {
-            $table->integer('id');
-            $table->primary('id');
-            $table->integer('number_of_products');
-            $table->string('export_file');
+            $table->increments('id');
+            $table->integer('number_of_products')->nullable();
+            $table->string('export_file')->nullable();
             $table->timestamps();
         });
     }
