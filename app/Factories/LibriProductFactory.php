@@ -65,6 +65,17 @@ class LibriProductFactory implements IFactory {
         return $products;
     }
 
+    /*
+     * Generate a fake Product for testing purposes.
+     */
+    public static function makeFakeProduct($attributes = []) {
+        list($product) = self::makeFromFile(storage_path('/testing/VALID_TESTFILE.XML'));
+        foreach ($attributes as $attribute => $value) {
+            if(isset($product->$attribute)) $product->$attribute = $value;
+        }
+        return $product;
+    }
+
     // todo: implement memory friendly version of this
     public static function store(array $products): bool {
         $progress = ConsoleOutput::progress(count($products));
