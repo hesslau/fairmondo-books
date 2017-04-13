@@ -1,6 +1,7 @@
 #!/bin/bash
 LOCKFILE_UPDATE=update.lock
 LOCKFILE_EXPORT=export.lock
+date "+[%Y-%m-%d %H:%M:%S]"
 
 function repeatUntilCleanExit {
 	EXITCODE=1
@@ -23,7 +24,7 @@ function removeLockfile {
 trap "removeLockfile; exit 1;" SIGINT SIGTERM
 
 if mkdir "$LOCKFILE_UPDATE"; then
-        echo "locking suceeded" >&2
+	echo "locking suceeded" >&2
 
         # import catalog updates
         repeatUntilCleanExit php artisan pull --reverse;
