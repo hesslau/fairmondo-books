@@ -58,8 +58,13 @@ class LibriProductFactory implements IFactory {
 
         }
 
+        // clear $products from null values
+        $products = array_filter($products, function($item) {
+            return !is_null($item);
+        });
+        
         foreach($products as $product) {
-            if(!is_null($product)) $product->CatalogUpdate = (Integer) substr(basename($file),5,8);
+            $product->CatalogUpdate = (Integer) substr(basename($file),5,8);
         }
 
         return $products;
