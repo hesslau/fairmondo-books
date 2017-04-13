@@ -170,8 +170,9 @@ class DownloadManager
                 @unlink($file);
 
             } catch (ErrorException $e) {
-                ConsoleOutput::error("Skipping $file: ". $e->getMessage());
-                Log::error("File $file was skipped. Error: ".$e->getMessage());
+                $errorMsg = sprintf("%s (%s:%s)",$e->getMessage(),$e->getFile(),$e->getLine());
+                ConsoleOutput::error("Skipping $file: $errorMsg");
+                Log::error("File $file was skipped. Error: $errorMsg");
             }
         }
 
