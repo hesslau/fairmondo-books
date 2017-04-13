@@ -14,6 +14,7 @@ class LibriProduct extends Model
         return "$value";
     }
 
+    // todo outsource raw data to config file
     public function isDigital() {
         $digitalProductForms = ['AC','DB','DA','AI','VI','VO','ZE','00'];
         return in_array($this->attributes['ProductForm'],$digitalProductForms);
