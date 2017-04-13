@@ -53,7 +53,7 @@ class LibriProductFactory implements IFactory {
         } catch(Exception $e) {
 
             ConsoleOutput::error($e->getMessage());
-            Log::error($e->getMessage(),[$e]);
+            Log::error($e->getMessage());
             // todo: find a way to continue parsing after caught exception
 
         }
