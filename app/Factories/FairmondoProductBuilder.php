@@ -283,9 +283,7 @@ class FairmondoProductBuilder {
                     $value = self::formatDate($source->PublicationDate);
                     break;
                 case 'Blurb':
-                    $start = microtime(true);
                     $value = self::getBlurb($source);
-                    print "getting blurb took ".(microtime(true)-$start)." seconds. ";
                     break;
                 case 'AudioBook':
                     $value = $source->isAudioBook();

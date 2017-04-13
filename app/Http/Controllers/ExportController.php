@@ -16,11 +16,6 @@ use App\Models\Export;
 
 class ExportController extends Controller
 {
-    private static function microtime_float()
-    {
-        list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
-    }
     /**
      * Converts all LibriProducts into FairmondoProducts and writes them to disc.
      */
@@ -50,7 +45,6 @@ class ExportController extends Controller
             foreach ($products as $product) {
 
                 // get Fairmondo Product
-                // todo optimize this! needs about 2.4s per item
                 $fairmondoProduct = self::getFairmondoProduct($product);
 
 
@@ -117,9 +111,7 @@ class ExportController extends Controller
     public static function getFairmondoProduct(LibriProduct $product) {
         if(FairmondoProductBuilder::meetsRequirements($product)) {
             // convert data into Fairmondo Product
-            $startTime = self::microtime_float();
             $p = FairmondoProductBuilder::create($product);
-            ConsoleOutput::info("storing FairmdondoProduct took ".(self::microtime_float()-$startTime));
             return $p;
         } else {
             // product doesn't meet required conditions to become fairmondo product
