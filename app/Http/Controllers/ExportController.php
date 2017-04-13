@@ -22,7 +22,7 @@ class ExportController extends Controller
     public static function makeDelta($startDate, $testrun = false) {
         $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
         $zipArchive = storage_path('app/export/')."Export-".time().".zip";
-        $chunkSize = 40000;
+        $chunkSize = 20000;
         $lastExport = Export::orderBy('created_at','desc')->take(1)->get();
         if(count($lastExport) > 0) {
             ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
