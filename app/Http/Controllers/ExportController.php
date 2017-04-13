@@ -86,9 +86,12 @@ class ExportController extends Controller
                 $export->save();
             }
 
+            return $zipArchive;
         } else {
             ConsoleOutput::error("Creating ZipArchive at $zipArchive failed.");
+            return false;
         }
+
 
     }
 
