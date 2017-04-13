@@ -17,25 +17,10 @@ use App\Facades\ConsoleOutput;
 
 class FairmondoProductTest extends TestCase
 {
-    public static function createFairmondoProduct($filepath) {
-        $testfile = storage_path($filepath);
-        $parser = new Parser();
-        $parser->useFile($testfile);
-        $fairmondoProduct = null;
-
-        // set the product handler
-        $parser->setProductHandler(function($product) use (&$fairmondoProduct) {
-            // create a LibriProduct entity
-            $libriProduct = LibriProductFactory::create($product);
-
-            // create a FairmondoProduct entity from the LibriProduct entity
-            $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
-
-        });
-
-        // actually do the parsing
-        $parser->parse();
-        return $fairmondoProduct;
+    public static function createFairmondoProduct($filepath,$debug=false) {
+        $libriProduct = LibriProductFactory::makeFromFile(storage_path($filepath))[0];
+        if($debug) dd($libriProduct);
+        return FairmondoProductBuilder::create($libriProduct);
     }
 
     /**
@@ -45,7 +30,7 @@ class FairmondoProductTest extends TestCase
      */
     public function testCreateFairmondoProduct()
     {
-        $fairmondoProduct = $this->createFairmondoProduct('testing/VALID_TESTFILE.XML');
+        $fairmondoProduct = self::createFairmondoProduct('testing/VALID_TESTFILE.XML');
 
         // assert that a valid FairmondoProduct has been created
         $this->assertTrue($fairmondoProduct != false,"Test didn't produce valid Product");
@@ -102,11 +87,8 @@ class FairmondoProductTest extends TestCase
         // make sure all there are no test cases in the database
         FairmondoProduct::destroy($testProductReference);
 
-        // import test case to LibriDatabase
-        Controller::importONIXMessage(storage_path("testing/ActionTypes/TEST_CASE.xml"));
-
         // create product for FairmondoDatabase
-        $product = FairmondoProductBuilder::create(LibriProduct::all()->last());
+        $product = self::createFairmondoProduct("testing/VALID_TESTFILE.XML");
 
         // assert that the product was correctly imported
         $this->assertEquals($testProductReference, $product->gtin, "Product wasn't imported.");
@@ -118,44 +100,34 @@ class FairmondoProductTest extends TestCase
         $product->save();
 
         // import the same test case again (overwrites the last import in Libri database)
-        Controller::importONIXMessage(storage_path("testing/ActionTypes/TEST_CASE.xml"));
+        $updatedProduct = self::createFairmondoProduct("testing/VALID_TESTFILE.XML");
 
-        // create fairmondo product and assert that action is 'update'
-        $updatedProduct = FairmondoProductBuilder::create(LibriProduct::all()->last());
+        // assert that action is 'update'
         $this->assertEquals(FairmondoProductBuilder::ACTION_UPDATE,$updatedProduct->action);
 
         // import same product with delete notification
-        Controller::importONIXMessage(storage_path("testing/ActionTypes/TEST_CASE-deletion.xml"));
-        $deletedProduct = FairmondoProductBuilder::create(LibriProduct::all()->last());
+        $deletedProduct = self::createFairmondoProduct("testing/ActionTypes/TEST_CASE-deletion.xml");
         $this->assertEquals(FairmondoProductBuilder::ACTION_DELETE,$deletedProduct->action);
 
         // remove test case
-        LibriProduct::destroy($testProductReference);
         FairmondoProduct::destroy($testProductReference);
     }
 
     public function testCategories() {
 
         // test if pr.VLBSchemeOld 18500 maps to FairmondoCategoryID 310
-        Controller::importONIXMessage(storage_path("testing/Categories/VLBSCHEME_18500.XML"));
-        $libriProduct = LibriProduct::all()->last();
-        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+        $libriProduct = LibriProductFactory::makeFromFile(storage_path("testing/Categories/VLBSCHEME_18500.XML"));
+        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct[0]);
         $this->assertContains("310",$fairmondoProduct->categories);
-        $libriProduct->delete();
 
         // test if product is detected as an Audiobook (FairmondoCategoryID 117)
-        Controller::importONIXMessage(storage_path("testing/Categories/AUDIOBOOK.XML"));
-        $libriProduct = LibriProduct::all()->last();
-        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+        $fairmondoProduct = self::createFairmondoProduct("testing/Categories/AUDIOBOOK.XML");
         $this->assertContains("117",$fairmondoProduct->categories);
-        $libriProduct->delete();
 
         // test if product has category correspondending to ProductForm
-        Controller::importONIXMessage(storage_path("testing/Categories/PRODUCTFORM_AC.XML"));
-        $libriProduct = LibriProduct::all()->last();
-        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+        $libriProduct = LibriProductFactory::makeFromFile(storage_path("testing/Categories/PRODUCTFORM_AC.XML"));
+        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct[0]);
         $this->assertContains("27",$fairmondoProduct->categories);
-        $libriProduct->delete();
 
     }
 
@@ -163,19 +135,16 @@ class FairmondoProductTest extends TestCase
         $annotations = AnnotationFactory::makeFromFile(storage_path('testing/Annotations/EN_1111111111111_35337_KTEXT.HTM'));
         AnnotationFactory::store($annotations);
 
-        $products = LibriProductFactory::makeFromFile(storage_path('testing/Annotations/TEST_CASE.xml'));
-        LibriProductFactory::store($products);
-
-        $product = FairmondoProductBuilder::create(LibriProduct::where('ProductReference','1111111111111')->firstOrFail());
+        $product = self::createFairmondoProduct('testing/VALID_TESTFILE.XML');
         $this->assertContains($annotations[0]->AnnotationContent, $product->content);
 
         // cleanup
         Annotation::where('ProductReference','1111111111111')->delete();
-        LibriProduct::where('ProductReference','1111111111111')->delete();
     }
 
     public function testBlacklist() {
         $p = new LibriProduct();
+        $p->VLBSchemeOld = 5100;
         $failedConditions = FairmondoProductBuilder::checkConditions($p);
         $this->assertNotContains("NotOnBlacklist",$failedConditions);
 
@@ -213,7 +182,7 @@ class FairmondoProductTest extends TestCase
         $offset = 5;
         for($i=0;$i<$offset;$i++) $csvIterator->next();
 
-        $productsToSkip = [9780008202132,9780008181833,9783125354029,9783125620421, 9783125613096,4009750255766,9780007161850,9780199545469,9780295989075,9780300123999,9780393329810]; //['0028947920717','0028947970439','0028948303939','0042284302821','0091037567970','0602498717004','0602517810266'];
+        $productsToSkip = [9780008202132,9780008181833,9783125354029,9783125620421, 9783131669919, 9783125613096,4009750255766,9780007161850,9780199545469,9780295989075,9780300123999,9780393329810]; //['0028947920717','0028947970439','0028948303939','0042284302821','0091037567970','0602498717004','0602517810266'];
         $fieldsToSkip = ['quantity','content','transport_time','action','price_cents','title'];
 
         while ($csvIterator->valid()) {
@@ -242,6 +211,7 @@ class FairmondoProductTest extends TestCase
             }
 
             $fProduct = FairmondoProductBuilder::create($lProduct);
+            $this->assertNotNull($fProduct,"Product $gtin wasn't created. Doesn't meet: ".implode(', ',FairmondoProductBuilder::checkConditions($lProduct)));
 
             foreach (config('fairmondoproduct.fields') as $field) {
 
@@ -262,7 +232,7 @@ class FairmondoProductTest extends TestCase
                     $actual = explode(',',$actual);
 
                     foreach ($expected as $expectedCategory) {
-                        $this->assertContains($expectedCategory,$actual);
+                        $this->assertContains($expectedCategory,$actual,"expected $gtin to have category $expectedCategory");
                     }
                 } else {
 
