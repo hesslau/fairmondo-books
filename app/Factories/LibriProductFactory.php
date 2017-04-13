@@ -59,7 +59,7 @@ class LibriProductFactory implements IFactory {
         }
 
         foreach($products as $product) {
-            $product->CatalogUpdate = (Integer) substr(basename($file),5,8);
+            if(!is_null($product)) $product->CatalogUpdate = (Integer) substr(basename($file),5,8);
         }
 
         return $products;
