@@ -78,6 +78,11 @@ class ExportController extends Controller
         if(ZipController::makeArchive($zipArchive,$files) && file_exists($zipArchive)) {
             ConsoleOutput::info("Created ZipArchive at $zipArchive.");
 
+            // delete the csv files
+            foreach ($files as $file) {
+                @unlink($file);
+            }
+
             // Save Export Info to Database
             if(!$testrun) {
                 $export = new Export();
