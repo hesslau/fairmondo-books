@@ -46,12 +46,41 @@ Artisan::command('fairmondobooks:export {--since} {--test}', function($since, $t
 });
 
 Artisan::command('fairmondobooks:initialImport', function() {
+
+
     function c($gtin) {
+        $attributes = [
+            "title" => "TEST",
+            "categories"=> "0,0",
+            "condition"=> "",
+            "content"=> "",
+            "quantity"=> 51,
+            "price_cents"=> 695,
+            "vat"=> 7,
+            "external_title_image_url"=> "",
+            "transport_type1"=> 1,
+            "transport_type1_provider"=> "",
+            "transport_type1_price_cents"=> 300,
+            "transport_type1_number"=> 9,
+            "transport_details"=>"",
+            "transport_time"=> "",
+            "unified_transport"=> 1,
+            "payment_bank_transfer"=> 1,
+            "payment_paypal"=> 1,
+            "payment_invoice"=> 0,
+            "payment_voucher"=> 1,
+            "payment_details"=> "",
+            "custom_seller_identifier"=> "",
+            "action"=> "create"
+        ];
+
         if(App\Models\FairmondoProduct::find($gtin)) return;
-        $libriProduct = App\Factories\LibriProductFactory::makeFakeProduct(['ProductReference'=>$gtin]);
-        $farProduct = App\Factories\FairmondoProductBuilder::create($libriProduct);
-        if(is_null($farProduct)) Illuminate\Support\Facades\Log::error("Could not create FairmondoProduct for $gtin.");
-        else $farProduct->save();
+        $fairProduct = new App\Models\FairmondoProduct();
+        foreach ($attributes as $attribute => $value) {
+            $fairProduct->$attribute = $value;
+        }
+        $fairProduct->gtin = $gtin;
+        $fairProduct->save();
     }
 
     $handle = fopen("../books-export-henrik.csv", "r");
