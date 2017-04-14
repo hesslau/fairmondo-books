@@ -57,7 +57,7 @@ Artisan::command('fairmondobooks:initialImport', function() {
     $handle = fopen("../books-export-henrik.csv", "r");
     ob_start();
     while(($gtin=fgets($handle)) !== false) {
-        c($gtin);
+        c(trim($gtin));
     }
     ob_end_clean();
     fclose($handle);
