@@ -47,6 +47,7 @@ Artisan::command('fairmondobooks:export {--since} {--test}', function($since, $t
 
 Artisan::command('fairmondobooks:initialImport', function() {
     function c($gtin) {
+        if(App\Models\FairmondoProduct::find($gtin)) return;
         $libriProduct = App\Factories\LibriProductFactory::makeFakeProduct(['ProductReference'=>$gtin]);
         $farProduct = App\Factories\FairmondoProductBuilder::create($libriProduct);
         if(is_null($farProduct)) Illuminate\Support\Facades\Log::error("Could not create FairmondoProduct for $gtin.");
