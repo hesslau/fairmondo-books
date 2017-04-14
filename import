@@ -27,10 +27,10 @@ if mkdir "$LOCKFILE_UPDATE"; then
 	echo "locking suceeded" >&2
 
         # import catalog updates
-        repeatUntilCleanExit php artisan pull --reverse;
+        repeatUntilCleanExit php artisan pull -vv;
 
         # import annotations
-        repeatUntilCleanExit php artisan pull:annotations;
+        repeatUntilCleanExit php artisan pull:annotations -vv;
 
         # remove lockfile
         removeLockfile;
