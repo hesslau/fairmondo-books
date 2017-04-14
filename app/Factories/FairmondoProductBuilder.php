@@ -86,16 +86,7 @@ class FairmondoProductBuilder {
             return !$condition;
         }));
 
-        // check special tolino conditions
-        // @todo check if these are still valid
-        $tolinoConditions = (preg_match('%tolino%',$product->DistinctiveTitle)
-                                && in_array($product->ProductForm, ['00','ZZ'])
-                                && $product->VLBSchemeOld != 8000
-                                && $product->AvailabilityStatus == $validAvailabilityStatus);
-
-        // if either normal conditions or tolino conditions are matched, return true
-        if (count($failedConditions) === 0 or $tolinoConditions) return array();
-        else return $failedConditions;
+        return $failedConditions;
 
         /*
         ProductEAN is not Null
