@@ -83,13 +83,21 @@ Artisan::command('fairmondobooks:initialImport', function() {
         $fairProduct->save();
     }
 
-    $handle = fopen("../books-export-henrik.csv", "r");
-    ob_start();
-    while(($gtin=fgets($handle)) !== false) {
-        c(trim($gtin));
+    function importFile($file) {
+        $handle = fopen($file, "r");
+        ob_start();
+        while(($gtin=fgets($handle)) !== false) {
+            c(trim($gtin));
+        }
+        ob_end_clean();
+        fclose($handle);
+        Illuminate\Support\Facades\Log::info("Done with initial import!");
     }
-    ob_end_clean();
-    fclose($handle);
+
+    $files = explode(' ','xae  xaf  xag  xah  xai  xaj');
+    foreach ($files as $file) {
+        echo "importing $file";
+        importFile("../$file");
+    }
     echo "All Done!";
-    Illuminate\Support\Facades\Log::info("Done with initial import!");
 });
