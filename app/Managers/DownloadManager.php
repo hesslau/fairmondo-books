@@ -43,9 +43,10 @@ class DownloadManager
      */
     private $factory;
 
+    const MAX_DOWNLOAD_ATTEMPTS = 3;
     const FINISHED = 'Synchronization finished.';
 
-    public $chunksize = 1;
+    public $chunksize = 3;
 
     public function __construct(FtpSettings $ftpSettings, IFactory $factory, callable $fileFilter = null)
     {
@@ -69,7 +70,8 @@ class DownloadManager
 
         // filter out all files that have been downloaded and imported already
         $availableFiles = array_filter($availableFiles,function($filepath) {
-            return !(Download::find($filepath));
+            $download = Download::find($filepath);
+            return !($download && $download->success);
         });
 
         if(key_exists('reverse',$options) && $options['reverse']) {
@@ -84,32 +86,27 @@ class DownloadManager
             // a few files and let the parent function call this again
             $index++; if($index > $this->chunksize) return false;
 
-            /*$datestring = sprintf("%s %s %s",$file['month'],$file['day'],$file['time']);
-            $date = DateTime::createFromFormat("M d H:i", $datestring);
+            try {
+                ConsoleOutput::section("Downloading $filepath ($index of ".count($availableFiles).")");
+                $localFile = $this->download($filepath);    // zipFile
 
-            if(isset($options['startTime']) && $date < $options['startTime']) continue;
-            if(isset($options['endTime']) && $date > $options['endTime']) continue;*/
+                ConsoleOutput::section("Extracting $filepath");
+                $unpackedFiles = $this->unpack($localFile);
 
-            $download = new Download();
-            $download->remote_filepath = $filepath;
+                ConsoleOutput::section("Parsing $filepath");
+                $items = $this->parse($unpackedFiles);
 
-            ConsoleOutput::section("Downloading $filepath ($index of ".count($availableFiles).")");
-            $localFile = $this->download($filepath);    // zipFile
+                ConsoleOutput::section("Saving to Database");
+                $this->import($items);      // TODO: catch exceptions
 
-            ConsoleOutput::section("Extracting $filepath");
-            $unpackedFiles = $this->unpack($localFile);
+                // cleaning up
+                $this->remove($localFile);
+            } catch(DownloadFailedException $e) {
+                ConsoleOutput::error($e->getMessage());
+                Log::error($e->getMessage());
+                continue;
+            }
 
-            ConsoleOutput::section("Parsing $filepath");
-            $items = $this->parse($unpackedFiles);
-
-            ConsoleOutput::section("Saving to Database");
-            $this->import($items);      // TODO: catch exceptions
-
-            // cleaning up
-            $this->remove($localFile);
-
-            // tell system that this file has been downloaded
-            $download->save();
         }
         return true;
     }
@@ -122,10 +119,30 @@ class DownloadManager
         // create FtpController instance if it doesn't exist yet
         if(!isset($this->ftpController)) $this->ftpController = new FtpController($this->ftpSettings);
 
+        // lookup file in downloads table
+        $download = Download::find($file);
+
+        // if file wasn't found, create a new Download object
+        if(is_null($download)) {
+            $download = new Download();
+            $download->remote_filepath = $file;
+            $download->save();
+
+            // make sure we're dealing with the object from the database
+            $download = Download::find($file);
+        }
+
+        // set a limit to maximum download attempts
+        if($download->attempts >= self::MAX_DOWNLOAD_ATTEMPTS)
+            throw new DownloadFailedException("Reached maximum number of attempts (".self::MAX_DOWNLOAD_ATTEMPTS.") to download $file.");
+
         // download the file
         try {
+            $download->attempts++;
+            $download->save();
             $local_filepath = $this->ftpController->downloadFile($file);
         } catch (ErrorException $e) {
+            // todo inspect this error
             // sometimes ftp_get() fails with an ErrorException for no apparent reason
             // let's just try again
             ConsoleOutput::error('ftp_get() failed with ErrorException: '.$e->getMessage());
@@ -138,6 +155,11 @@ class DownloadManager
         // if it didn't work after reconnecting, the download failed
         if(!$local_filepath or !file_exists($local_filepath)) throw new DownloadFailedException("Downloaded file '$file' not found at '$local_filepath'.");
 
+        // tell system that this file has been downloaded
+        $download->success = true;
+        $download->save();
+
+        // return path to downloaded file
         return $local_filepath;
     }
 
