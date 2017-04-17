@@ -29,9 +29,8 @@ class LibriProductFactory implements IFactory {
             try {
                 // create Object from ONIX message
                 $libriProduct = self::create($product);
+                if(!is_null($libriProduct)) $products[] = $libriProduct;
 
-                // only store Libriproducts that meet requirements to be a FairmondoProduct
-                if(!is_null($libriProduct) && FairmondoProductBuilder::meetsRequirements($libriProduct)) $products[] = $libriProduct;
             } catch (MissingDataException $e) {
                 ConsoleOutput::error($e->getMessage());
                 Log::warning($e->getMessage());
@@ -87,6 +86,12 @@ class LibriProductFactory implements IFactory {
 
     // todo: implement memory friendly version of this
     public static function store(array $products): bool {
+
+        // exclude libriproducts which don't meet requirements to be a fairmondo product
+        $products = array_filter($products, function($libriProduct) {
+            FairmondoProductBuilder::meetsRequirements($libriProduct);
+        });
+
         $progress = ConsoleOutput::progress(count($products));
 
         foreach ($products as $product) {
