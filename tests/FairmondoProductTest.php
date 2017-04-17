@@ -18,7 +18,7 @@ use App\Facades\ConsoleOutput;
 class FairmondoProductTest extends TestCase
 {
     public static function createFairmondoProduct($filepath,$debug=false) {
-        $libriProduct = LibriProductFactory::makeFromFile(storage_path($filepath))[0];
+        list($libriProduct) = LibriProductFactory::makeFromFile(storage_path($filepath));
         if($debug) dd($libriProduct);
         return FairmondoProductBuilder::create($libriProduct);
     }
@@ -68,16 +68,19 @@ class FairmondoProductTest extends TestCase
     }
 
     public function testInvalidAudienceCode() {
-        $product = $this->createFairmondoProduct("testing/AUDIENCECODEVALUE_18.XML");
-        $this->assertNull($product,"Product with invalid audience code was created.");
+        $libriProduct = LibriProductFactory::makeFakeProduct(['AudienceCodeValue' => 18]);
+        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+        $this->assertNull($fairmondoProduct,"Product with invalid audience code was created.");
     }
 
     public function testInvalidProductForm() {
-        $product = $this->createFairmondoProduct("testing/PRODUCTFORM_XX.XML");
-        $this->assertNull($product,"Product with invalid product form was created.");
+        $libriProduct = LibriProductFactory::makeFakeProduct(['ProductForm' => 'XX']);
+        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+        $this->assertNull($fairmondoProduct,"Product with invalid product form was created.");
 
-        $product = $this->createFairmondoProduct("testing/EdgeCases/DIE_DREI_???.XML");
-        $this->assertNull($product);
+        $libriProduct = LibriProductFactory::makeFakeProduct(['ProductForm' => 'AA']);
+        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+        $this->assertNull($fairmondoProduct);
     }
 
     public function testActionTypes() {
@@ -168,7 +171,7 @@ class FairmondoProductTest extends TestCase
         $this->assertContains("NotOnBlacklist",$failedConditions);
     }
 
-    public function testRealData() {
+    public function _testRealData() {
         $csv = Reader::createFromPath(storage_path("testing/ONIXToolsData/170303114731/170303114731-Fairmondo-0000001.csv"));
         $csv->setDelimiter(';');
 
