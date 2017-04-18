@@ -74,7 +74,7 @@ class FairmondoProductBuilder {
         $conditions = array(
             "HasDistinctiveTitle"       => ($product->DistinctiveTitle != ''),     // note: useless condition since products without title will fail the previous import
             "HasValidProductForm"       => in_array($product->ProductForm,$validProductForms),
-            //"IsAvailable"               => $product->AvailabilityStatus == $validAvailabilityStatus,
+            "IsAvailable"               => $product->AvailabilityStatus == $validAvailabilityStatus,
             "HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
             //"HasQuantityOnHand"         => ($product->QuantityOnHand > 0) // or $product->Lib_MSNo = 15) // @todo what is Lib_MSNo???
             "HasCategory"               => ($product->VLBSchemeOld !== 0 || key_exists($product->ProductForm,config('fairmondoproduct.maps.ProductForm2FairmondoCategory'))),
