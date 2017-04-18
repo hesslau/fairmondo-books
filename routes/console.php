@@ -94,7 +94,7 @@ Artisan::command('fairmondobooks:initialImport', function() {
         Illuminate\Support\Facades\Log::info("Done with initial import!");
     }
 
-    $files = explode(' ','xae  xaf  xag  xah  xai  xaj');
+    $files = explode(' ','xaj');
     foreach ($files as $file) {
         echo "importing $file";
         importFile("../$file");
