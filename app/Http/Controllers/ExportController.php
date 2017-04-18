@@ -33,7 +33,7 @@ class ExportController extends Controller
         }
 
         // generate progress bar
-        $numberOfItems = $testrun ? 100 : $query->count();
+        $numberOfItems = $testrun ? 1000 : $query->count();
         $progress = ConsoleOutput::progress($numberOfItems);
 
         $files = [];
@@ -69,7 +69,7 @@ class ExportController extends Controller
             $files[] = $filename;
         };
 
-        if($testrun) $productHandler($query->take(100)->get());
+        if($testrun) $productHandler($query->take(1000)->get());
         else $query->chunk($chunkSize, $productHandler);
 
         ConsoleOutput::info("Export finished.");
