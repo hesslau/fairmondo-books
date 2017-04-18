@@ -50,7 +50,7 @@ return [
             'BP' => 'Buch',
             'BZ' => 'Buch',
             'AC' => 'Audio CD',     //27
-            'DB' => 'CD',           //27
+            //'DB' => 'CD',           //27
             'DA' => 'MP3 CD',       //27
             'AI' => 'Audio DVD',    //28
             'VI' => 'Video DVD',    //24
@@ -58,7 +58,7 @@ return [
             'ZE' => 'Spiel',        //85
             'DG' => 'eBook',        //116
             'PC' => 'Kalender',     //1654
-            '00' => 'Hardware',     //1122
+            //'00' => 'Hardware',     //1122
         ],
         // map Libri Product Form to a Fairmondo Category
         'ProductForm2FairmondoCategory' => [
