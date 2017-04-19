@@ -436,7 +436,7 @@ class FairmondoProductBuilder {
     }
 
     public static function getTransportTime(LibriProduct $source) {
-        if( (!is_null($source->OrderTime) and $source->QuantityOnHand == 51)
+        if( (!is_null($source->OrderTime) and $source->QuantityOnHand == 51)        /// todo Find out why this rule exists in spMacSelectProducts:199
             or is_null($source->QuantityOnHand)) {
             $transportTime = '5-10';
         } else {
