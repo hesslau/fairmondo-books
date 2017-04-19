@@ -89,7 +89,7 @@ class LibriProductFactory implements IFactory {
 
         // exclude libriproducts which don't meet requirements to be a fairmondo product
         $products = array_filter($products, function($libriProduct) {
-            FairmondoProductBuilder::meetsRequirements($libriProduct);
+            return FairmondoProductBuilder::meetsRequirements($libriProduct);
         });
 
         $progress = ConsoleOutput::progress(count($products));
