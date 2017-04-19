@@ -99,6 +99,11 @@ class DownloadManager
                 ConsoleOutput::section("Saving to Database");
                 $this->import($items);      // TODO: catch exceptions
 
+                // Download has been successfully imported
+                $download = Download::find($filepath);
+                $download->success = true;
+                $download->save();
+
                 // cleaning up
                 $this->remove($localFile);
             } catch(DownloadFailedException $e) {
@@ -154,10 +159,6 @@ class DownloadManager
 
         // if it didn't work after reconnecting, the download failed
         if(!$local_filepath or !file_exists($local_filepath)) throw new DownloadFailedException("Downloaded file '$file' not found at '$local_filepath'.");
-
-        // tell system that this file has been downloaded
-        $download->success = true;
-        $download->save();
 
         // return path to downloaded file
         return $local_filepath;
