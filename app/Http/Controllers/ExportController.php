@@ -23,13 +23,13 @@ class ExportController extends Controller
         $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
         $zipArchive = storage_path('app/export/')."Export-".time().".zip";
         $chunkSize = 20000;
-        $lastExport = Export::orderBy('created_at','desc')->take(1)->get();
+        $lastExport = Export::latest()->get();
         if(count($lastExport) > 0) {
             ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
-            $query = LibriProduct::where('updated_at','>',$lastExport[0]['created_at']);
+            $query = LibriProduct::updatedSince($lastExport[0]['created_at']);
         } else {
             ConsoleOutput::info("No previous export found. Selecting all records");
-            $query = LibriProduct::where('updated_at','>','');                          // don't use ::all() ! will result in memory exhaust
+            $query = LibriProduct::query();  // don't use ::all() ! will result in memory exhaust
         }
 
         // generate progress bar
