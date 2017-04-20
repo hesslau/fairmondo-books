@@ -99,7 +99,7 @@
     ***REMOVED***
 ***REMOVED***,
     'conditions' => [
-        'AvailabilityStatus' => 20,
+        'AvailabilityStatus' => [20,21,22],
         'invalidAudienceCodeValues' => [16,17,18]
 ***REMOVED***,
     'templates' => [
