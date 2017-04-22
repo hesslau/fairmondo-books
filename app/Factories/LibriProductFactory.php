@@ -165,6 +165,7 @@ class LibriProductFactory implements IFactory {
         $libriProduct->DiscountPercent      = (Integer) $controller->getDiscountPercent();
         $libriProduct->TaxRateCode1         = (String) $controller->getTaxRateCode1();
         $libriProduct->NotificationType     = $controller->getNotificationType();
+        $libriProduct->Lib_MSNo             = $controller->getLibriNotificationKey();
 
         return $libriProduct;
     }
@@ -546,5 +547,13 @@ class LibriProductFactory implements IFactory {
 
     public function getNotificationType() {
         return $this->_getFirstElement('NotificationType');
+    }
+
+    public function getLibriNotificationKey() {
+        // get the code list
+        $codeList = $this->_getFirstElement('lieferantintern/ms/ms01');
+
+        // only return key if it's from the default code list
+        return ($codeList == "01") ? $this->_getFirstElement('lieferantintern/ms/ms02') : null;
     }
 }
