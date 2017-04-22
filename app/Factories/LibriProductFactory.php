@@ -166,6 +166,7 @@ class LibriProductFactory implements IFactory {
         $libriProduct->TaxRateCode1         = (String) $controller->getTaxRateCode1();
         $libriProduct->NotificationType     = $controller->getNotificationType();
         $libriProduct->Lib_MSNo             = $controller->getLibriNotificationKey();
+        $libriProduct->AvailabilityCode     = $controller->getAvailabilityCode();
 
         return $libriProduct;
     }
@@ -555,5 +556,10 @@ class LibriProductFactory implements IFactory {
 
         // only return key if it's from the default code list
         return ($codeList == "01") ? $this->_getFirstElement('lieferantintern/ms/ms02') : null;
+    }
+
+    public function getAvailabilityCode() {
+        $result = $this->_getFirstElement("SupplyDetail/AvailabilityCode");
+        return $result?: null;
     }
 }
