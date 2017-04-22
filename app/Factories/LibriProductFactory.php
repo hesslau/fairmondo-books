@@ -86,12 +86,6 @@ class LibriProductFactory implements IFactory {
 
     // todo: implement memory friendly version of this
     public static function store(array $products): bool {
-
-        // exclude libriproducts which don't meet requirements to be a fairmondo product
-        $products = array_filter($products, function($libriProduct) {
-            return FairmondoProductBuilder::meetsRequirements($libriProduct);
-        });
-
         $progress = ConsoleOutput::progress(count($products));
 
         foreach ($products as $product) {
