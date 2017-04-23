@@ -26,7 +26,8 @@ class ExportController extends Controller
         $lastExport = Export::latest()->get();
         if(count($lastExport) > 0) {
             ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
-            $query = LibriProduct::where('updated_at','>',$lastExport[0]['created_at'])->orderBy('updated_at','asc');
+            $query = LibriProduct::updatedSince($lastExport[0]['created_at']);
+            dd($query->toSql());
         } else {
             ConsoleOutput::info("No previous export found. Selecting all records");
             $query = LibriProduct::query();  // don't use ::all() ! will result in memory exhaust
