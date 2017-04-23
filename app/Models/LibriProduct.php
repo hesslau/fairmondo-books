@@ -37,6 +37,6 @@ class LibriProduct extends Model
     }
 
     public function scopeUpdatedSince($query,$date) {
-        return $query->where('updated_at','>',$date)->orderBy('updated_at','asc');
+        return $query->where('updated_at','>',$date);
     }
 }
