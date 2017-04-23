@@ -27,7 +27,6 @@ class ExportController extends Controller
         if(count($lastExport) > 0) {
             ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
             $query = LibriProduct::updatedSince($lastExport[0]['created_at']);
-            dd($query->toSql());
         } else {
             ConsoleOutput::info("No previous export found. Selecting all records");
             $query = LibriProduct::query();  // don't use ::all() ! will result in memory exhaust
@@ -36,6 +35,9 @@ class ExportController extends Controller
         // generate progress bar
         $numberOfItems = $testrun ? 1000 : $query->count();
         $progress = ConsoleOutput::progress($numberOfItems);
+
+        // order query by date
+        $query = $query->orderBy('updated_at','asc');
 
         $files = [***REMOVED***
         $productHandler = function($products) use ($progress,&$files,$filepath,$testrun) {
