@@ -20,8 +20,19 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('import:onix {file}',function($file) {
-    $controller = App\Http\Controllers\Controller::get();
-    $controller->importONIXMessage($file);
+    $products = \App\Factories\LibriProductFactory::makeFromFile($file);
+
+    $totalConditionsFailed = ['passed'=>0];
+
+    foreach ($products as $product) {
+        $failedConditions = \App\Factories\FairmondoProductBuilder::checkConditions($product);
+        if(!$failedConditions) $totalConditionsFailed['passed']++;
+        foreach ($failedConditions as $failedCondition) {
+            if(!key_exists($failedCondition,$totalConditionsFailed)) $totalConditionsFailed[$failedCondition] = 0;
+            $totalConditionsFailed[$failedCondition]++;
+        }
+    }
+    dd(array_slice($products,0,5),$totalConditionsFailed);
 });
 
 Artisan::command('pull:annotations', function(){
@@ -74,7 +85,7 @@ Artisan::command('fairmondobooks:initialImport', function() {
             "action"=> "create"
         ];
 
-        if(App\Models\FairmondoProduct::find($gtin)) return;
+        //if(App\Models\FairmondoProduct::find($gtin)) return;
         $fairProduct = new App\Models\FairmondoProduct();
         foreach ($attributes as $attribute => $value) {
             $fairProduct->$attribute = $value;
@@ -83,18 +94,22 @@ Artisan::command('fairmondobooks:initialImport', function() {
         $fairProduct->save();
     }
 
+
     function importFile($file) {
         $handle = fopen($file, "r");
         ob_start();
+        $progress = \App\Facades\ConsoleOutput::progress();
         while(($gtin=fgets($handle)) !== false) {
             c(trim($gtin));
+            \App\Facades\ConsoleOutput::advance($progress);
         }
         ob_end_clean();
+        \App\Facades\ConsoleOutput::finish($progress);
         fclose($handle);
         Illuminate\Support\Facades\Log::info("Done with initial import!");
     }
 
-    $files = explode(' ','xaj');
+    $files = explode(' ','books-export-henrik.csv');
     foreach ($files as $file) {
         echo "importing $file";
         importFile("../$file");
