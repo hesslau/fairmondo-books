@@ -36,9 +36,6 @@ class ExportController extends Controller
         $numberOfItems = $testrun ? 1000 : $query->count();
         $progress = ConsoleOutput::progress($numberOfItems);
 
-        // order query by date
-        $query = $query->orderBy('updated_at','asc');
-
         $files = [***REMOVED***
         $productHandler = function($products) use ($progress,&$files,$filepath,$testrun) {
 
