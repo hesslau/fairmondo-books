@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Inspiring;
 use App\DatabaseSupervisor;
+use Illuminate\Support\Facades\Log;
 
 ini_set('memory_limit','512M');
 /*
@@ -91,7 +92,14 @@ Artisan::command('fairmondobooks:initialImport', function() {
             $fairProduct->$attribute = $value;
         }
         $fairProduct->gtin = $gtin;
-        $fairProduct->save();
+
+        try {
+            $fairProduct->save();
+        }
+        catch (\Illuminate\Database\QueryException $e) {
+            //\App\Facades\ConsoleOutput::error($e->getMessage());
+            Log::error("duplicate entry $gtin");
+        }
     }
 
 
