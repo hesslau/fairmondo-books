@@ -142,7 +142,14 @@ class FairmondoProductBuilder {
         }
 
         // trim title to maximal length
-        return substr($title,0,255);
+        return self::cleanTrim($title,255);
+    }
+
+    /*
+     * Trim a string while making sure to not split any words or multibyte characters.
+     */
+    private static function cleanTrim($text,$number_of_characters) {
+        return (strlen($text) < $number_of_characters) ? $text : substr($text, 0, strrpos(substr($text, 0, $number_of_characters), ' '));
     }
 
     /*
@@ -307,7 +314,7 @@ class FairmondoProductBuilder {
         $content = trim(preg_replace('/\s\s+/', ' ', $content));
 
         // trim to max 30000 characters
-        $content = substr($content,0,30000);
+        $content = self::cleanTrim($content,30000);
 
         return $content;
     }
@@ -436,11 +443,12 @@ class FairmondoProductBuilder {
     }
 
     public static function getTransportTime(LibriProduct $source) {
-        if( (!is_null($source->OrderTime) and $source->QuantityOnHand == 51)        /// todo Find out why this rule exists in spMacSelectProducts:199
-            or is_null($source->QuantityOnHand)) {
+        if($source->OrderTime <= 4) {
+            $transportTime = '1-4';
+        } else if($source->orderTime <= 10) {
             $transportTime = '5-10';
         } else {
-            $transportTime = '1-4';
+            $transportTime = $source->orderTime + 1;
         }
         return $transportTime;
     }
