@@ -6,6 +6,7 @@ use App\Facades\ConsoleOutput;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use League\Csv\Writer;
 use App\Models\FairmondoProduct;
 use App\Models\LibriProduct;
