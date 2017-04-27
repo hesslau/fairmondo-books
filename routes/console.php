@@ -53,8 +53,8 @@ Artisan::command('pull:annotations', function(){
     else exit(2);
 });
 
-Artisan::command('fairmondobooks:export {--since} {--test} {--skip=*}', function($since, $test, $skip) {
-    App\Http\Controllers\ExportController::makeDelta($since, $skip, $test);
+Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function($since, $test, $skip) {
+    App\Http\Controllers\ExportController::makeDelta($since, intval($skip), $test);
 });
 
 Artisan::command('fairmondobooks:initialImport', function() {
