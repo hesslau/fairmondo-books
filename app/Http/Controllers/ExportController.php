@@ -25,18 +25,20 @@ class ExportController extends Controller
         $zipArchive = storage_path('app/export/')."Export-".time().".zip";
         $chunkSize = 20000;
         $lastExport = Export::latest()->get();
-        $query = LibriProduct::skip($skip);
         if(count($lastExport) > 0) {
             ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
-            $query = $query->updatedSince($lastExport[0]['created_at']);
+            $query = LibriProduct::updatedSince($lastExport[0]['created_at']);
         } else {
             ConsoleOutput::info("No previous export found. Selecting all records");
-            $query = $query->query();  // don't use ::all() ! will result in memory exhaust
+            $query = LibriProduct::query();  // don't use ::all() ! will result in memory exhaust
         }
 
         // generate progress bar
-        $numberOfItems = $testrun ? 1000 : $query->count();
+        $numberOfItems = $testrun ? 1000 : $query->count('ProductReference') - $skip;
         $progress = ConsoleOutput::progress($numberOfItems);
+
+        // skip items
+        if($skip>0) $query = $query->skip($skip);
 
         $files = [***REMOVED***
         $productHandler = function($products) use ($progress,&$files,$filepath,$testrun) {
