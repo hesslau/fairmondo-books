@@ -315,7 +315,7 @@ class FairmondoProductBuilder {
 
         // trim to max 30000 characters
         $content = self::cleanTrim($content,30000);
-        $concent = self::removeForbiddenChars($content);
+        $content = self::removeForbiddenChars($content);
 
         return $content;
     }
