@@ -142,7 +142,7 @@ class FairmondoProductBuilder {
         }
 
         // trim title to maximal length
-        return self::cleanTrim($title,255);
+        return self::removeForbiddenChars(self::cleanTrim($title,255));
     }
 
     /*
@@ -315,8 +315,17 @@ class FairmondoProductBuilder {
 
         // trim to max 30000 characters
         $content = self::cleanTrim($content,30000);
+        $concent = self::removeForbiddenChars($content);
 
         return $content;
+    }
+
+    public static function removeForbiddenChars($text) {
+        $forbiddenChars = config('fairmondoproduct.ForbiddenCharacters');
+        foreach($forbiddenChars as $needle => $replacement) {
+            $text = str_replace($needle,$replacement,$text);
+        }
+        return $text;
     }
     /*
 

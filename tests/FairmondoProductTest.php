@@ -83,6 +83,14 @@ class FairmondoProductTest extends TestCase
         $this->assertNull($fairmondoProduct);
     }
 
+    public function testSpecialChars() {
+        $libriProduct = LibriProductFactory::makeFakeProduct(['DistinctiveTitle' => "Test Title \" Title end"]);
+        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+        $this->assertNotContains("\"",$fairmondoProduct->title,"Forbidden character not removed.");
+        //$fairmondoProduct->save();
+        //$fairmondoProduct->delete();
+    }
+
     public function testActionTypes() {
         // the following ONIXMessages each contain a single product with the same ISBN13 and will replace another
         $testProductReference = '1111111111111';
