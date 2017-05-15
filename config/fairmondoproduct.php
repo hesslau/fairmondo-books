@@ -100,7 +100,8 @@ return [
     ],
     'conditions' => [
         'AvailabilityStatus' => [20,21,22,23],
-        'invalidAudienceCodeValues' => [16,17,18]
+        'invalidAudienceCodeValues' => [16,17,18],
+        'maxPriceCents' => 1000000
     ],
     'templates' => [
         'DistinctiveTitle'  => '<h3>%s</h3>',
