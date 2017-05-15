@@ -83,6 +83,12 @@ class FairmondoProductTest extends TestCase
         $this->assertNull($fairmondoProduct);
     }
 
+    public function testInvalidPrice() {
+        $libriProduct = LibriProductFactory::makeFakeProduct(['PriceAmount' => 1000001]);
+        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+        $this->assertNull($fairmondoProduct,"Product with invalid price was created.");
+    }
+
     public function testSpecialChars() {
         $libriProduct = LibriProductFactory::makeFakeProduct(['DistinctiveTitle' => "Test Title \" Title end"]);
         $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);

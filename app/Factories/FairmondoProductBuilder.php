@@ -69,6 +69,7 @@ class FairmondoProductBuilder {
         $validProductForms = array_keys(config('fairmondoproduct.maps.ProductForm'));
         $validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
         $invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
+        $maxPriceCents = config('fairmondoproduct.conditions.maxPriceCents');
 
         // description of condition with matching expression
         $conditions = array(
@@ -79,7 +80,8 @@ class FairmondoProductBuilder {
             "HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
             //"HasQuantityOnHand"         => ($product->QuantityOnHand > 0) // or $product->Lib_MSNo = 15) // @todo what is Lib_MSNo???
             "HasCategory"               => ($product->VLBSchemeOld !== 0 || key_exists($product->ProductForm,config('fairmondoproduct.maps.ProductForm2FairmondoCategory'))),
-            "NotOnBlacklist"            => !self::isBlacklisted($product)
+            "NotOnBlacklist"            => !self::isBlacklisted($product),
+            "ValidPrice"                => self::getPriceCents($product) <= $maxPriceCents
         );
 
         // filter out the failed conditions
