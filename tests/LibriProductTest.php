@@ -75,4 +75,14 @@ class LibriProductTest extends TestCase
         $this->assertEquals(1,count($products));
     }
 
+    public function testSaveProduct() {
+        $products = $this->createLibriProductFromFile(self::VALID_TESTFILE);
+        LibriProductFactory::store($products);
+
+        // cleanup
+        foreach ($products as $product) {
+            $product->delete();
+        }
+    }
+
 }
