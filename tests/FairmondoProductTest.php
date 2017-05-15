@@ -87,6 +87,7 @@ class FairmondoProductTest extends TestCase
         $libriProduct = LibriProductFactory::makeFakeProduct(['DistinctiveTitle' => "Test Title \" Title end"]);
         $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
         $this->assertNotContains("\"",$fairmondoProduct->title,"Forbidden character not removed.");
+        $this->assertNotContains("\"",$fairmondoProduct->content,"Forbidden character not removed.");
         //$fairmondoProduct->save();
         //$fairmondoProduct->delete();
     }
