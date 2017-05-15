@@ -142,7 +142,7 @@ class FairmondoProductBuilder {
         }
 
         // trim title to maximal length
-        return self::removeForbiddenChars(self::cleanTrim($title,255));
+        return self::removeForbiddenChars(self::cleanTrim($title,200));
     }
 
     /*
