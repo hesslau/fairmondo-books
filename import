@@ -26,7 +26,7 @@ function removeLockfile {
 
 trap "removeLockfile; exit 1;" SIGINT SIGTERM
 
-if mkdir "$LOCKFILE_UPDATE"; then
+if [ ! -d "$LOCKFILE_EXPORT" ] && mkdir "$LOCKFILE_UPDATE"; then
 	echo "locking suceeded" >&2
 
         # import catalog updates
