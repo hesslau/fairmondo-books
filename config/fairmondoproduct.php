@@ -99,7 +99,7 @@
     ***REMOVED***
 ***REMOVED***,
     'conditions' => [
-        'AvailabilityStatus' => [20,21,22,23],
+        'AvailabilityStatus' => [20,21,22],         // 20: Available, 21: In Stock, 22: To order, 23: Print on Demand; for more Info see ONIX Codelist 65
         'invalidAudienceCodeValues' => [16,17,18],
         'maxPriceCents' => 1000000
 ***REMOVED***,
