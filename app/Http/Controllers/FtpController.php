@@ -100,7 +100,8 @@ class FtpController extends BaseController
             // check for integrity by filesize
             $localFilesize = filesize($localFilepath);
             $remoteFilesize = $this->remote_filesize($remoteFilepath);
-            if($localFilesize == $remoteFilesize) {
+            if($localFilesize == $remoteFilesize or $remoteFilesize = '') {
+                if($remoteFilesize = '') ConsoleOutput::info('Could not get remote filesize');
                 $this->closeConnection();
                 return $localFilepath;
             } else {
