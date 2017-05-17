@@ -13,5 +13,12 @@
         "user" => "***REMOVED***",
         "password" => "***REMOVED***",
 ***REMOVED***
+***REMOVED***,
+    "initial" => [
+        "host" => "ftp3.librinet.de",
+        "directory" => "/***REMOVED***/full_load_Onix_ONE/20170503",
+        "user" => "***REMOVED***",
+        "password" => "***REMOVED***",
+***REMOVED***
 ***REMOVED***
 ***REMOVED***
