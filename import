@@ -3,12 +3,9 @@ LOCKFILE_UPDATE=update.lock
 LOCKFILE_EXPORT=export.lock
 date "+[%Y-%m-%d %H:%M:%S]"
 
-# exit code 0 means there are no more files to download
-# exit code 1 means there was an error
-# exit code 2 means there are more files to download
 function repeatUntilCleanExit {
-	EXITCODE=2
-	while [ $EXITCODE -eq 2 ***REMOVED*** do
+	EXITCODE=1
+	while [ $EXITCODE -ne 0 ***REMOVED*** do
 		if [ -d "$LOCKFILE_EXPORT" ***REMOVED*** then
 			echo "export lock active";
 			removeLockfile;
