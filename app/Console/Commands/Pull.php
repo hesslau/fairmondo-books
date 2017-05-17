@@ -14,7 +14,7 @@ class Pull extends Command
      *
      * @var string
      */
-    protected $signature = 'pull {--test} {--start=} {--end=} {--reverse}';
+    protected $signature = 'pull {--test} {--start=} {--end=} {--reverse} {--initial}';
 
     /**
      * The console command description.
@@ -53,8 +53,10 @@ class Pull extends Command
             exit(1);
         }
 
+        $ftpConfig = $this->options('initial') ? 'initial' : 'updates';
+
         $libriProductDownloadManager = new App\Managers\DownloadManager(
-            new App\FtpSettings(config('ftp.updates')),
+            new App\FtpSettings(config('ftp.'.$ftpConfig)),
             new App\Factories\LibriProductFactory());
 
         $message = $libriProductDownloadManager->startPulling(compact('startTime','endTime','reverse'));
