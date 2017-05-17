@@ -39,4 +39,31 @@ class LibriProduct extends Model
     public function scopeUpdatedSince($query,$date) {
         return $query->where('updated_at','>',$date);
     }
+
+    public function scopeSelectFairmondoProducts($query)
+    {
+        $validProductForms = array_keys(config('fairmondoproduct.maps.ProductForm'));
+        $validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
+        $invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
+
+        return $query->whereIn("ProductForm", $validProductForms)
+                    ->whereIn("AvailabilityStatus", $validAvailabilityStatus)
+                    ->whereNotIn("AudienceCodeValue", $invalidAudienceCodeValues)
+                    ->where(function ($query) {
+                        $query  ->where("QuantityOnHand", ">", 0)
+                                ->orWhere("AvailabilityStatus", "22");
+                    });
+    }
+
+            /*
+             *  where (
+	   ProductReference is not Null
+   -- and ProductEAN = ProductReference
+   and DistinctiveTitle is not Null
+   -- and ProductLanguage in ('ger', 'eng', 'fre', 'spa', 'ita', 'fin', 'tur', 'dan')
+   and ProductForm in ('BA', 'BB', 'BC', 'BG', 'BH', 'BI', 'BP', 'BZ', 'AC', 'AI', 'VI', 'VO', 'ZE', 'DA', 'DG', 'PC')
+   and AvailabilityStatus IN (20,21,22)
+   and (AudienceCodeValue is Null or (AudienceCodeValue not like '%16%' and AudienceCodeValue not like '%17%' and AudienceCodeValue not like '%18%'))
+   and (QuantityOnHand > 0 or AvailabilityStatus = 22)
+             */
 }
