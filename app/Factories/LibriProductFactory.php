@@ -18,9 +18,9 @@ use ErrorException;
 class LibriProductFactory implements IFactory {
 
     public static function makeFromFile(string $file): array {
-        // load XML file
-        $xml = simplexml_load_file($file);
-        $dateOfCatalogUpdate = new Carbon($xml->header->m182);
+
+        // get date of catalog update (don't use simplexml, the file might be very large)
+        $dateOfCatalogUpdate = new Carbon(self::getDateOfCatalogUpdate($file));
 
         // get number of items in file to make a progress bar
         $numberOfItems = substr_count(file_get_contents($file),'<product>');
@@ -76,6 +76,24 @@ class LibriProductFactory implements IFactory {
         });
 
         return $products;
+    }
+
+    private static function getDateOfCatalogUpdate($file) {
+        $file = fopen($file, "r");
+
+        if ($file)
+        {
+            while (($line = fgets($file)) !== false)
+            {
+                $match = Null;
+                preg_match('/\<m182\>([0-9]{8})\<\/m182\>/',$line,$match);
+                if(isset($match[1])) return $match[1***REMOVED***
+            }
+        }
+        else
+        {
+            echo "Unable to open the file";
+        }
     }
 
     /*
@@ -176,6 +194,7 @@ class LibriProductFactory implements IFactory {
 
         return $libriProduct;
     }
+
 
     public function __construct() {
     }
