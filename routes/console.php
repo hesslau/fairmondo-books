@@ -53,6 +53,15 @@ Artisan::command('pull:annotations', function(){
     else exit(2);
 });
 
+/*
+ * Command to import files.
+ * @todo support annotation files
+ */
+Artisan::command('fairmondobooks:import:file {filename}', function($filename) {
+    $importManager = new \App\Managers\ImportManager(new App\Factories\LibriProductFactory());
+    $importManager->importFile($filename);
+});
+
 Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function($since, $test, $skip) {
     App\Http\Controllers\ExportController::makeDelta($since, intval($skip), $test);
 });
