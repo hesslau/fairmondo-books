@@ -56,6 +56,7 @@ class FtpController extends BaseController
         } else {
             $filelist = ftp_nlist($this->connection, $this->settings->directory);
         }
+        $this->closeConnection();
         return $filelist;
     }
 
@@ -73,9 +74,11 @@ class FtpController extends BaseController
                 $items[implode(" ", $chunks)] = $item;
             }
 
+            $this->closeConnection();
             return $items;
         }
-
+        $this->closeConnection();
+        return false;
         // @todo
         // Throw exception or return false < up to you
     }
