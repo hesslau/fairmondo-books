@@ -25,10 +25,14 @@ class ImportManager
      * Imports a file into database by calling the factory functions.
      */
     public function importFile($filename) {
+        $startTime = microtime(true);
+
         ConsoleOutput::info("Parse ${filename}:");
         $items = $this->factory->makeFromFile($filename);
 
         ConsoleOutput::info("Store ${filename}:");
         $this->factory->store($items);
+
+        ConsoleOutput::info(sprintf("Import of $filename took %s seconds.",microtime(true)-$startTime));
     }
 }
