@@ -20,35 +20,26 @@ class FairmondoProductBuilder {
 
     public static function create(LibriProduct $source) {
         $product = new FairmondoProduct;
-        $failedConditions = self::checkConditions($source);
 
-        if(count($failedConditions) > 0) {
-            // log failed conditions
-            Log::info("Product ".$source->RecordReference." fails following conditions: ".implode(',',$failedConditions));
-            return null;
+        // set default values first
+        $defaultValues = config('fairmondoproduct.default');
+        foreach ($defaultValues as $attribute => $default) {
+            $product->$attribute = $default;
         }
-        else {
 
-            // set default values first
-            $defaultValues = config('fairmondoproduct.default');
-            foreach ($defaultValues as $attribute => $default) {
-                $product->$attribute = $default;
-            }
+        $product->title = self::getTitle($source);
+        $product->categories = join(',',self::getCategories($source));
+        $product->quantity = self::getQuantity($source);
+        $product->content = self::getContent($source);                      // timekiller!
+        $product->vat = self::getVat($source);
+        $product->external_title_image_url = self::getExternalTitleImageUrl($source);
+        $product->gtin = self::getGtin($source);
+        $product->action = self::getAction($source);
+        $product->price_cents = self::getPriceCents($source);
+        $product->transport_time = self::getTransportTime($source);
+        $product->custom_seller_identifier = self::getCustomSellerIdentifier($source);
 
-            $product->title = self::getTitle($source);
-            $product->categories = join(',',self::getCategories($source));
-            $product->quantity = self::getQuantity($source);
-            $product->content = self::getContent($source);                      // timekiller!
-            $product->vat = self::getVat($source);
-            $product->external_title_image_url = self::getExternalTitleImageUrl($source);
-            $product->gtin = self::getGtin($source);
-            $product->action = self::getAction($source);
-            $product->price_cents = self::getPriceCents($source);
-            $product->transport_time = self::getTransportTime($source);
-            $product->custom_seller_identifier = self::getCustomSellerIdentifier($source);
-
-            return $product;
-        }
+        return $product;
     }
 
     private function __construct() {}
