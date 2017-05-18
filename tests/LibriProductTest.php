@@ -5,6 +5,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Log;
 use App\Factories\LibriProductFactory;
+use App\Models\LibriProduct;
+use Carbon\Carbon;
 use PONIpar\Parser;
 use App\Exceptions\MissingDataException;
 
@@ -12,6 +14,7 @@ class LibriProductTest extends TestCase
 {
 
     const VALID_TESTFILE = 'testing/VALID_TESTFILE.XML';
+    const TEST_PRODUCTREFERENCE = '1111111111111';
 
     /*public function testCreateLibriProduct()
     {
@@ -49,6 +52,15 @@ class LibriProductTest extends TestCase
         }
     }*/
 
+    private function getTestProduct() {
+        return LibriProduct::find(self::TEST_PRODUCTREFERENCE);
+    }
+
+    private function removeTestProduct() {
+        $product = $this->getTestProduct();
+        if(!is_null($product)) $product->delete();
+    }
+
     private function createLibriProductFromFile($file) {
         $libriProducts = LibriProductFactory::makeFromFile(storage_path($file));
         return $libriProducts;
@@ -65,11 +77,6 @@ class LibriProductTest extends TestCase
         $this->assertEquals(0,$product->QuantityOnHand,"QuantityOnHand doesn't match.");
     }
 
-    public function testCalatolgUpdate() {
-        list($product) = $this->createLibriProductFromFile("testing/GTUPD00014261.XML");
-        $this->assertEquals(14261,$product->CatalogUpdate);
-    }
-
     public function testMissingProductReference() {
         $products = $this->createLibriProductFromFile("testing/MISSINGPRODUCTREFERENCE.XML");
         $this->assertEquals(1,count($products));
@@ -83,6 +90,35 @@ class LibriProductTest extends TestCase
         foreach ($products as $product) {
             $product->delete();
         }
+    }
+
+    /*
+     * Test
+     */
+    public function testDateOfData() {
+        $this->removeTestProduct();
+
+        $yesterday = Carbon::yesterday();
+        $today = Carbon::today();
+        $tomorrow = Carbon::tomorrow();
+
+        // try to store product created today
+        $product = LibriProductFactory::makeFakeProduct([ 'DateOfData' => $today ]);
+        LibriProductFactory::store([$product]);
+        $this->assertEquals($today, $this->getTestProduct()->DateOfData);
+
+        // try to update with update from yesterday
+        $product = LibriProductFactory::makeFakeProduct([ 'DateOfData' => $yesterday ]);
+        LibriProductFactory::store([$product]);
+        $this->assertNotEquals($yesterday, $this->getTestProduct()->DateOfData);
+
+        // update with update from tomorrow
+        $product = LibriProductFactory::makeFakeProduct([ 'DateOfData' => $tomorrow ]);
+        LibriProductFactory::store([$product]);
+        $this->assertEquals($tomorrow,$this->getTestProduct()->DateOfData);
+
+        // cleanup
+        $this->removeTestProduct();
     }
 
 }
