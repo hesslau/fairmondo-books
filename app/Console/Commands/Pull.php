@@ -53,7 +53,7 @@ class Pull extends Command
             exit(1);
         }
 
-        $ftpConfig = $this->options('initial') ? 'initial' : 'updates';
+        $ftpConfig = $this->options()['initial'] ? 'initial' : 'updates';
 
         $libriProductDownloadManager = new App\Managers\DownloadManager(
             new App\FtpSettings(config('ftp.'.$ftpConfig)),
