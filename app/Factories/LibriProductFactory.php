@@ -112,8 +112,19 @@ class LibriProductFactory implements IFactory {
         $progress = ConsoleOutput::progress(count($products));
 
         foreach ($products as $product) {
-            LibriProduct::destroy($product->ProductReference);
-            $product->save();
+            $existingProduct = LibriProduct::find($product->ProductReference);
+
+            // if this product doesn't exists, save it
+            if(!$existingProduct) $product->save();
+
+            // if this product already exists and comes from an older CatalogUpdate
+            // delete existing product and save the new one
+            elseif( is_null($existingProduct->DateOfData) || is_null($product->DateOfData)
+                    || $existingProduct->DateOfData < $product->DateOfData) {
+                $existingProduct->delete();
+                $product->save();
+            }
+
             ConsoleOutput::advance($progress);
         }
 
