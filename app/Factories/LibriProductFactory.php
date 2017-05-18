@@ -2,6 +2,8 @@
 
 namespace App\Factories;
 
+use Carbon\Carbon;
+use Faker\Provider\cs_CZ\DateTime;
 use Illuminate\Support\Facades\Log;
 use phpDocumentor\Reflection\Types\Integer;
 use PONIpar;
@@ -16,20 +18,28 @@ use ErrorException;
 class LibriProductFactory implements IFactory {
 
     public static function makeFromFile(string $file): array {
+        // load XML file
+        $xml = simplexml_load_file($file);
+        $dateOfCatalogUpdate = new Carbon($xml->header->m182);
+
         // get number of items in file to make a progress bar
         $numberOfItems = substr_count(file_get_contents($file),'<product>');
         $progress = ConsoleOutput::progress($numberOfItems);
 
         // holds all products
         $products = [***REMOVED***
-        $productHandler = function($product) use ($progress,&$products) {
+        $productHandler = function($product) use ($progress,&$products,$dateOfCatalogUpdate) {
 
             ConsoleOutput::advance($progress);
 
             try {
                 // create Object from ONIX message
                 $libriProduct = self::create($product);
-                if(!is_null($libriProduct)) $products[] = $libriProduct;
+
+                if(!is_null($libriProduct)) {
+                    $libriProduct->DateOfData = $dateOfCatalogUpdate;
+                    $products[] = $libriProduct;
+                }
 
             } catch (MissingDataException $e) {
                 ConsoleOutput::error($e->getMessage());
@@ -65,11 +75,6 @@ class LibriProductFactory implements IFactory {
             return !is_null($item);
         });
 
-        // set calatog id
-        foreach($products as $product) {
-            $product->CatalogUpdate = (Integer) substr(basename($file),5,8);
-        }
-
         return $products;
     }
 
@@ -79,7 +84,7 @@ class LibriProductFactory implements IFactory {
     public static function makeFakeProduct($attributes = []) {
         list($product) = self::makeFromFile(storage_path('/testing/VALID_TESTFILE.XML'));
         foreach ($attributes as $attribute => $value) {
-            if(isset($product->$attribute)) $product->$attribute = $value;
+            $product->$attribute = $value;
         }
         return $product;
     }
@@ -96,7 +101,8 @@ class LibriProductFactory implements IFactory {
 
             // if this product already exists and comes from an older CatalogUpdate
             // delete existing product and save the new one
-            if($existingProduct && $existingProduct->CatalogUpdate <= $product->CatalogUpdate) {
+            elseif( is_null($existingProduct->DateOfData) || is_null($product->DateOfData)
+                    || $existingProduct->DateOfData < $product->DateOfData) {
                 $existingProduct->delete();
                 $product->save();
             }
