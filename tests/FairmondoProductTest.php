@@ -20,7 +20,7 @@ class FairmondoProductTest extends TestCase
     public static function createFairmondoProduct($filepath,$debug=false) {
         list($libriProduct) = LibriProductFactory::makeFromFile(storage_path($filepath));
         if($debug) dd($libriProduct);
-        return FairmondoProductBuilder::create($libriProduct);
+        return FairmondoProductBuilder::meetsRequirements($libriProduct) ? FairmondoProductBuilder::create($libriProduct) : false;
     }
 
     /**
@@ -69,24 +69,24 @@ class FairmondoProductTest extends TestCase
 
     public function testInvalidAudienceCode() {
         $libriProduct = LibriProductFactory::makeFakeProduct(['AudienceCodeValue' => 18]);
-        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
-        $this->assertNull($fairmondoProduct,"Product with invalid audience code was created.");
+        $fairmondoProduct = FairmondoProductBuilder::meetsRequirements($libriProduct);
+        $this->assertFalse($fairmondoProduct,"Product with invalid audience code was created.");
     }
 
     public function testInvalidProductForm() {
         $libriProduct = LibriProductFactory::makeFakeProduct(['ProductForm' => 'XX']);
-        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
-        $this->assertNull($fairmondoProduct,"Product with invalid product form was created.");
+        $fairmondoProduct = FairmondoProductBuilder::meetsRequirements($libriProduct);
+        $this->assertFalse($fairmondoProduct,"Product with invalid product form was created.");
 
         $libriProduct = LibriProductFactory::makeFakeProduct(['ProductForm' => 'AA']);
-        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
-        $this->assertNull($fairmondoProduct);
+        $fairmondoProduct = FairmondoProductBuilder::meetsRequirements($libriProduct);
+        $this->assertFalse($fairmondoProduct);
     }
 
     public function testInvalidPrice() {
-        $libriProduct = LibriProductFactory::makeFakeProduct(['PriceAmount' => 1000001]);
-        $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
-        $this->assertNull($fairmondoProduct,"Product with invalid price was created.");
+        $libriProduct = LibriProductFactory::makeFakeProduct(['PriceAmount' => config('fairmondoproduct.conditions.maxPriceCents') + 10]);
+        $fairmondoProduct = FairmondoProductBuilder::meetsRequirements($libriProduct);
+        $this->assertFalse($fairmondoProduct,"Product with invalid price was created.");
     }
 
     public function testSpecialChars() {
@@ -161,7 +161,7 @@ class FairmondoProductTest extends TestCase
     }
 
     public function testBlacklist() {
-        $p = new LibriProduct();
+        $p = LibriProductFactory::makeFakeProduct();
         $p->VLBSchemeOld = 5100;
         $failedConditions = FairmondoProductBuilder::checkConditions($p);
         $this->assertNotContains("NotOnBlacklist",$failedConditions);
