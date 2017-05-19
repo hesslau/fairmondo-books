@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\UndefinedPropertyException;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\Null_;
@@ -63,6 +64,23 @@ class LibriProduct extends Model
 
     public function setDateOfDataAttribute(Carbon $date) {
         $this->attributes['DateOfData'] = $date->toDateTimeString();
+    }
+
+    public function getAttribute($key) {
+        $inAttributes = array_key_exists($key, $this->attributes);
+        if ($inAttributes || $this->hasGetMutator($key)) {
+            return $this->getAttributeValue($key);
+        }
+
+        if (array_key_exists($key, $this->relations)) {
+            return $this->relations[$key];
+        }
+
+        if (method_exists($this, $key)) {
+            return $this->getRelationshipFromMethod($key);
+        }
+
+        throw new UndefinedPropertyException("Property $key for LibriProduct not found.");
     }
 
     /*
