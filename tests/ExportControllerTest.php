@@ -11,7 +11,7 @@ class ExportControllerTest extends TestCase
     public function testExport()
     {
         // test export
-        $exportFile = ExportController::makeDelta(null, true);
+        $exportFile = ExportController::makeDelta(null, null, true);
 
         // asser that export file has been written
         $this->assertTrue(file_exists($exportFile));
