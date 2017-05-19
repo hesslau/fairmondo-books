@@ -72,7 +72,7 @@ class FairmondoProductBuilder {
             //"HasQuantityOnHand"         => ($product->QuantityOnHand > 0) // or $product->Lib_MSNo = 15) // @todo what is Lib_MSNo???
             "HasCategory"               => ($product->VLBSchemeOld !== 0 || key_exists($product->ProductForm,config('fairmondoproduct.maps.ProductForm2FairmondoCategory'))),
             "NotOnBlacklist"            => !self::isBlacklisted($product),
-            "ValidPrice"                => self::getPriceCents($product) <= $maxPriceCents && self::getPriceCents($product) > 0
+            "ValidPrice"                => ($product->PriceAmount * 100 <= $maxPriceCents && $product->PriceAmount * 100 > 0)
         );
 
         // filter out the failed conditions
