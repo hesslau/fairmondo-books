@@ -444,13 +444,14 @@ class FairmondoProductBuilder {
         return $action;
     }
 
+    // todo ask why order time is grouped into 1-4 and 5-10
     public static function getTransportTime(LibriProduct $source) {
         if($source->OrderTime <= 4) {
             $transportTime = '1-4';
-        } else if($source->orderTime <= 10) {
+        } else if($source->OrderTime <= 10) {
             $transportTime = '5-10';
         } else {
-            $transportTime = $source->orderTime + 1;
+            $transportTime = $source->OrderTime + 1;
         }
         return $transportTime;
     }
