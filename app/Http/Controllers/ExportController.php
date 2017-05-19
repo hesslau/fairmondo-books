@@ -21,8 +21,8 @@ class ExportController extends Controller
      * Converts all LibriProducts into FairmondoProducts and writes them to disc.
      */
     public static function makeDelta($startDate, $skip=0, $testrun = false) {
-        $filepath = storage_path('app/export/')."Export-".time()."-%s.csv";
-        $zipArchive = storage_path('app/export/')."Export-".time().".zip";
+        $filepath = storage_path('app/export/')."Export-".date('Ymd')."-%s.csv";
+        $zipArchive = storage_path('app/export/')."Export-".time('Ymd').".zip";
         $chunkSize = 20000;
         $lastExport = Export::latest()->get();
         if(count($lastExport) > 0) {
