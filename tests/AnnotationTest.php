@@ -31,15 +31,7 @@ class AnnotationTest extends TestCase
     }
 
     public function testPulling() {
-        $downloadManager = new App\Managers\DownloadManager(
-            new \App\FtpSettings(config("ftp.annotations")),
-            new \App\Factories\AnnotationFactory(),
-            function($filepath) {
-                return (substr(basename($filepath),0,6) == "GKTEXT");
-            }
-        );
-
-        $downloadManager->startPulling();
+        // todo implement
     }
 
     public function testPictureAnnotation() {
