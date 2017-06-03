@@ -49,13 +49,13 @@ class LibriProduct extends Model
         $validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
         $invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
 
-        return $query->whereIn("ProductForm", $validProductForms)
-                    ->whereIn("AvailabilityStatus", $validAvailabilityStatus)
-                    ->whereNotIn("AudienceCodeValue", $invalidAudienceCodeValues)
-                    ->where(function ($query) {
-                        $query  ->where("QuantityOnHand", ">", 0)
-                                ->orWhere("AvailabilityStatus", "22");
-                    });
+        return $query   ->whereIn("ProductForm", $validProductForms)
+                        ->whereIn("AvailabilityStatus", $validAvailabilityStatus)
+                        ->whereNotIn("AudienceCodeValue", $invalidAudienceCodeValues)
+                        ->where(function ($query) {
+                            $query  ->where("QuantityOnHand", ">", 0)
+                                    ->orWhere("AvailabilityStatus", "22");
+                        });
     }
 
     public function getDateOfDataAttribute($date) {
