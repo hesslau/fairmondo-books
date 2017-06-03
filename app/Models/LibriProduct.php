@@ -49,11 +49,11 @@ class LibriProduct extends Model
         $validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
         $invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
 
-        return $query   ->whereIn("ProductForm", $validProductForms)
-                        ->whereIn("AvailabilityStatus", $validAvailabilityStatus)
+        return $query   ->whereIn("ProductForm", $validProductForms)                    // select supported product forms
+                        ->whereIn("AvailabilityStatus", $validAvailabilityStatus)       // select available titles
                         ->whereIn("NotificationType", ["03","05"])                      // select published or deleted titles
-                        ->whereNotIn("AudienceCodeValue", $invalidAudienceCodeValues)
-                        ->where(function ($query) {
+                        ->whereNotIn("AudienceCodeValue", $invalidAudienceCodeValues)   // select titles which are appropiate for audience
+                        ->where(function ($query) {                                     // select titles in stock
                             $query  ->where("QuantityOnHand", ">", 0)
                                     ->orWhere("AvailabilityStatus", "22");
                         });
