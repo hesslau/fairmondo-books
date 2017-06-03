@@ -376,7 +376,7 @@ class FairmondoProductBuilder {
     }
 
     public static function getGtin(LibriProduct $source) {
-        return sprintf("%013s",$source->ProductReference);
+        return $source->ProductReference;
     }
 
     public static function getCustomSellerIdentifier(LibriProduct $source) {
