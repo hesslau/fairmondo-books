@@ -51,6 +51,7 @@ class LibriProduct extends Model
 
         return $query   ->whereIn("ProductForm", $validProductForms)
                         ->whereIn("AvailabilityStatus", $validAvailabilityStatus)
+                        ->whereIn("NotificationType", ["03","05"])                      // select published or deleted titles
                         ->whereNotIn("AudienceCodeValue", $invalidAudienceCodeValues)
                         ->where(function ($query) {
                             $query  ->where("QuantityOnHand", ">", 0)
