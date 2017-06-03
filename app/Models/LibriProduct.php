@@ -53,10 +53,7 @@ class LibriProduct extends Model
                         ->whereIn("AvailabilityStatus", $validAvailabilityStatus)       // select available titles
                         ->whereIn("NotificationType", ["03","05"])                      // select published or deleted titles
                         ->whereNotIn("AudienceCodeValue", $invalidAudienceCodeValues)   // select titles which are appropiate for audience
-                        ->where(function ($query) {                                     // select titles in stock
-                            $query  ->where("QuantityOnHand", ">", 0)
-                                    ->orWhere("AvailabilityStatus", "22");
-                        });
+                        ;
     }
 
     public function getDateOfDataAttribute($date) {
