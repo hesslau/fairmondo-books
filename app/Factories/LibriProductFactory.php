@@ -191,6 +191,7 @@ class LibriProductFactory implements IFactory {
         $libriProduct->NotificationType     = $controller->getNotificationType();
         $libriProduct->Lib_MSNo             = $controller->getLibriNotificationKey();
         $libriProduct->AvailabilityCode     = $controller->getAvailabilityCode();
+        $libriProduct->PublishingStatus     = $controller->getPublishingStatus();
 
         return $libriProduct;
     }
@@ -585,6 +586,11 @@ class LibriProductFactory implements IFactory {
 
     public function getAvailabilityCode() {
         $result = $this->_getFirstElement("SupplyDetail/AvailabilityCode");
+        return $result?: null;
+    }
+
+    public function getPublishingStatus() {
+        $result = $this->_getFirstElement("PublishingStatus");
         return $result?: null;
     }
 }
