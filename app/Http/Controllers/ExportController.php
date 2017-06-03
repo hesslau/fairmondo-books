@@ -24,17 +24,20 @@ class ExportController extends Controller
         $filepath = storage_path('app/export/')."Export-".date('Ymd')."-%s.csv";
         $zipArchive = storage_path('app/export/')."Export-".time('Ymd').".zip";
         $chunkSize = 20000;
-        $lastExport = Export::latest()->get();
+        /*$lastExport = Export::latest()->get();
         if(count($lastExport) > 0) {
             ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
             $query = LibriProduct::selectFairmondoProducts()->updatedSince($lastExport[0]['created_at']);
         } else {
             ConsoleOutput::info("No previous export found. Selecting all records");
             $query = LibriProduct::selectFairmondoProducts();  // don't use ::all() ! will result in memory exhaust
-        }
+        }*/
+
+        self::prepareExport();
+        $query = DB::table('selected_products')->join('libri_products','ProductReference','=','gtin');
 
         // generate progress bar
-        $numberOfItems = $testrun ? 1000 : $query->count('ProductReference') - $skip;
+        $numberOfItems = $testrun ? 1000 : $query->count() - $skip;
         $progress = ConsoleOutput::progress($numberOfItems);
 
         // skip items
@@ -48,8 +51,11 @@ class ExportController extends Controller
 
             foreach ($products as $product) {
 
+                // build LibriProduct
+                $libriProduct = with(new LibriProduct)->newFromStd( $product );
+
                 // get Fairmondo Product
-                $fairmondoProduct = self::getFairmondoProduct($product);
+                $fairmondoProduct = self::getFairmondoProduct($libriProduct);
 
 
                 if(!is_null($fairmondoProduct)) {
@@ -104,6 +110,33 @@ class ExportController extends Controller
 
     }
 
+    private static function query($query){
+        return DB::unprepared(DB::raw($query));
+    }
+
+    public static function prepareExport() {
+        $date = Export::latest()->get()[0]['created_at'];
+        print $date;
+
+        $dropTempTable = self::query("TRUNCATE TABLE selected_products ;");
+
+        //$createTempTable = self::query("create temporary table selected_products (gtin varchar(13) not null primary key,action varchar(6));");
+        //print $createTempTable;
+
+
+        $filterLibriProducts = self::query("insert into selected_products select ProductReference, 'create' from libri_products where 
+                                            created_at > '$date' 
+                                            and AvailabilityStatus in ('20','21','23')
+                                            and ProductForm in ('BA','BB','BC','BG','BH','BI','BP','BZ','AC','DA','AI','VI','VO','ZE','DG','PC')
+                                            and NotificationType in ('03','05')
+                                            and AudienceCodeValue not in ('16','17','18');");
+
+        $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$date' and gtin=ProductReference;");
+
+        $updateQualifiedFairmondoProducts = self::query("update selected_products,fairmondo_products set selected_products.action='update' where selected_products.gtin=fairmondo_products.gtin and selected_products.action<>'delete';");
+
+    }
+
     private static function storeFairmondoProduct($product) {
         // delete previous records
         FairmondoProduct::destroy($product->gtin);
@@ -120,7 +153,7 @@ class ExportController extends Controller
         }
     }
 
-    public static function getFairmondoProduct(LibriProduct $product) {
+    public static function getFairmondoProduct($product) {
         if(FairmondoProductBuilder::meetsRequirements($product)) {
             // convert data into Fairmondo Product
             $p = FairmondoProductBuilder::create($product);
