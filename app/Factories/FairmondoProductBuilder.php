@@ -57,22 +57,22 @@ class FairmondoProductBuilder {
     public static function checkConditions(LibriProduct $product) {
 
         // get settings from config
-        $validProductForms = array_keys(config('fairmondoproduct.maps.ProductForm'));
-        $validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
-        $invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
-        $maxPriceCents = config('fairmondoproduct.conditions.maxPriceCents');
+        //$validProductForms = array_keys(config('fairmondoproduct.maps.ProductForm'));
+        //$validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
+        //$invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
+        //$maxPriceCents = config('fairmondoproduct.conditions.maxPriceCents');
 
         // description of condition with matching expression
         $conditions = array(
-            "HasDistinctiveTitle"       => ($product->DistinctiveTitle != ''),     // note: useless condition since products without title will fail the previous import
-            "HasValidProductForm"       => in_array($product->ProductForm,$validProductForms),
+            //"HasDistinctiveTitle"       => ($product->DistinctiveTitle != ''),     // note: useless condition since products without title will fail the previous import
+            //"HasValidProductForm"       => in_array($product->ProductForm,$validProductForms),
             // todo What happens when AvailabilityStatus changes?
-            "IsAvailable"               => in_array($product->AvailabilityStatus,$validAvailabilityStatus),
-            "HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
+            //"IsAvailable"               => in_array($product->AvailabilityStatus,$validAvailabilityStatus),
+            //"HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
             //"HasQuantityOnHand"         => ($product->QuantityOnHand > 0) // or $product->Lib_MSNo = 15) // @todo what is Lib_MSNo???
             "HasCategory"               => ($product->VLBSchemeOld !== 0 || key_exists($product->ProductForm,config('fairmondoproduct.maps.ProductForm2FairmondoCategory'))),
             "NotOnBlacklist"            => !self::isBlacklisted($product),
-            "ValidPrice"                => ($product->PriceAmount * 100 <= $maxPriceCents && $product->PriceAmount * 100 > 0)
+            //"ValidPrice"                => ($product->PriceAmount * 100 <= $maxPriceCents && $product->PriceAmount * 100 > 0)
         );
 
         // filter out the failed conditions
