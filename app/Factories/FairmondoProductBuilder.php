@@ -178,7 +178,7 @@ class FairmondoProductBuilder {
             $categories[] = $map[$source->ProductForm***REMOVED***
         }
 
-        if(!$categories) throw new MissingDataException("Product doesn't belong to any categories.");
+        if(!$categories) throw new MissingDataException("Product doesn't belong to any categories.",$source->ProductReference);
 
         // todo: find better category matching that doesn't rely on VLBSchemeOld
 
