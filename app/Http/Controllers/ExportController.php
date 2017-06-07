@@ -116,14 +116,14 @@ class ExportController extends Controller
 
     public static function prepareExport() {
         $date = Export::latest()->get()[0]['created_at'];
-        print $date;
+        ConsoleOutput::info("Last Export was at $date.");
 
         $dropTempTable = self::query("TRUNCATE TABLE selected_products ;");
 
         //$createTempTable = self::query("create temporary table selected_products (gtin varchar(13) not null primary key,action varchar(6));");
         //print $createTempTable;
 
-
+        ConsoleOutput::info("Selecting Products eligible for Fairmondo Market updated since $date.");
         $filterLibriProducts = self::query("insert into selected_products select ProductReference, 'create' from libri_products where 
                                             created_at > '$date' 
                                             and AvailabilityStatus in ('20','21','23')
@@ -132,8 +132,10 @@ class ExportController extends Controller
                                             and AudienceCodeValue not in ('16','17','18')
                                             and PriceAmount between 0 and 10000.00;");
 
+        ConsoleOutput::info("Marking ineligible Products in Market for deletion.");
         $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$date' and gtin=ProductReference;");
 
+        ConsoleOutput::info("Marking eligible Products in Market for update.");
         $updateQualifiedFairmondoProducts = self::query("update selected_products,fairmondo_products set selected_products.action='update' where selected_products.gtin=fairmondo_products.gtin and selected_products.action<>'delete';");
 
     }
