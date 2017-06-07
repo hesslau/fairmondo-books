@@ -133,7 +133,8 @@ class ExportController extends Controller
 
     private static function writeToFile($content,$filename) {
         if(file_exists($filename)) {
-            throw new Exception("File $filename already exists.");
+            ConsoleOutput::info("File $filename already exists. Will be deleted.");
+            unlink($filename);
         }
         $exportFileHandle = fopen($filename,'w');
         fwrite($exportFileHandle,$content);
