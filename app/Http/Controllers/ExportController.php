@@ -140,6 +140,10 @@ class ExportController extends Controller
 
     }
 
+    private function cleanupExport() {
+        //@ todo: implement
+    }
+
     private static function storeFairmondoProduct($product) {
         // delete previous records
         FairmondoProduct::destroy($product->gtin);
