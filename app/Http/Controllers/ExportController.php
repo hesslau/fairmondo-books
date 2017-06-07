@@ -51,23 +51,29 @@ class ExportController extends Controller
 
             foreach ($products as $product) {
 
-                // build LibriProduct
-                $libriProduct = with(new LibriProduct)->newFromStd( $product );
+                try {
 
-                // get Fairmondo Product
-                $fairmondoProduct = self::getFairmondoProduct($libriProduct);
+                    // build LibriProduct
+                    $libriProduct = with(new LibriProduct)->newFromStd( $product );
+
+                    // get Fairmondo Product
+                    $fairmondoProduct = self::getFairmondoProduct($libriProduct);
 
 
-                if(!is_null($fairmondoProduct)) {
-                    // write to export file
-                    $export->insertOne($fairmondoProduct->toArray());
+                    if(!is_null($fairmondoProduct)) {
+                        // write to export file
+                        $export->insertOne($fairmondoProduct->toArray());
 
-                    // save the product to database
-                    if(!$testrun) self::storeFairmondoProduct($fairmondoProduct);
+                        // save the product to database
+                        if(!$testrun) self::storeFairmondoProduct($fairmondoProduct);
+                    }
+
+                    // advance progress bar
+                    ConsoleOutput::advance($progress);
+                } catch(\App\Exceptions\MissingDataException $e) {
+                    Log::error("Failed to convert ".$product->ProductReference.". ".$e->getMessage());
                 }
 
-                // advance progress bar
-                ConsoleOutput::advance($progress);
             }
 
             // finally write all to export file
