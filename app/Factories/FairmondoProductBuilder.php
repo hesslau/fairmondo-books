@@ -307,7 +307,7 @@ class FairmondoProductBuilder {
         $content = trim(preg_replace('/\s\s+/', ' ', $content));
 
         // trim to max 30000 characters
-        $content = self::cleanTrim($content,30000);
+        $content = self::cleanTrim($content,10000);
         $content = self::removeForbiddenChars($content);
 
         return $content;
