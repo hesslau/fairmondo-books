@@ -136,7 +136,7 @@ class ExportController extends Controller
                                             and ProductForm in ('BA','BB','BC','BG','BH','BI','BP','BZ','AC','DA','AI','VI','VO','ZE','DG','PC')
                                             and NotificationType in ('03','05')
                                             and AudienceCodeValue not in ('16','17','18')
-                                            and PriceAmount between 0 and 10000.00;");
+                                            and PriceAmount between 0.99 and 10000.00;");
 
         ConsoleOutput::info("Marking ineligible Products in Market for deletion.");
         $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$date' and gtin=ProductReference;");
