@@ -275,7 +275,7 @@ class FairmondoProductBuilder {
                     $value = self::formatDate($source->PublicationDate);
                     break;
                 case 'Blurb':
-                    $value = self::getBlurb($source);
+                    $value = self::cleanTrim(self::getBlurb($source),9000);     // trim content before adding html code
                     break;
                 case 'AudioBook':
                     $value = $source->isAudioBook();
@@ -306,8 +306,7 @@ class FairmondoProductBuilder {
         // remove new lines
         $content = trim(preg_replace('/\s\s+/', ' ', $content));
 
-        // trim to max 30000 characters
-        $content = self::cleanTrim($content,10000);
+        // remove forbidden charactersM
         $content = self::removeForbiddenChars($content);
 
         return $content;
