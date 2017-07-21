@@ -142,7 +142,7 @@ class FairmondoProductBuilder {
      * Trim a string while making sure to not split any words or multibyte characters.
      */
     private static function cleanTrim($text,$number_of_characters) {
-        return (strlen($text) < $number_of_characters) ? $text : substr($text, 0, strrpos(substr($text, 0, $number_of_characters), ' '));
+        return (strlen($text) < $number_of_characters) ? $text : substr($text, 0, strrpos(substr($text, 0, $number_of_characters), ' ')."...");
     }
 
     /*
