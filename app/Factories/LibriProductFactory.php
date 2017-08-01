@@ -19,6 +19,9 @@ class LibriProductFactory implements IFactory {
 
     public static function makeFromFile(string $file): array {
 
+        // get catalog update identifier
+        list($catalogUpdateIdentifier,$suffix) = explode('.',basename($file));
+
         // get date of catalog update (don't use simplexml, the file might be very large)
         $dateOfCatalogUpdate = new Carbon(self::getDateOfCatalogUpdate($file));
 
@@ -28,7 +31,7 @@ class LibriProductFactory implements IFactory {
 
         // holds all products
         $products = [***REMOVED***
-        $productHandler = function($product) use ($progress,&$products,$dateOfCatalogUpdate) {
+        $productHandler = function($product) use ($progress,&$products,$dateOfCatalogUpdate, $catalogUpdateIdentifier) {
 
             ConsoleOutput::advance($progress);
 
@@ -38,6 +41,7 @@ class LibriProductFactory implements IFactory {
 
                 if(!is_null($libriProduct)) {
                     $libriProduct->DateOfData = $dateOfCatalogUpdate;
+                    $libriProduct->LibriUpdate = $catalogUpdateIdentifier;
                     $products[] = $libriProduct;
                 }
 
