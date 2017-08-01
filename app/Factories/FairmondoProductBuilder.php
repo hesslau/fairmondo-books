@@ -57,22 +57,22 @@ class FairmondoProductBuilder {
     public static function checkConditions(LibriProduct $product) {
 
         // get settings from config
-        $validProductForms = array_keys(config('fairmondoproduct.maps.ProductForm'));
-        $validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
-        $invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
-        $maxPriceCents = config('fairmondoproduct.conditions.maxPriceCents');
+        //$validProductForms = array_keys(config('fairmondoproduct.maps.ProductForm'));
+        //$validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
+        //$invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
+        //$maxPriceCents = config('fairmondoproduct.conditions.maxPriceCents');
 
         // description of condition with matching expression
         $conditions = array(
-            "HasDistinctiveTitle"       => ($product->DistinctiveTitle != ''),     // note: useless condition since products without title will fail the previous import
-            "HasValidProductForm"       => in_array($product->ProductForm,$validProductForms),
+            //"HasDistinctiveTitle"       => ($product->DistinctiveTitle != ''),     // note: useless condition since products without title will fail the previous import
+            //"HasValidProductForm"       => in_array($product->ProductForm,$validProductForms),
             // todo What happens when AvailabilityStatus changes?
-            "IsAvailable"               => in_array($product->AvailabilityStatus,$validAvailabilityStatus),
-            "HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
+            //"IsAvailable"               => in_array($product->AvailabilityStatus,$validAvailabilityStatus),
+            //"HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
             //"HasQuantityOnHand"         => ($product->QuantityOnHand > 0) // or $product->Lib_MSNo = 15) // @todo what is Lib_MSNo???
             "HasCategory"               => ($product->VLBSchemeOld !== 0 || key_exists($product->ProductForm,config('fairmondoproduct.maps.ProductForm2FairmondoCategory'))),
             "NotOnBlacklist"            => !self::isBlacklisted($product),
-            "ValidPrice"                => ($product->PriceAmount * 100 <= $maxPriceCents && $product->PriceAmount * 100 > 0)
+            //"ValidPrice"                => ($product->PriceAmount * 100 <= $maxPriceCents && $product->PriceAmount * 100 > 0)
         );
 
         // filter out the failed conditions
@@ -142,7 +142,7 @@ class FairmondoProductBuilder {
      * Trim a string while making sure to not split any words or multibyte characters.
      */
     private static function cleanTrim($text,$number_of_characters) {
-        return (strlen($text) < $number_of_characters) ? $text : substr($text, 0, strrpos(substr($text, 0, $number_of_characters), ' '));
+        return (strlen($text) < $number_of_characters) ? $text : substr($text, 0, strrpos(substr($text, 0, $number_of_characters), ' '))."...";
     }
 
     /*
@@ -178,7 +178,7 @@ class FairmondoProductBuilder {
             $categories[] = $map[$source->ProductForm***REMOVED***
         }
 
-        if(!$categories) throw new MissingDataException("Product doesn't belong to any categories.");
+        if(!$categories) throw new MissingDataException("Product doesn't belong to any categories.",$source->ProductReference);
 
         // todo: find better category matching that doesn't rely on VLBSchemeOld
 
@@ -275,7 +275,7 @@ class FairmondoProductBuilder {
                     $value = self::formatDate($source->PublicationDate);
                     break;
                 case 'Blurb':
-                    $value = self::getBlurb($source);
+                    $value = self::cleanTrim(self::getBlurb($source),9000);     // trim content before adding html code
                     break;
                 case 'AudioBook':
                     $value = $source->isAudioBook();
@@ -306,8 +306,7 @@ class FairmondoProductBuilder {
         // remove new lines
         $content = trim(preg_replace('/\s\s+/', ' ', $content));
 
-        // trim to max 30000 characters
-        $content = self::cleanTrim($content,30000);
+        // remove forbidden charactersM
         $content = self::removeForbiddenChars($content);
 
         return $content;

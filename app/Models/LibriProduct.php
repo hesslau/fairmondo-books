@@ -56,6 +56,73 @@ class LibriProduct extends Model
                         ;
     }
 
+    /*
+    create temporary table selected_products (gtin varchar(13) not null primary key,action varchar(6));
+    insert into selected_products select ProductReference, 'create' from libri_products where created_at > '2017-05-20' and AvailabilityStatus = "20";
+    insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '2017-05-20' and gtin=ProductReference;
+    update selected_products,fairmondo_products set selected_products.action='update' where selected_products.gtin=fairmondo_products.gtin and selected_products.action<>'delete';
+     */
+
+    public function newFromStd($std) {
+        // backup fillable
+        $fillable = $this->getFillable();
+
+        $std->DateOfData = new Carbon($std->DateOfData);
+
+        // set id and other fields you want to be filled
+        $this->fillable([
+            "ProductReference",
+            "ProductReferenceType",
+            "RecordReference",
+            "ProductForm",
+            "DistinctiveTitle",
+            "NotificationType",
+            "ProductEAN",
+            "ProductISBN10",
+            "ProductISBN13",
+            "Author",
+            "CoverLink",
+            "AudienceCodeValue",
+            "ProductLanguage",
+            "PublisherName",
+            "NumberOfPages",
+            "PublicationDate",
+            "VLBSchemeOld",
+            "ProductHeight",
+            "ProductWidth",
+            "ProductThickness",
+            "ProductWeight",
+            "OrderTime",
+            "QuantityOnHand",
+            "AvailabilityStatus",
+            "PriceAmount",
+            "TaxRateCode1",
+            "PriceTypeCode",
+            "DiscountPercent",
+            "Blurb",
+            "CatalogUpdate",
+            "created_at",
+            "updated_at",
+            "Lib_MSNo",
+            "AvailabilityCode",
+            "DateOfData",
+            "PublishingStatus",
+    ***REMOVED***);
+
+        // fill $this->attributes array
+        $this->fill((array) $std);
+
+        // fill $this->original array
+        $this->syncOriginal();
+
+        $this->exists = true;
+
+        // restore fillable
+        $this->fillable($fillable);
+
+        return $this;
+    }
+
     public function getDateOfDataAttribute($date) {
         return is_null($date) ? Null : new Carbon($date);
     }
