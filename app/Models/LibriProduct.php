@@ -100,7 +100,7 @@ class LibriProduct extends Model
             "PriceTypeCode",
             "DiscountPercent",
             "Blurb",
-            "CatalogUpdate",
+            "LibriUpdate",
             "created_at",
             "updated_at",
             "Lib_MSNo",
