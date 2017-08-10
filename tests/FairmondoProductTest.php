@@ -67,28 +67,6 @@ class FairmondoProductTest extends TestCase
         }
     }
 
-    public function testInvalidAudienceCode() {
-        $libriProduct = LibriProductFactory::makeFakeProduct(['AudienceCodeValue' => 18]);
-        $fairmondoProduct = FairmondoProductBuilder::meetsRequirements($libriProduct);
-        $this->assertFalse($fairmondoProduct,"Product with invalid audience code was created.");
-    }
-
-    public function testInvalidProductForm() {
-        $libriProduct = LibriProductFactory::makeFakeProduct(['ProductForm' => 'XX']);
-        $fairmondoProduct = FairmondoProductBuilder::meetsRequirements($libriProduct);
-        $this->assertFalse($fairmondoProduct,"Product with invalid product form was created.");
-
-        $libriProduct = LibriProductFactory::makeFakeProduct(['ProductForm' => 'AA']);
-        $fairmondoProduct = FairmondoProductBuilder::meetsRequirements($libriProduct);
-        $this->assertFalse($fairmondoProduct);
-    }
-
-    public function testInvalidPrice() {
-        $libriProduct = LibriProductFactory::makeFakeProduct(['PriceAmount' => config('fairmondoproduct.conditions.maxPriceCents') + 10]);
-        $fairmondoProduct = FairmondoProductBuilder::meetsRequirements($libriProduct);
-        $this->assertFalse($fairmondoProduct,"Product with invalid price was created.");
-    }
-
     public function testSpecialChars() {
         $libriProduct = LibriProductFactory::makeFakeProduct(['DistinctiveTitle' => "Test Title \" Title end"]);
         $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
