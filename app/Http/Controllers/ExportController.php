@@ -22,7 +22,7 @@ class ExportController extends Controller
      */
     public static function makeDelta($startDate, $skip=0, $testrun = false) {
         $filepath = storage_path('app/export/')."Export-".date('Ymd')."-%s.csv";
-        $zipArchive = storage_path('app/export/')."Export-".time('Ymd').".zip";
+        $zipArchive = storage_path('app/export/')."Export-".date('Ymd').".zip";
         $chunkSize = 20000;
         /*$lastExport = Export::latest()->get();
         if(count($lastExport) > 0) {
