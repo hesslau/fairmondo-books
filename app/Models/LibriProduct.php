@@ -116,6 +116,7 @@ class LibriProduct extends Model
         $this->syncOriginal();
 
         $this->exists = true;
+        $this->action = $std->action;
 
         // restore fillable
         $this->fillable($fillable);
