@@ -422,22 +422,27 @@ class FairmondoProductBuilder {
         and macSelectProductsFairnopoly.content = macSaveProductsFairnopoly.content
          */
 
-        // try to get product details from database
-        $previousRecord = FairmondoProduct::where('gtin',self::getGtin($source))->first();
-
         // check if the notification type is a deletion
         if($source->NotificationType == "05") {
             $action = self::ACTION_DELETE;
+        } else if(property_exists($source,'action')) {
+            // if the LibriProduct came from selected_products table it will have the `action` attribute set
+            $action = $source->action;
+        } else {
+            // try to get product details from database
+            $previousRecord = FairmondoProduct::where('gtin',self::getGtin($source))->first();
+
+            // all other notification types signal an update to an old record or a new record
+            // if the old record was found and it wasn't meant to be deleted, set action to 'update'
+            if($previousRecord and $previousRecord->action != self::ACTION_DELETE) {
+                $action = self::ACTION_UPDATE;
+            }
+            // otherwise the action is 'create'
+            else {
+                $action = self::ACTION_CREATE;
+            }
         }
-        // all other notification types signal an update to an old record or a new record
-        // if the old record was found and it wasn't meant to be deleted, set action to 'update'
-        else if($previousRecord and $previousRecord->action != self::ACTION_DELETE) {
-            $action = self::ACTION_UPDATE;
-        }
-        // otherwise the action is 'create'
-        else {
-            $action = self::ACTION_CREATE;
-        }
+
 
         // @todo question: do all titles that existed in the previous update and do not exist in this update get $action = 'delete'?
         return $action;
