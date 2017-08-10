@@ -138,9 +138,11 @@ class ExportController extends Controller
                                             and AudienceCodeValue not in ('16','17','18')
                                             and PriceAmount between 0.99 and 10000.00;");
 
+        // mark products for deletion which were updated in libri_products and exist in the current market fairmondo_products but didn't make it into selected_products
         ConsoleOutput::info("Marking ineligible Products in Market for deletion.");
         $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$date' and gtin=ProductReference;");
 
+        // mark products for update which are selected for market and already exist in the market
         ConsoleOutput::info("Marking eligible Products in Market for update.");
         $updateQualifiedFairmondoProducts = self::query("update selected_products,fairmondo_products set selected_products.action='update' where selected_products.gtin=fairmondo_products.gtin and selected_products.action<>'delete';");
 
