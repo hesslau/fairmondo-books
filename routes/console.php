@@ -66,6 +66,14 @@ Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function
     App\Http\Controllers\ExportController::makeDelta($since, intval($skip), $test);
 });
 
+Artisan::command('fairmondobooks:test:file {filename}', function($filename) {
+    if(!file_exists($filename)) throw new Exception("File doesn't exist.");
+    $libriProduct = App\Factories\LibriProductFactory::makeFromFile($filename);
+    $fairmondoProduct = \App\Factories\FairmondoProductBuilder::create($libriProduct[0]);
+    echo strlen($fairmondoProduct->title);
+    var_dump($fairmondoProduct);
+});
+
 Artisan::command('fairmondobooks:initialImport', function() {
 
 
