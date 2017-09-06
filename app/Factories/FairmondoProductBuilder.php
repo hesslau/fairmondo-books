@@ -134,15 +134,21 @@ class FairmondoProductBuilder {
             $title = str_replace("%$key",$value,$title);
         }
 
+        if(strlen($title) > 200) {
+            $overflow = strlen($title) - strlen($info['Title']);
+            $trimmedTitle = self::cleanTrim($info['Title'], 200-$overflow);
+            $title = str_replace($info['Title'],$trimmedTitle,$title);
+        }
+
         // trim title to maximal length
-        return self::removeForbiddenChars(self::cleanTrim($title,200));
+        return self::removeForbiddenChars($title);
     }
 
     /*
      * Trim a string while making sure to not split any words or multibyte characters.
      */
     private static function cleanTrim($text,$number_of_characters) {
-        return (strlen($text) < $number_of_characters) ? $text : substr($text, 0, strrpos(substr($text, 0, $number_of_characters), ' '))."...";
+        return (strlen($text) < $number_of_characters) ? $text : substr($text, 0, strrpos(substr($text, 0, $number_of_characters - 3), ' '))."...";
     }
 
     /*
