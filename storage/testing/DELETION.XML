@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ONIXmessage>
+    <header>
+        <m172>4026635100003</m172>
+        <senderidentifier>
+            <m379>02</m379>
+            <b244>LIB_GESAMT</b244>
+        </senderidentifier>
+        <m174>Libri GmbH</m174>
+        <m175>Katalog</m175>
+        <m180>10040</m180>
+        <m182>20170829</m182>
+    </header>
+    <product>
+        <a001>00000000</a001>
+        <a002>05</a002>
+        <productidentifier>
+            <b221>02</b221>
+            <b244>1111111111</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>15</b221>
+            <b244>1111111111111</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>03</b221>
+            <b244>1111111111111</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>01</b221>
+            <b233>LI</b233>
+            <b244>1111111</b244>
+        </productidentifier>
+        <productidentifier>
+            <b221>01</b221>
+            <b233>BESTNR</b233>
+            <b244>111111</b244>
+        </productidentifier>
+        <b246>01</b246>
+        <b012>BA</b012>
+        <title>
+            <b202>01</b202>
+            <b203>TEST PRODUCT. DISTINCTIVE TITLE</b203>
+        </title>
+        <title>
+            <b202>05</b202>
+            <b203>TEST AUTHOR: TEST PRODUCT</b203>
+            <b029>TEST SUBLINE</b029>
+        </title>
+        <contributor>
+            <b034>1</b034>
+            <b035>A01</b035>
+            <b340>1</b340>
+            <b037>AUTHOR, TEST</b037>
+        </contributor>
+        <contributor>
+            <b034>2</b034>
+            <b035>B01</b035>
+            <b340>1</b340>
+            <b037>CONTRIBUTOR, TEST</b037>
+        </contributor>
+        <contributor>
+            <b034>3</b034>
+            <b035>B01</b035>
+            <b340>1</b340>
+            <b037>CONTRIBUTOR2, TEST</b037>
+        </contributor>
+        <n386/>
+        <audience>
+            <b206>10</b206>
+        </audience>
+        <language>
+            <b253>01</b253>
+            <b252>ger</b252>
+        </language>
+        <b061>176</b061>
+        <mainsubject>
+            <b191>26</b191>
+            <b069>18500</b069>
+            <b070>HC/Lektüren, Interpretationen</b070>
+        </mainsubject>
+        <subject>
+            <b067>24</b067>
+            <b171>Schlagworte von Libri</b171>
+            <b069>DEUS5027</b069>
+            <b070>Deutsch / Lektüren, Interpretationen</b070>
+        </subject>
+        <subject>
+            <b067>59</b067>
+            <b069>DEU</b069>
+            <b070>TEST SUBJECT</b070>
+        </subject>
+        <publisher>
+            <b291>01</b291>
+            <b241>04</b241>
+            <b243>11111</b243>
+            <b081>TEST PUBLISHER 1</b081>
+        </publisher>
+        <publisher>
+            <b291>01</b291>
+            <b241>02</b241>
+            <b242>LXO</b242>
+            <b243>22222</b243>
+            <b081>TEST PUBLISHER 2</b081>
+        </publisher>
+        <publisher>
+            <b291>01</b291>
+            <b241>05</b241>
+            <b243>3333333</b243>
+            <b081>TEST PUBLISHER 3</b081>
+        </publisher>
+        <b003>200701</b003>
+        <measure>
+            <c093>01</c093>
+            <c094>198</c094>
+            <c095>mm</c095>
+        </measure>
+        <measure>
+            <c093>02</c093>
+            <c094>123</c094>
+            <c095>mm</c095>
+        </measure>
+        <measure>
+            <c093>03</c093>
+            <c094>14</c094>
+            <c095>mm</c095>
+        </measure>
+        <measure>
+            <c093>08</c093>
+            <c094>170</c094>
+            <c095>gr</c095>
+        </measure>
+        <supplydetail>
+            <j137>Libri GmbH</j137>
+            <j144>5</j144>
+            <j396>20</j396>
+            <stock>
+                <j349>BH</j349>
+                <j350>51</j350>
+            </stock>
+            <price>
+                <j148>04</j148>
+                <j267>15</j267>
+                <j266>02</j266>
+                <j151>999.95</j151>
+                <j152>EUR</j152>
+                <b251>DE</b251>
+                <j153>R</j153>
+                <j154>7</j154>
+                <j155>6.32</j155>
+                <j156>0.44</j156>
+                <j157>S</j157>
+                <j158>19</j158>
+                <j159>0.16</j159>
+                <j160>0.03</j160>
+                <j161>20160829</j161>
+            </price>
+            <price>
+                <j148>04</j148>
+                <j267>15</j267>
+                <j266>02</j266>
+                <j151>6.95</j151>
+                <j152>EUR</j152>
+                <b251>DE</b251>
+                <j153>R</j153>
+                <j154>7</j154>
+                <j155>6.32</j155>
+                <j156>0.44</j156>
+                <j157>S</j157>
+                <j158>19</j158>
+                <j159>0.16</j159>
+                <j160>0.03</j160>
+                <j161>20160839</j161>
+            </price>
+        </supplydetail>
+        <othertext>
+            <d102>18</d102>
+            <d104>TEST CONTENT</d104>
+        </othertext>
+    </product>
+</ONIXmessage>

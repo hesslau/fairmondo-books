@@ -28,16 +28,28 @@ class FairmondoProductBuilder {
         }
 
         $product->title = self::getTitle($source);
-        $product->categories = join(',',self::getCategories($source));
+        $product->custom_seller_identifier = self::getCustomSellerIdentifier($source);
+        $product->gtin = self::getGtin($source);
+        $product->action = self::getAction($source);
+
+        try {
+            $product->categories = join(',',self::getCategories($source));
+        } catch (MissingDataException $e) {
+
+            // don't create product
+            if($product->action == self::ACTION_CREATE) return false;
+
+            // don't update product; delete instead
+            $product->action = self::ACTION_DELETE;
+            return $product;
+        }
+
         $product->quantity = self::getQuantity($source);
         $product->content = self::getContent($source);                      // timekiller!
         $product->vat = self::getVat($source);
         $product->external_title_image_url = self::getExternalTitleImageUrl($source);
-        $product->gtin = self::getGtin($source);
-        $product->action = self::getAction($source);
         $product->price_cents = self::getPriceCents($source);
         $product->transport_time = self::getTransportTime($source);
-        $product->custom_seller_identifier = self::getCustomSellerIdentifier($source);
 
         return $product;
     }
