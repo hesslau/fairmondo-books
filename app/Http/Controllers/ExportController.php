@@ -24,6 +24,8 @@ class ExportController extends Controller
         $filepath = storage_path('app/export/')."Export-".date('Ymd')."-%s.csv";
         $zipArchive = storage_path('app/export/')."Export-".date('Ymd').".zip";
         $chunkSize = 20000;
+
+        if(file_exists($zipArchive)) throw new Exception("File $zipArchive already exists.");
         /*$lastExport = Export::latest()->get();
         if(count($lastExport) > 0) {
             ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
