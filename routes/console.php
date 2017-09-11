@@ -66,6 +66,12 @@ Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function
     App\Http\Controllers\ExportController::makeDelta($since, intval($skip), $test);
 });
 
+Artisan::command('fairmondobooks:export {--file=0} {--gtin=0}', function($file,$gtin) {
+    $gtins = ($file) ? explode("\n",file_get_contents($file)) : [$gtin***REMOVED***
+    $gtins = array_map("trim", $gtins);
+    return App\Http\Controllers\ExportController::exportProducts($gtins);
+});
+
 Artisan::command('fairmondobooks:test:file {filename}', function($filename) {
     if(!file_exists($filename)) throw new Exception("File doesn't exist.");
     $libriProduct = App\Factories\LibriProductFactory::makeFromFile($filename);
