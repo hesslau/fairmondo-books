@@ -122,6 +122,25 @@ class ExportController extends Controller
         return DB::unprepared(DB::raw($query));
     }
 
+    public static function exportProducts($gtins) {
+        $export = self::getExportBuffer();
+
+        foreach ($gtins as $gtin) {
+            $libriProduct = LibriProduct::find($gtin);
+            if(!$libriProduct) ConsoleOutput::error("Prduct with reference '$gtin' not found.");
+            else {
+                $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+                $export->insertOne($fairmondoProduct->toArray());
+            }
+        }
+
+        $exportfile = sprintf("%s/Export-%s-%s.csv",storage_path('app/export'),date('Ymd'),date('U'));
+        self::writeToFile($export->__toString(),$exportfile);
+        ConsoleOutput::info("Exported to $exportfile.");
+        return $exportfile;
+    }
+
+
     public static function prepareExport() {
         $date = Export::latest()->get()[0]['created_at'];
         ConsoleOutput::info("Last Export was at $date.");
@@ -181,7 +200,7 @@ class ExportController extends Controller
         }
     }
 
-    private static function writeToFile($content,$filename) {
+    public static function writeToFile($content,$filename) {
         if(file_exists($filename)) {
             ConsoleOutput::info("File $filename already exists. Will be deleted.");
             unlink($filename);
@@ -190,7 +209,7 @@ class ExportController extends Controller
         fwrite($exportFileHandle,$content);
     }
 
-    private static function getExportBuffer() {
+    public static function getExportBuffer() {
         $headers = config('fairmondoproduct.fields');
         $csv = Writer::createFromFileObject(new \SplTempFileObject());
         $csv->setDelimiter(';');
