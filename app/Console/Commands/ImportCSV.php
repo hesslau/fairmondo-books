@@ -14,7 +14,7 @@ class ImportCSV extends Command
      *
      * @var string
      */
-    protected $signature = 'import:csv {table} {path}';
+    protected $signature = 'import:csv {table} {path} {--truncate}';
 
     /**
      * The console command description.
@@ -44,7 +44,7 @@ class ImportCSV extends Command
         $csv = Reader::createFromPath($this->argument('path'));
         $csv->setDelimiter(';');
 
-        if($this->confirm("Truncate table {$this->table}?")) {
+        if($this->option('truncate')) {
             DB::table($this->table)->truncate();
         }
 
