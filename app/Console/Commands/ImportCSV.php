@@ -44,9 +44,13 @@ class ImportCSV extends Command
         $csv = Reader::createFromPath($this->argument('path'));
         $csv->setDelimiter(';');
 
+        if($this->confirm("Truncate table {$this->table}?")) {
+            DB::table($this->table)->truncate();
+        }
+
         // assume that first row is header row
         $header = $csv->fetchOne();
-        $progress = ConsoleOutput::progress(count($csv->fetchAll()) - 1);
+        $progress = ConsoleOutput::progress($this->getLineCount($this->argument('path')) - 1);
         $csv->setOffset(1);
 
         $dbInsert = $csv->each(function($row) use ($header,$progress) {
@@ -58,5 +62,18 @@ class ImportCSV extends Command
 
         $progress->finish();
         return true;
+    }
+
+    private function getLineCount($filename) {
+        $count = 0;
+        $fp = fopen( $filename, 'r');
+
+        while( !feof( $fp)) {
+            fgets($fp);
+            $count++;
+        }
+
+        fclose( $fp);
+        return $count;
     }
 }
