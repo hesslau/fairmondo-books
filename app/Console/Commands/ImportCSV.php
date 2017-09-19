@@ -14,14 +14,14 @@ class ImportCSV extends Command
      *
      * @var string
      */
-    protected $signature = 'import:csv {table} {path} {--truncate}';
+    protected $signature = 'import:csv {table} {path} {--truncate} {--offset=1}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Imports data from file into table (assumes colon delimitor and header row). Usage: import:csv {table} {path}';
+    protected $description = 'Imports data from file into table (assumes colon delimitor and header row). Usage: import:csv {table} {path} {--trunace} {--offset=1}';
 
     /**
      * Create a new command instance.
@@ -43,6 +43,7 @@ class ImportCSV extends Command
         $this->table = $this->argument('table');
         $csv = Reader::createFromPath($this->argument('path'));
         $csv->setDelimiter(';');
+        $offset = $this->argument('offset');
 
         if($this->option('truncate')) {
             DB::table($this->table)->truncate();
@@ -50,8 +51,8 @@ class ImportCSV extends Command
 
         // assume that first row is header row
         $header = $csv->fetchOne();
-        $progress = ConsoleOutput::progress($this->getLineCount($this->argument('path')) - 1);
-        $csv->setOffset(1);
+        $progress = ConsoleOutput::progress($this->getLineCount($this->argument('path')) - $offset);
+        $csv->setOffset($offset);
 
         $dbInsert = $csv->each(function($row) use ($header,$progress) {
 
