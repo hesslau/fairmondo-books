@@ -58,7 +58,15 @@ class ImportCSV extends Command
 
             $aCombined = array_combine($header,$row);
             $progress->advance();
-            return DB::table($this->table)->insert($aCombined);
+
+            try {
+                return DB::table($this->table)->insert($aCombined);
+            } catch(\PDOException $e) {
+                $arrayContent = var_export($aCombined,true);
+                ConsoleOutput::error("Inserting row: $arrayContent failed.");
+                ConsoleOutput::error("Error: {$e->getMessage()}.");
+                return true;
+            }
         });
 
         $progress->finish();
