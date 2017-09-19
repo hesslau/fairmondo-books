@@ -43,7 +43,7 @@ class ImportCSV extends Command
         $this->table = $this->argument('table');
         $csv = Reader::createFromPath($this->argument('path'));
         $csv->setDelimiter(';');
-        $offset = $this->argument('offset');
+        $offset = $this->option('offset');
 
         if($this->option('truncate')) {
             DB::table($this->table)->truncate();
