@@ -66,7 +66,7 @@ Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function
     App\Http\Controllers\ExportController::makeDelta($since, intval($skip), $test);
 });
 
-Artisan::command('fairmondobooks:export {--file=0} {--gtin=0}', function($file,$gtin) {
+Artisan::command('fairmondobooks:reexport {--file=0} {--gtin=0}', function($file,$gtin) {
     $gtins = ($file) ? explode("\n",file_get_contents($file)) : [$gtin];
     $gtins = array_map("trim", $gtins);
     return App\Http\Controllers\ExportController::exportProducts($gtins);
