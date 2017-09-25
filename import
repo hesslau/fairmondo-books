@@ -1,13 +1,13 @@
 #!/bin/bash
 LOCKFILE_UPDATE=update.lock
 LOCKFILE_EXPORT=export.lock
-date "+[%Y-%m-%d %H:%M:%S]"
+echo $(date "+[%Y-%m-%d %H:%M:%S]") starting import
 
 function repeatUntilCleanExit {
 	EXITCODE=1
 	while [ $EXITCODE -ne 0 ]; do
 		if [ -d "$LOCKFILE_EXPORT" ]; then
-			echo "export lock active";
+			echo $(date "+[%Y-%m-%d %H:%M:%S]") "export lock active";
 			removeLockfile;
 			exit 0;
 		else
@@ -36,7 +36,7 @@ if [ ! -d "$LOCKFILE_EXPORT" ] && mkdir "$LOCKFILE_UPDATE"; then
         removeLockfile;
         exit 0;
 else
-        echo "locking failed - exit"
+        echo $(date "+[%Y-%m-%d %H:%M:%S]") "locking failed - exit"
         exit 1
 fi
 
