@@ -26,14 +26,6 @@ class ExportController extends Controller
         $chunkSize = 20000;
 
         if(file_exists($zipArchive)) throw new Exception("File $zipArchive already exists.");
-        /*$lastExport = Export::latest()->get();
-        if(count($lastExport) > 0) {
-            ConsoleOutput::info("Previous Export found. Selecting all new records since ".$lastExport[0]['created_at']);
-            $query = LibriProduct::selectFairmondoProducts()->updatedSince($lastExport[0]['created_at']);
-        } else {
-            ConsoleOutput::info("No previous export found. Selecting all records");
-            $query = LibriProduct::selectFairmondoProducts();  // don't use ::all() ! will result in memory exhaust
-        }*/
 
         self::prepareExport();
         $query = DB::table('selected_products')->join('libri_products','ProductReference','=','gtin');
@@ -130,6 +122,8 @@ class ExportController extends Controller
             if(!$libriProduct) ConsoleOutput::error("Prduct with reference '$gtin' not found.");
             else {
                 $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
+                /* TODO: Should the changes be written to the replication database in this use case? */
+                // self::storeFairmondoProduct($fairmondoProduct);
                 $export->insertOne($fairmondoProduct->toArray());
             }
         }
