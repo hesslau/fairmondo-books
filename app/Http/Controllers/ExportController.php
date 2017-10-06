@@ -27,8 +27,14 @@ class ExportController extends Controller
 
         if(file_exists($zipArchive)) throw new Exception("File $zipArchive already exists.");
 
+        // Create New Export to get correct start time
+        $exportInfo = new Export();
+
         self::prepareExport();
         $query = DB::table('selected_products')->join('libri_products','ProductReference','=','gtin');
+
+        // save ExportInfo to database so we know there is currently an export running
+        $exportInfo->save();
 
         // generate progress bar
         $numberOfItems = $testrun ? 1000 : $query->count() - $skip;
@@ -93,12 +99,11 @@ class ExportController extends Controller
                 @unlink($file);
             }
 
-            // Save Export Info to Database
+            // Update Export Model in Database
             if(!$testrun) {
-                $export = new Export();
-                $export->number_of_products = $numberOfItems;
-                $export->export_file = basename($zipArchive);
-                $export->save();
+                $exportInfo->number_of_products = $numberOfItems;
+                $exportInfo->export_file = basename($zipArchive);
+                $exportInfo->save();
             }
 
             return $zipArchive;
