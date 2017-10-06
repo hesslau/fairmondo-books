@@ -14,3 +14,6 @@
 Route::get('/', 'Controller@index');
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 Route::get('/show/libriproducts','Controller@showLibriProducts');
+Route::get('/export/start','Controller@startExport');
+Route::get('/export/info','Controller@showExport');
+

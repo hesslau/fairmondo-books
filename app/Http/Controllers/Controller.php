@@ -14,7 +14,8 @@ use App\Factories\FairmondoProductBuilder;
 // Models
 use App\Models\LibriProduct,
     App\Models\FairmondoProduct,
-    App\Models\Update;
+    App\Models\Update,
+    App\Models\Export;
 
 // Exceptions
 use App\Exceptions\MissingDataException,
@@ -130,4 +131,21 @@ class Controller extends BaseController
 
         return $products;
     }
+
+    public function showExport() {
+        $workdir = "/home/hesslau/Serving/Fairmondo/FairmondoBooks";
+        $latestExport = Export::latest()->take(1)->get();
+        print "Latest Export was completed on {$latestExport[0]->updated_at}.";
+        print "<br><a href='/export/start'>Start Export</a>";
+
+        if (file_exists("$workdir/export.lock")) {
+            echo "Export in progress.";
+            return file_get_contents("$workdir/$exportLog");
+        }
+    }
+
+    public function startExport() {
+        return \Artisan::call('fairmondobooks:export', []);
+    }
 }
+
