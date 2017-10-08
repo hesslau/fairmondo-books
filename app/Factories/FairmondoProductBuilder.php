@@ -37,7 +37,7 @@ class FairmondoProductBuilder {
         } catch (MissingDataException $e) {
 
             // don't create product
-            if($product->action == self::ACTION_CREATE) return false;
+            if($product->action == self::ACTION_CREATE) return null;
 
             // don't update product; delete instead
             $product->action = self::ACTION_DELETE;
