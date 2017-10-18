@@ -14,6 +14,7 @@ use App\Factories\FairmondoProductBuilder;
 use Exception;
 use SebastianBergmann\Environment\Console;
 use App\Models\Export;
+use Carbon\Carbon;
 
 class ExportController extends Controller
 {
@@ -29,12 +30,16 @@ class ExportController extends Controller
 
         // Create New Export to get correct start time
         $exportInfo = new Export();
+        $exportInfo->save();
 
-        self::prepareExport();
+        // get date of last completed Export
+        $latestExport = Export::completed()->latest()->first();
+        $dateOfLatestExport = ($latestExport) ? $latestExport['created_at'] : Carbon::createFromTimestamp(0);
+
+        // select Products which where updated after latest export
+        self::selectProducts($dateOfLatestExport);
         $query = DB::table('selected_products')->join('libri_products','ProductReference','=','gtin');
 
-        // save ExportInfo to database so we know there is currently an export running
-        $exportInfo->save();
 
         // generate progress bar
         $numberOfItems = $testrun ? 1000 : $query->count() - $skip;
@@ -145,18 +150,15 @@ class ExportController extends Controller
     }
 
 
-    public static function prepareExport() {
-        $date = Export::latest()->get()[0]['created_at'];
-        ConsoleOutput::info("Last Export was at $date.");
-
+    public static function selectProducts($dateOfLatestExport) {
         $dropTempTable = self::query("TRUNCATE TABLE selected_products ;");
 
         //$createTempTable = self::query("create temporary table selected_products (gtin varchar(13) not null primary key,action varchar(6));");
         //print $createTempTable;
 
-        ConsoleOutput::info("Selecting Products eligible for Fairmondo Market updated since $date.");
+        ConsoleOutput::info("Selecting Products eligible for Fairmondo Market updated since $dateOfLatestExport.");
         $filterLibriProducts = self::query("insert into selected_products select ProductReference, 'create' from libri_products where 
-                                            created_at > '$date' 
+                                            created_at > '$dateOfLatestExport' 
                                             and AvailabilityStatus in ('20','21','23')
                                             and ProductForm in ('BA','BB','BC','BG','BH','BI','BP','BZ','AC','DA','AI','VI','VO','ZE','DG','PC')
                                             and NotificationType in ('03','05')
@@ -165,7 +167,7 @@ class ExportController extends Controller
 
         // mark products for deletion which were updated in libri_products and exist in the current market fairmondo_products but didn't make it into selected_products
         ConsoleOutput::info("Marking ineligible Products in Market for deletion.");
-        $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$date' and gtin=ProductReference;");
+        $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$dateOfLatestExport' and gtin=ProductReference;");
 
         // mark products for update which are selected for market and already exist in the market
         ConsoleOutput::info("Marking eligible Products in Market for update.");
