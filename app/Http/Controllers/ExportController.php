@@ -44,7 +44,40 @@ class ExportController extends Controller
         if($skip>0) $query = $query->skip($skip);
 
         $files = [];
-        $productHandler = function($products) use ($progress,&$files,$filepath,$testrun) {
+        $productHandler = self::getProductHandler($progress,$files,$filepath,$testrun);
+
+        if($testrun) $productHandler($query->take(1000)->get());
+        else $query->chunk($chunkSize, $productHandler);
+
+        ConsoleOutput::info("Export finished.");
+
+        // make Zip Archive
+        if(ZipController::makeArchive($zipArchive,$files) && file_exists($zipArchive)) {
+            ConsoleOutput::info("Created ZipArchive at $zipArchive.");
+
+            // delete the csv files
+            foreach ($files as $file) {
+                @unlink($file);
+            }
+
+            // Update Export Model in Database
+            if(!$testrun) {
+                $exportInfo->number_of_products = $numberOfItems;
+                $exportInfo->export_file = basename($zipArchive);
+                $exportInfo->save();
+            }
+
+            return $zipArchive;
+        } else {
+            ConsoleOutput::error("Creating ZipArchive at $zipArchive failed.");
+            return false;
+        }
+
+
+    }
+
+    private static function getProductHandler($progress,&$files,$filepath,$testrun) {
+        return function($products) use ($progress,&$files,$filepath,$testrun) {
 
             // intiate csv holder
             $export = self::getExportBuffer();
@@ -77,41 +110,13 @@ class ExportController extends Controller
             }
 
             // finally write all to export file
-            $filename = sprintf($filepath,count($files));
+            $filename = sprintf($filepath,count($files));           // replaces %s with index number
             self::writeToFile($export->__toString(),$filename);
             ConsoleOutput::info("\nChunk exported to $filename.");
 
             // move to next chunk
             $files[] = $filename;
         };
-
-        if($testrun) $productHandler($query->take(1000)->get());
-        else $query->chunk($chunkSize, $productHandler);
-
-        ConsoleOutput::info("Export finished.");
-
-        // make Zip Archive
-        if(ZipController::makeArchive($zipArchive,$files) && file_exists($zipArchive)) {
-            ConsoleOutput::info("Created ZipArchive at $zipArchive.");
-
-            // delete the csv files
-            foreach ($files as $file) {
-                @unlink($file);
-            }
-
-            // Update Export Model in Database
-            if(!$testrun) {
-                $exportInfo->number_of_products = $numberOfItems;
-                $exportInfo->export_file = basename($zipArchive);
-                $exportInfo->save();
-            }
-
-            return $zipArchive;
-        } else {
-            ConsoleOutput::error("Creating ZipArchive at $zipArchive failed.");
-            return false;
-        }
-
 
     }
 
