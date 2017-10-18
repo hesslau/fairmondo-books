@@ -37,22 +37,20 @@ class ExportController extends Controller
         $dateOfLatestExport = ($latestExport) ? $latestExport['created_at'] : Carbon::createFromTimestamp(0);
 
         // select Products which where updated after latest export
-        self::selectProducts($dateOfLatestExport);
-        $query = DB::table('selected_products')->join('libri_products','ProductReference','=','gtin');
-
+        $selectedProducts = self::selectProducts($dateOfLatestExport);
 
         // generate progress bar
-        $numberOfItems = $testrun ? 1000 : $query->count() - $skip;
+        $numberOfItems = $testrun ? 1000 : $selectedProducts->count() - $skip;
         $progress = ConsoleOutput::progress($numberOfItems);
 
         // skip items
-        if($skip>0) $query = $query->skip($skip);
+        if($skip>0) $selectedProducts = $selectedProducts->skip($skip);
 
         $files = [***REMOVED***
         $productHandler = self::getProductHandler($progress,$files,$filepath,$testrun);
 
-        if($testrun) $productHandler($query->take(1000)->get());
-        else $query->chunk($chunkSize, $productHandler);
+        if($testrun) $productHandler($selectedProducts->take(1000)->get());
+        else $selectedProducts->chunk($chunkSize, $productHandler);
 
         ConsoleOutput::info("Export finished.");
 
@@ -173,6 +171,7 @@ class ExportController extends Controller
         ConsoleOutput::info("Marking eligible Products in Market for update.");
         $updateQualifiedFairmondoProducts = self::query("update selected_products,fairmondo_products set selected_products.action='update' where selected_products.gtin=fairmondo_products.gtin and selected_products.action<>'delete';");
 
+        return DB::table('selected_products')->join('libri_products','ProductReference','=','gtin');
     }
 
     private function cleanupExport() {
