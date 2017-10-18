@@ -52,8 +52,6 @@ class ExportController extends Controller
         if($testrun) $productHandler($selectedProducts->take(1000)->get());
         else $selectedProducts->chunk($chunkSize, $productHandler);
 
-        ConsoleOutput::info("Export finished.");
-
         // make Zip Archive
         if(ZipController::makeArchive($zipArchive,$files) && file_exists($zipArchive)) {
             ConsoleOutput::info("Created ZipArchive at $zipArchive.");
