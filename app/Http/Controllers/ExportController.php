@@ -41,6 +41,7 @@ class ExportController extends Controller
 
         // generate progress bar
         $numberOfItems = $testrun ? 1000 : $selectedProducts->count() - $skip;
+        $exportInfo->number_of_products = $numberOfItems;
         $progress = ConsoleOutput::progress($numberOfItems);
 
         // skip items
@@ -56,28 +57,21 @@ class ExportController extends Controller
         // pack the files
         ZipController::makeArchive($zipArchive,$files);
 
-        if(file_exists($zipArchive)) {
-            ConsoleOutput::info("Created ZipArchive at $zipArchive.");
+        // Check if archive was created
+        if(!file_exists($zipArchive)) throw new Exception("Creating archive at $zipArchive failed.");
+        $exportInfo->export_file = basename($zipArchive);
 
-            // delete the csv files
-            foreach ($files as $file) {
-                @unlink($file);
-            }
-
-            // Update Export Model in Database
-            if(!$testrun) {
-                $exportInfo->number_of_products = $numberOfItems;
-                $exportInfo->export_file = basename($zipArchive);
-                $exportInfo->save();
-            }
-
-            return $exportInfo;
-        } else {
-            ConsoleOutput::error("Creating ZipArchive at $zipArchive failed.");
-            return false;
+        // delete the csv files
+        foreach ($files as $file) {
+            @unlink($file);
         }
 
+        // Update Export Model in Database
+        if(!$testrun) {
+            $exportInfo->save();
+        }
 
+        return $exportInfo;
     }
 
     private static function getProductHandler($progress,&$files,$filepath,$testrun) {
@@ -175,8 +169,29 @@ class ExportController extends Controller
         return DB::table('selected_products')->join('libri_products','ProductReference','=','gtin');
     }
 
-    private function cleanupExport() {
-        //@ todo: implement
+    /*
+        Attempts to rollback changes made to replication database.
+    */
+    public static function rollbackExport(Export $export) {
+
+        // find all records that were created in this export
+        $products = FairmondoProduct::where('created_at','>',$export['created_at']);
+
+        // if there is a newer export, narrow selection down to records created before newer export
+        $nextExport = Export::where('created_at','>',$export['created_at'])->orderBy('created_at','desc')->first();
+        if($nextExport) $products = $products->where('created_at','<',$nextExport['created_at']);
+
+        // delete records with action = delete
+        $deleted = $products->where('action','create')->delete();
+        ConsoleOutput::info("Removed $deleted records from products database.");
+
+        // remove export file
+        if(file_exists($export->export_file)) {
+            @unlink(storage_path('app/export/').$export->export_file);
+            ConsoleOutput::info("Removed {$export->export_file}.");
+        }
+
+        return $export->delete();
     }
 
     private static function storeFairmondoProduct($product) {
