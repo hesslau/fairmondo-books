@@ -172,23 +172,27 @@ class ExportController extends Controller
     /*
         Attempts to rollback changes made to replication database.
     */
-    public static function rollbackExport(Export $export) {
+    public static function rollbackLatestExport() {
+
+        // find latest export (complete or incomplete)
+        $export = Export::latest()->first();
 
         // find all records that were created in this export
         $products = FairmondoProduct::where('created_at','>',$export['created_at']);
 
-        // if there is a newer export, narrow selection down to records created before newer export
-        $nextExport = Export::where('created_at','>',$export['created_at'])->orderBy('created_at','desc')->first();
-        if($nextExport) $products = $products->where('created_at','<',$nextExport['created_at']);
-
         // delete records with action = delete
-        $deleted = $products->where('action','create')->delete();
-        ConsoleOutput::info("Removed $deleted records from products database.");
+        $deleteCreated = $products->where('action','create')->delete();
+        ConsoleOutput::info("Removed $deleteCreated records from products database.");
+
+        // change records that indicate a deletion to be merely updates
+        $updateDeleted = $products->where('action','delete')->update(['action' => 'update']);
+        ConsoleOutput::info("Changed $updateDeleted deletions to be updates.");
 
         // remove export file
-        if(file_exists($export->export_file)) {
-            @unlink(storage_path('app/export/').$export->export_file);
-            ConsoleOutput::info("Removed {$export->export_file}.");
+        $exportFile = storage_path('app/export/').$export->export_file;
+        if($export->export_file && file_exists($exportFile)) {
+            @unlink($exportFile);
+            ConsoleOutput::info("Removed $exportFile.");
         }
 
         return $export->delete();
