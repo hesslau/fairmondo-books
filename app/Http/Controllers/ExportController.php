@@ -49,6 +49,7 @@ class ExportController extends Controller
         $files = [];
         $productHandler = self::getProductHandler($progress,$files,$filepath,$testrun);
 
+        // apply producthandler to selected products
         if($testrun) $productHandler($selectedProducts->take(1000)->get());
         else $selectedProducts->chunk($chunkSize, $productHandler);
 
