@@ -53,8 +53,10 @@ class ExportController extends Controller
         if($testrun) $productHandler($selectedProducts->take(1000)->get());
         else $selectedProducts->chunk($chunkSize, $productHandler);
 
-        // make Zip Archive
-        if(ZipController::makeArchive($zipArchive,$files) && file_exists($zipArchive)) {
+        // pack the files
+        ZipController::makeArchive($zipArchive,$files);
+
+        if(file_exists($zipArchive)) {
             ConsoleOutput::info("Created ZipArchive at $zipArchive.");
 
             // delete the csv files
