@@ -53,6 +53,37 @@ Artisan::command('pull:annotations', function(){
     else exit(2);
 });
 
+Artisan::command('media:cleanup', function() {
+    $mediaDir = storage_path('app/media/');
+
+    if ($handle = opendir($mediaDir)) {
+
+        /* This is the correct way to loop over the directory. */
+        while (false !== ($subdir = readdir($handle))) {
+            if($subdir == '.' || $subdir == '..') continue;
+
+            $files = scanDir($mediaDir.$subdir);
+
+            foreach($files as $file) {
+                if($file == '.' || $file == '..') continue;
+
+                preg_match('/EAN_([0-9]{10,13}).(jpg|JPG)/',$file,$matches);
+
+                if(count($matches) > 0) {
+                    $gtin = $matches[1***REMOVED***
+                    if(App\Models\FairmondoProduct::find($gtin)) {
+                        continue;
+                    } else {
+                        unlink($mediaDir.$subdir.'/'.$file);
+                    }
+                }
+
+            }
+
+        }
+    }
+});
+
 /*
  * Command to import files.
  * @todo support annotation files
