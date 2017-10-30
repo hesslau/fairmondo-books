@@ -131,7 +131,7 @@
                     %Blurb
                  </p>',
     'DigitalTemplate' => '%DistinctiveTitle%Author<p>%PublicationDate%PublisherName%ProductForm%ProductReference</p>%Blurb',
-    'CoverLinkBaseUrl' => 'http://45.32.154.210/media/',
+    'CoverLinkBaseUrl' => 'http://mitmachen.fairmondo.de:8080/media/',
     'AudiobookDescription' => 'Hörbuch',
     'Blacklist' => [
         "DistinctiveTitle" => ['Ron Hubbard'],
