@@ -146,6 +146,8 @@
 ***REMOVED***
     'ForbiddenCharacters' => [
         "\"" => "´",
-        ";" => ""
+        ";" => "",
+        ">" => "",
+        "<" => ""
 ***REMOVED***
 ***REMOVED***
