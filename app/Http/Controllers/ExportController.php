@@ -32,46 +32,59 @@ class ExportController extends Controller
         $exportInfo = new Export();
         $exportInfo->save();
 
-        // get date of last completed Export
-        $latestExport = Export::completed()->latest()->first();
-        $dateOfLatestExport = ($latestExport) ? $latestExport['created_at'] : Carbon::createFromTimestamp(0);
+        try {
 
-        // select Products which where updated after latest export
-        $selectedProducts = self::selectProducts($dateOfLatestExport);
+            // get date of last completed Export
+            $latestExport = Export::completed()->latest()->first();
+            $dateOfLatestExport = ($latestExport) ? $latestExport['created_at'] : Carbon::createFromTimestamp(0);
 
-        // generate progress bar
-        $numberOfItems = $testrun ? 1000 : $selectedProducts->count() - $skip;
-        $exportInfo->number_of_products = $numberOfItems;
-        $progress = ConsoleOutput::progress($numberOfItems);
+            // select Products which where updated after latest export
+            $selectedProducts = self::selectProducts($dateOfLatestExport);
 
-        // skip items
-        if($skip>0) $selectedProducts = $selectedProducts->skip($skip);
+            // generate progress bar
+            $numberOfItems = $testrun ? 1000 : $selectedProducts->count() - $skip;
+            $exportInfo->number_of_products = $numberOfItems;
+            $progress = ConsoleOutput::progress($numberOfItems);
 
-        $files = [***REMOVED***
-        $productHandler = self::getProductHandler($progress,$files,$filepath,$testrun);
+            // skip items
+            if ($skip > 0) $selectedProducts = $selectedProducts->skip($skip);
 
-        // apply producthandler to selected products
-        if($testrun) $productHandler($selectedProducts->take(1000)->get());
-        else $selectedProducts->chunk($chunkSize, $productHandler);
+            $files = [***REMOVED***
+            $productHandler = self::getProductHandler($progress, $files, $filepath, $testrun);
 
-        // pack the files
-        ZipController::makeArchive($zipArchive,$files);
+            // apply producthandler to selected products
+            if ($testrun) $productHandler($selectedProducts->take(1000)->get());
+            else $selectedProducts->chunk($chunkSize, $productHandler);
 
-        // Check if archive was created
-        if(!file_exists($zipArchive)) throw new Exception("Creating archive at $zipArchive failed.");
-        $exportInfo->export_file = basename($zipArchive);
+            // pack the files
+            ZipController::makeArchive($zipArchive, $files);
 
-        // delete the csv files
-        foreach ($files as $file) {
-            @unlink($file);
+            // Check if archive was created
+            if (!file_exists($zipArchive)) throw new Exception("Creating archive at $zipArchive failed.");
+            $exportInfo->export_file = basename($zipArchive);
+
+            // delete the csv files
+            foreach ($files as $file) {
+                @unlink($file);
+            }
+
+        } catch(Exception $e) {
+
+            throw $e;
+
+        } finally {
+
+            $exportInfo->finished_at = Carbon::now();
+
+            // Update Export Model in Database
+            if (!$testrun) {
+                $exportInfo->save();
+            }
+
+            return $exportInfo;
+
         }
 
-        // Update Export Model in Database
-        if(!$testrun) {
-            $exportInfo->save();
-        }
-
-        return $exportInfo;
     }
 
     private static function getProductHandler($progress,&$files,$filepath,$testrun) {
