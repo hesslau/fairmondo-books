@@ -133,15 +133,39 @@ class Controller extends BaseController
     }
 
     public function showExport() {
-        $workdir = "/home/hesslau/Serving/Fairmondo/FairmondoBooks";
-        $latestExport = Export::latest()->take(1)->get();
-        print "Latest Export was completed on {$latestExport[0]->updated_at}.";
-        print "<br><a href='/export/start'>Start Export</a>";
+        $exports = Export::all();
 
-        if (file_exists("$workdir/export.lock")) {
-            echo "Export in progress.";
-            return file_get_contents("$workdir/$exportLog");
-        }
+        $messages = $exports->each(function($export) {
+
+            if($export->inProgress()) {
+                printf("In progress: Export No. %s started %s.",
+                    $export->id,
+                    $export->created_at->diffForHumans());
+
+            }
+            else if($export->isEmpty()) {
+                printf("Export No. %s contains no products. (from %s)",
+                    $export->id,
+                    $export->created_at->formatLocalized('%A %d %B %Y')
+                );
+            }
+            else if($export->hasFailed()) {
+                printf("Export No. %s failed (started on %s)",
+                    $export->id,
+                    $export->created_at);
+            }
+            else {
+                printf("<a href='/export/%s'>Export No. %s</a> (from %s, Duration: %s, Products: %s)",
+                    $export->export_file,
+                    $export->id,
+                    $export->created_at->formatLocalized('%A %d %B %Y'),
+                    $export->getDuration(),
+                    $export->number_of_products);
+            }
+
+            print "<br>";
+        });
+        return "";
     }
 
     public function startExport() {
