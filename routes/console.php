@@ -60,7 +60,9 @@ Artisan::command('media:cleanup', function() {
 
         /* This is the correct way to loop over the directory. */
         while (false !== ($subdir = readdir($handle))) {
-            if($subdir == '.' || $subdir == '..') continue;
+            if($subdir == '.'
+                || $subdir == '..' 
+                || !is_dir($mediaDir.$subdir)) continue;
 
             $files = scanDir($mediaDir.$subdir);
 
