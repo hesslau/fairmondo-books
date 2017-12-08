@@ -68,9 +68,14 @@ class ExportController extends Controller
                 @unlink($file);
             }
 
+            // If we got to here, we can assume that everything went well.
+            Log::info("Exported {$exportInfo->number_of_products} to {$exportInfo->export_file}.");
+
         } catch(Exception $e) {
 
-            throw $e;
+            // Something didn't go well. Write a log message and continue throwing the error.
+            Log::error("Export {$exportInfo->id} ($exportInfo->created_at} failed: {$e->getMessage()}");
+            // throw $e; // @todo: should we throw this or not?
 
         } finally {
 
