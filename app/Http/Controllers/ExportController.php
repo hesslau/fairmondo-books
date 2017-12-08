@@ -31,24 +31,35 @@ class ExportController extends Controller
         // Create New Export to get correct start time
         $exportInfo = new Export();
         $exportInfo->save();
+        Log::info("Export #{$exportInfo->id} started.");
 
         try {
 
             // get date of last completed Export
             $latestExport = Export::completed()->latest()->first();
+
+            // if there is no latest export we use the start of the unix epoche
             $dateOfLatestExport = ($latestExport) ? $latestExport['created_at'] : Carbon::createFromTimestamp(0);
 
             // select Products which where updated after latest export
             $selectedProducts = self::selectProducts($dateOfLatestExport);
 
-            // generate progress bar
+            // get product count
             $numberOfItems = $testrun ? 1000 : $selectedProducts->count() - $skip;
+
+            // exit here if we have nothing to export
+            if($numberOfItems === 0) throw new Exception("Nothing to export.");
+
+            // update Export object
             $exportInfo->number_of_products = $numberOfItems;
+
+            // display progress bar
             $progress = ConsoleOutput::progress($numberOfItems);
 
             // skip items
             if ($skip > 0) $selectedProducts = $selectedProducts->skip($skip);
 
+            // build producthandler
             $files = [***REMOVED***
             $productHandler = self::getProductHandler($progress, $files, $filepath, $testrun);
 
@@ -56,11 +67,16 @@ class ExportController extends Controller
             if ($testrun) $productHandler($selectedProducts->take(1000)->get());
             else $selectedProducts->chunk($chunkSize, $productHandler);
 
+            // exit if no files were created
+            if(count($files) === 0) throw new Exception("No files were created.");
+
             // pack the files
             ZipController::makeArchive($zipArchive, $files);
 
             // Check if archive was created
-            if (!file_exists($zipArchive)) throw new Exception("Creating archive at $zipArchive failed.");
+            if (!file_exists($zipArchive)) throw new Exception("Could not create archive at $zipArchive.");
+
+            // update export object
             $exportInfo->export_file = basename($zipArchive);
 
             // delete the csv files
@@ -69,12 +85,12 @@ class ExportController extends Controller
             }
 
             // If we got to here, we can assume that everything went well.
-            Log::info("Exported {$exportInfo->number_of_products} to {$exportInfo->export_file}.");
+            Log::info("Export #{$exportInfo->id} finished. (Products: {$exportInfo->number_of_products} File: {$exportInfo->export_file})");
 
         } catch(Exception $e) {
 
             // Something didn't go well. Write a log message and continue throwing the error.
-            Log::error("Export {$exportInfo->id} ($exportInfo->created_at} failed: {$e->getMessage()}");
+            Log::error("Export #{$exportInfo->id} from {$exportInfo->created_at} failed: {$e->getMessage()}");
             // throw $e; // @todo: should we throw this or not?
 
         } finally {
