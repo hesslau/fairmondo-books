@@ -66,6 +66,7 @@ class AnnotationFactory implements IFactory
                     // since we're not listing Libri's internal products, skip this one
                     return null;
             }
+            if($annotation->ProductReference === NULL) throw new Exception("Annotation doesn't contain ProductReference", $dom);
         }
         try {
             $annotation->AnnotationContent = trim($dom->getElementsByTagName("body")->item(0)->nodeValue);
