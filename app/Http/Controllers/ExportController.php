@@ -30,8 +30,14 @@ class ExportController extends Controller
 
         // Create New Export to get correct start time
         $exportInfo = new Export();
-        $exportInfo->save();
-        Log::info("Export #{$exportInfo->id} started.");
+        if ($testrun) {
+            Log::info("Test-Export started.");
+
+        } else {
+            Log::info("Export #{$exportInfo->id} started.");
+            $exportInfo->save();
+        }
+
 
         try {
 
@@ -100,6 +106,9 @@ class ExportController extends Controller
             // Update Export Model in Database
             if (!$testrun) {
                 $exportInfo->save();
+                Log::info("Export #{$exportInfo->id} finished.");
+            } else {
+                Log::info("Test-Export finished.");
             }
 
             return $exportInfo;
