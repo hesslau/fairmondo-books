@@ -12,6 +12,7 @@ use App\Models\Annotation;
 use App\Models\KtextAnnotation;
 use DOMDocument;
 use ErrorException;
+use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
