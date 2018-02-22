@@ -116,7 +116,7 @@ class DownloadManager
             }
 
         }
-        return true;
+        return $this->FINISHED;
     }
 
     public function haltPulling(){
