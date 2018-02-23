@@ -36,7 +36,7 @@ Artisan::command('import:onix {file}',function($file) {
     dd(array_slice($products,0,5),$totalConditionsFailed);
 });
 
-Artisan::command('pull:annotations', function(){
+Artisan::command('pull:annotations {--test}', function($test){
     $downloadManager = new App\Managers\DownloadManager(
         new \App\FtpSettings(config("ftp.annotations")),
         new \App\Factories\AnnotationFactory(),
@@ -47,7 +47,7 @@ Artisan::command('pull:annotations', function(){
     );
 
     $downloadManager->chunksize = 5;
-    $exitCode = $downloadManager->startPulling([]);
+    $exitCode = $downloadManager->startPulling(compact('test'));
 
     if($exitCode == $downloadManager::FINISHED) exit(0);
     else exit(2);
