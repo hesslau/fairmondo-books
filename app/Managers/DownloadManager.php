@@ -78,6 +78,10 @@ class DownloadManager
             $availableFiles = array_reverse($availableFiles);
         }
 
+        if(key_exists('test',$options) && $options['test']) {
+            $availableFiles = array_slice($availableFiles,0,1);
+        }
+
         // iterate through filelist and download updates
         $index = 0;
         foreach($availableFiles as $filepath) {
