@@ -202,8 +202,9 @@ class ExportController extends Controller
                                             and PriceAmount between 0.99 and 10000.00;");
 
         // mark products for deletion which were updated in libri_products and exist in the current market fairmondo_products but didn't make it into selected_products
+        // skip the products where were previously marked for deletion.
         ConsoleOutput::info("Marking ineligible Products in Market for deletion.");
-        $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$dateOfLatestExport' and fairmondo_products.created_at > '$dateOfLatestExport' and gtin=ProductReference;");
+        $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$dateOfLatestExport' and fairmondo_products.created_at > '$dateOfLatestExport' and gtin=ProductReference and fairmondo_products.action<>'delete';");
 
         // mark products for update which are selected for market and already exist in the market
         ConsoleOutput::info("Marking eligible Products in Market for update.");
