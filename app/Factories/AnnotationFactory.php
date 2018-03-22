@@ -67,8 +67,16 @@ class AnnotationFactory implements IFactory
                     // since we're not listing Libri's internal products, skip this one
                     return null;
             }
-            if($annotation->ProductReference === NULL) throw new Exception("Annotation doesn't contain ProductReference. Dom: $dom");
         }
+
+        // if ProductReference wasn't found, there might be something wrong with the file, let's store it for further inspection.
+        if($annotation->ProductReference === NULL) {
+            $failedFile = storage_path('failed_imports').'/'.basename($filepath);
+            @mkdir(dirname($failedFile));
+            copy($filepath,$failedFile);
+            throw new Exception("Annotation doesn't contain ProductReference. Malformed file was copied to $failedFile.");
+        }
+
         try {
             $annotation->AnnotationContent = trim($dom->getElementsByTagName("body")->item(0)->nodeValue);
         } catch (ErrorException $e) {
