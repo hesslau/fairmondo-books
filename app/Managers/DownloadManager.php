@@ -60,6 +60,11 @@ class DownloadManager
      */
     public function startPulling(array $options = []) {
 
+        // remove all the failed download attempts from previous updates
+        // todo: maybe restrict these only to download of current download type (annotation vs. update)
+        $fewHoursAgo = (new \DateTime('now'))->modify('-20 hours')->format('Y-m-d H:m:s');
+        Download::where('success',0)->where('attempts', '>=', self::MAX_DOWNLOAD_ATTEMPTS)->where('updated_at','<',$fewHoursAgo)->delete();
+
         // get filelist
         $this->ftpController = new FtpController($this->ftpSettings);
         $availableFiles = $this->ftpController->getFileList();
