@@ -294,6 +294,7 @@ class FairmondoProductBuilder {
                     break;
                 case 'Blurb':
                     $value = self::cleanTrim(self::getBlurb($source),9000);     // trim content before adding html code
+                    $value = self::removeForbiddenChars($value);                // remove forbidden characters
                     break;
                 case 'AudioBook':
                     $value = $source->isAudioBook();
@@ -323,9 +324,6 @@ class FairmondoProductBuilder {
 
         // remove new lines
         $content = trim(preg_replace('/\s\s+/', ' ', $content));
-
-        // remove forbidden charactersM
-        $content = self::removeForbiddenChars($content);
 
         return $content;
     }
