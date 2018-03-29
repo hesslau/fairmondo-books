@@ -146,7 +146,7 @@
 ***REMOVED***
     'ForbiddenCharacters' => [
         "\"" => "´",
-        ";" => "",
+        ";" => "",      // careful! semicolons will break the CSV! (@todo find solution)
         ">" => "",
         "<" => ""
 ***REMOVED***
