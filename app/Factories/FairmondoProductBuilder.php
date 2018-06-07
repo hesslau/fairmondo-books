@@ -39,7 +39,7 @@ class FairmondoProductBuilder {
 
             // don't create product
             if($product->action == self::ACTION_CREATE) {
-                ConsoleOutput::error($e.getMessage());
+                ConsoleOutput::error($e->getMessage());
                 return null;
             }
 
