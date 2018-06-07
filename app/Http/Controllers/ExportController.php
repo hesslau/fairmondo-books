@@ -175,7 +175,8 @@ class ExportController extends Controller
                 $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
                 /* TODO: Should the changes be written to the replication database in this use case? */
                 // self::storeFairmondoProduct($fairmondoProduct);
-                $export->insertOne($fairmondoProduct->toArray());
+                if(!$fairmondoProduct) ConsoleOutput::error("Failed to create FairmondoProduct for '$gtin'.");
+                else $export->insertOne($fairmondoProduct->toArray());
             }
         }
 
