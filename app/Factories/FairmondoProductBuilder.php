@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use IntlDateFormatter;
+use App\Facades\ConsoleOutput;
 
 class FairmondoProductBuilder {
 
