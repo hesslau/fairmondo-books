@@ -188,7 +188,13 @@ class ExportController extends Controller
 
 
     public static function selectProducts($dateOfLatestExport) {
-        $dropTempTable = self::query("TRUNCATE TABLE selected_products ;");
+
+        $createTempTable = self::query("CREATE TABLE IF NOT EXISTS `selected_products` (
+                                              `gtin` varchar(13) NOT NULL,
+                                              `action` varchar(6) DEFAULT NULL,
+                                              PRIMARY KEY (`gtin`)
+                                            ); TRUNCATE TABLE selected_products;");
+
 
         //$createTempTable = self::query("create temporary table selected_products (gtin varchar(13) not null primary key,action varchar(6));");
         //print $createTempTable;
