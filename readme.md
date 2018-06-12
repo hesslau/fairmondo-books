@@ -8,13 +8,12 @@ Stack: PHP7, Laravel5, MySQL, Bash
 ## Install Dependencies:
 To install the required dependencies run
 
-    $ apt-get install composer php7.0 mysql-server php-mbstring php-dom php-zip php-intl php-fpm php7.0-mysql
+    $ apt-get install composer php mysql-server php-mbstring php-dom php-zip php-intl php-fpm php-mysql php-intl
 
 on the command line.
 
 ## Configuration:
 Edit `config/ftp.php` for FTP connection details and `config/database.php` for database credentials.
-
 
 ## Installation:
     $ composer install
