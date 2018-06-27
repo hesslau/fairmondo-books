@@ -42,7 +42,7 @@ class ExportController extends Controller
         try {
 
             // get date of last completed Export
-            $latestExport = Export::completed()->latest()->first();
+            $latestExport = Export::whereNotNull('number_of_products')->latest()->first();
 
             // if there is no latest export we use the start of the unix epoche
             $dateOfLatestExport = ($latestExport) ? $latestExport['created_at'] : Carbon::createFromTimestamp(0);
@@ -226,7 +226,7 @@ class ExportController extends Controller
     public static function rollbackLatestExport() {
 
         // find latest export (complete or incomplete)
-        $export = Export::latest()->first();
+        $export = Export::all()->last();
 
         // find all records that were created in this export
         $products = FairmondoProduct::where('created_at','>',$export['created_at']);
