@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Inspiring;
 use App\DatabaseSupervisor;
 use Illuminate\Support\Facades\Log;
+use App\Services\ExportService;
 
 ini_set('memory_limit','512M');
 /*
@@ -96,13 +97,13 @@ Artisan::command('fairmondobooks:import:file {filename}', function($filename) {
 });
 
 Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function($since, $test, $skip) {
-    App\Http\Controllers\ExportController::makeDelta($since, intval($skip), $test);
+    ExportService::makeDelta($since, intval($skip), $test);
 });
 
 Artisan::command('fairmondobooks:reexport {--file=0} {--gtin=0}', function($file,$gtin) {
     $gtins = ($file) ? explode("\n",file_get_contents($file)) : [$gtin***REMOVED***
     $gtins = array_map("trim", $gtins);
-    return App\Http\Controllers\ExportController::exportProducts($gtins);
+    return ExportService::exportProducts($gtins);
 });
 
 Artisan::command('fairmondobooks:test:file {filename}', function($filename) {

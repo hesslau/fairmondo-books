@@ -1,10 +1,15 @@
 ***REMOVED***
+/**
+ * Created by IntelliJ IDEA.
+ * User: hesslau
+ * Date: 6/30/18
+ * Time: 1:07 PM
+ */
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
 use App\Facades\ConsoleOutput;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use League\Csv\Writer;
@@ -12,11 +17,10 @@ use App\Models\FairmondoProduct;
 use App\Models\LibriProduct;
 use App\Factories\FairmondoProductBuilder;
 use Exception;
-use SebastianBergmann\Environment\Console;
 use App\Models\Export;
 use Carbon\Carbon;
 
-class ExportController extends Controller
+class ExportService
 {
     /**
      * Converts all LibriProducts into FairmondoProducts and writes them to disc.
