@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Models;
 
@@ -19,13 +19,13 @@ class LibriProduct extends Model
 
     // todo outsource raw data to config file
     public function isDigital() {
-        $digitalProductForms = ['AC','DB','DA','AI','VI','VO','ZE','00'***REMOVED***
+        $digitalProductForms = ['AC','DB','DA','AI','VI','VO','ZE','00'];
         return in_array($this->attributes['ProductForm'],$digitalProductForms);
     }
 
     public function isAudioBook() {
         if(!key_exists('VLBSchemeOld',$this->attributes)) return false;
-        $productGroup = $this->attributes['VLBSchemeOld'***REMOVED***
+        $productGroup = $this->attributes['VLBSchemeOld'];
 
         /*  Die Warengruppe, die Musik-CDs umfassend abgebildet ist die 59*.
 	        Die Warengruppen 51 bis 58 bezeichnen Hörbücher zu den jeweiligen Themen aus der Warengruppensystematik.
@@ -107,7 +107,7 @@ class LibriProduct extends Model
             "AvailabilityCode",
             "DateOfData",
             "PublishingStatus",
-    ***REMOVED***);
+        ]);
 
         // fill $this->attributes array
         $this->fill((array) $std);
@@ -139,7 +139,7 @@ class LibriProduct extends Model
         }
 
         if (array_key_exists($key, $this->relations)) {
-            return $this->relations[$key***REMOVED***
+            return $this->relations[$key];
         }
 
         if (method_exists($this, $key)) {

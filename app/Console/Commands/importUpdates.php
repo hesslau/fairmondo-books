@@ -1,9 +1,9 @@
-***REMOVED***
+<?php
 
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\FtpController;
+use App\Services\FtpService;
 use App\Http\Controllers\ZipController;
 use App\Http\Controllers\XmlController;
 use App\LibriProduct;
@@ -43,7 +43,7 @@ class importUpdates extends Command
      */
     public function handle()
     {
-        $ftpController = new FtpController();
+        $ftpController = new FtpService();
         $zipController = new ZipController();
         $xmlController = new XmlController();
 

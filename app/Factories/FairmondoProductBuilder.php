@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Factories;
 
@@ -128,7 +128,7 @@ class FairmondoProductBuilder {
      */
     public static function getTitle(LibriProduct $source) {
 
-        $info = [***REMOVED***
+        $info = [];
         $info['Title'] = $source->DistinctiveTitle;
         $info['Author'] = $source->Author ? sprintf("%s: ", $source->Author) : false;
         $info['ProductForm'] = sprintf("%s, ",self::getProductFormDescription($source->ProductForm));
@@ -188,7 +188,7 @@ class FairmondoProductBuilder {
         // Third we check if the ProductForm has a corresponding category defined in the config.
         $map = config('fairmondoproduct.maps.ProductForm2FairmondoCategory');
         if(count($categories) <= 1 && key_exists($source->ProductForm, $map)) {
-            $categories[] = $map[$source->ProductForm***REMOVED***
+            $categories[] = $map[$source->ProductForm];
         }
 
         if(!$categories) throw new MissingDataException("Product doesn't belong to any categories.",$source->ProductReference);
@@ -206,7 +206,7 @@ class FairmondoProductBuilder {
      */
     private static function getProductFormDescription($productForm) {
         $map = config('fairmondoproduct.maps.ProductForm');
-        if(key_exists($productForm,$map)) return $map[$productForm***REMOVED***
+        if(key_exists($productForm,$map)) return $map[$productForm];
         else return "";
     }
 
@@ -215,7 +215,7 @@ class FairmondoProductBuilder {
      */
     private static function getProductLanguageDescription($productLanguage) {
         $map = config('fairmondoproduct.maps.ProductLanguage');
-        if(key_exists($productLanguage,$map)) return $map[$productLanguage***REMOVED***
+        if(key_exists($productLanguage,$map)) return $map[$productLanguage];
         else return "";
     }
 
@@ -267,7 +267,7 @@ class FairmondoProductBuilder {
         $formatter->setPattern('MMMM y');
 
         // attempt to create DateTime object from $date
-        $possibleFormats = ['Ym','Ymd'***REMOVED***
+        $possibleFormats = ['Ym','Ymd'];
         foreach($possibleFormats as $format) {
             $dateTime = DateTime::createFromFormat($format,$date);
             if($dateTime) break;
@@ -284,7 +284,7 @@ class FairmondoProductBuilder {
     public static function getContent(LibriProduct $source)
     {
         // holder for rendered templates
-        $renderedTemplates = [***REMOVED***
+        $renderedTemplates = [];
 
         // we loop through all templates that are defined in the config
         foreach (config('fairmondoproduct.templates') as $attribute => $template) {

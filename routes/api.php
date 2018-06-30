@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 use Illuminate\Http\Request;
 

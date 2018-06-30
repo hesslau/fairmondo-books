@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Providers;
 
@@ -54,7 +54,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::group([
             'middleware' => 'web',
             'namespace' => $this->namespace,
-***REMOVED*** function ($router) {
+        ], function ($router) {
             require base_path('routes/web.php');
         });
     }
@@ -72,7 +72,7 @@ class RouteServiceProvider extends ServiceProvider
             'middleware' => 'api',
             'namespace' => $this->namespace,
             'prefix' => 'api',
-***REMOVED*** function ($router) {
+        ], function ($router) {
             require base_path('routes/api.php');
         });
     }

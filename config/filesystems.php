@@ -1,6 +1,6 @@
-***REMOVED***
+<?php
 
-***REMOVED***
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -46,13 +46,13 @@
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
-***REMOVED***
+        ],
 
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'visibility' => 'public',
-***REMOVED***
+        ],
 
         's3' => [
             'driver' => 's3',
@@ -60,8 +60,8 @@
             'secret' => 'your-secret',
             'region' => 'your-region',
             'bucket' => 'your-bucket',
-***REMOVED***
+        ],
 
-***REMOVED***,
+    ],
 
-***REMOVED***
+];

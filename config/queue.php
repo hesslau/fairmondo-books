@@ -1,6 +1,6 @@
-***REMOVED***
+<?php
 
-***REMOVED***
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -32,21 +32,21 @@
 
         'sync' => [
             'driver' => 'sync',
-***REMOVED***
+        ],
 
         'database' => [
             'driver' => 'database',
             'table' => 'jobs',
             'queue' => 'default',
             'retry_after' => 90,
-***REMOVED***
+        ],
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host' => 'localhost',
             'queue' => 'default',
             'retry_after' => 90,
-***REMOVED***
+        ],
 
         'sqs' => [
             'driver' => 'sqs',
@@ -55,16 +55,16 @@
             'prefix' => 'https://sqs.us-east-1.amazonaws.com/your-account-id',
             'queue' => 'your-queue-name',
             'region' => 'us-east-1',
-***REMOVED***
+        ],
 
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
             'queue' => 'default',
             'retry_after' => 90,
-***REMOVED***
+        ],
 
-***REMOVED***,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -80,6 +80,6 @@
     'failed' => [
         'database' => env('DB_CONNECTION', 'mysql'),
         'table' => 'failed_jobs',
-***REMOVED***,
+    ],
 
-***REMOVED***
+];

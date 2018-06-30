@@ -6,7 +6,7 @@ trap "rmdir $LOCKFILE_EXPORT; exit 1;" SIGINT SIGTERM
 if mkdir "$LOCKFILE_EXPORT"; then
 	echo "locking suceeded" >&2
 	
-	while [ -d "$LOCKFILE_UPDATE" ***REMOVED*** do
+	while [ -d "$LOCKFILE_UPDATE" ]; do
 		echo "Update Lock active. Retry in 10s...";
 		sleep 10;
 	done;

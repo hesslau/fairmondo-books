@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -43,7 +43,7 @@ class LibriProductTest extends TestCase
             'DiscountPercent'   => 15,
             'PriceTypeCode'     => 04
 
-    ***REMOVED***;
+        ];
 
         list($record) = $this->createLibriProductFromFile(self::VALID_TESTFILE);
 

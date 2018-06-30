@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Console;
 
@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportCSV::class,
         Commands\Pull::class
         //
-***REMOVED***;
+    ];
 
     /**
      * Define the application's command schedule.

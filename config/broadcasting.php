@@ -1,6 +1,6 @@
-***REMOVED***
+<?php
 
-***REMOVED***
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -37,22 +37,22 @@
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 //
-    ***REMOVED***
-***REMOVED***
+            ],
+        ],
 
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
-***REMOVED***
+        ],
 
         'log' => [
             'driver' => 'log',
-***REMOVED***
+        ],
 
         'null' => [
             'driver' => 'null',
-***REMOVED***
+        ],
 
-***REMOVED***,
+    ],
 
-***REMOVED***
+];

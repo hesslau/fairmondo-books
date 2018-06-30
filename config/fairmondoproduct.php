@@ -1,5 +1,5 @@
-***REMOVED***
-***REMOVED***
+<?php
+return [
     'fields' => [
         'title',
         'categories',
@@ -24,7 +24,7 @@
         'gtin',
         'custom_seller_identifier',
         'action'
-***REMOVED***,
+    ],
     'default' => [
         'condition'                 => 'new',
         'transport_type1'           => true,
@@ -38,7 +38,7 @@
         'payment_invoice'           => false,
         'payment_voucher'           => true,
         'payment_details'           => ''
-***REMOVED***,
+    ],
     'maps' => [
         'ProductForm' => [
             'BA' => 'Buch',
@@ -59,7 +59,7 @@
             'DG' => 'eBook',        //116
             'PC' => 'Kalender',     //1654
             //'00' => 'Hardware',     //1122
-***REMOVED***
+        ],
         // map Libri Product Form to a Fairmondo Category
         'ProductForm2FairmondoCategory' => [
             'BA' => 56,
@@ -81,7 +81,7 @@
             'PC' => 1654,
             '00' => 1122,
             'ZZ' => 1122    // assumption based on productformdescriptions
-***REMOVED***
+        ],
         'ProductLanguage' => [
              'ger' => 'Deutsch',
              'eng' => 'Englisch',
@@ -91,18 +91,18 @@
              'fin' => 'Finnisch',
              'tur' => 'Türkisch',
              'dan' => 'Dänisch'
-***REMOVED***
+        ],
         'ProductReferenceType' => [
             15  => 'EAN',
             03  => 'ISBN13',
             02  => 'ISBN10'
-    ***REMOVED***
-***REMOVED***,
+        ]
+    ],
     'conditions' => [
         'AvailabilityStatus' => [20,21,22],         // 20: Available, 21: In Stock, 22: To order, 23: Print on Demand; for more Info see ONIX Codelist 65
         'invalidAudienceCodeValues' => [16,17,18],
         'maxPriceCents' => 1000000
-***REMOVED***,
+    ],
     'templates' => [
         'DistinctiveTitle'  => '<h3>%s</h3>',
         'Author'            => '<p>von <b>%s</b></p>',
@@ -114,7 +114,7 @@
         'ProductReference'  => 'EAN %s',
         'Blurb'             => '<p><b>Beschreibung</b></p><p>%s</p>',
         'AudioBook'         => 'Hörbuch, '
-***REMOVED***,
+    ],
     'CustomSellerIdentifierTemplate' => 'LIB-%013s',
     'TitleTemplate' => "%Author%Title (%ProductForm%AudioBook%ProductReference)",
     'ContentTemplate' => '
@@ -143,11 +143,11 @@
             , '9783892915508', '9783456854427', '9781681766942', '9783898798907', '9783862486861', '9783862486854'
             , '4020628842833', '4020628842840', '9783664356508', '9783954981830', '9783959490047', '9783959490504'
             , '9783710400377', '9780875802381', '9783432102399', '9783432102412', '9783432102405']
-***REMOVED***
+        ],
     'ForbiddenCharacters' => [
         "\"" => "´",
         ";" => "",      // careful! semicolons will break the CSV! (@todo find solution)
         ">" => "",
         "<" => ""
-***REMOVED***
-***REMOVED***
+    ]
+];

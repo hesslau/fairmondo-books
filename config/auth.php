@@ -1,6 +1,6 @@
-***REMOVED***
+<?php
 
-***REMOVED***
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -16,7 +16,7 @@
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
-***REMOVED***,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -39,13 +39,13 @@
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-***REMOVED***
+        ],
 
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
-***REMOVED***
-***REMOVED***,
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -68,13 +68,13 @@
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
-***REMOVED***
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-***REMOVED***,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
-***REMOVED***
-***REMOVED***,
+        ],
+    ],
 
-***REMOVED***
+];

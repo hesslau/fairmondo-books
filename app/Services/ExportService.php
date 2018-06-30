@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 /**
  * Created by IntelliJ IDEA.
  * User: hesslau
@@ -70,7 +70,7 @@ class ExportService
             if ($skip > 0) $selectedProducts = $selectedProducts->skip($skip);
 
             // build producthandler
-            $files = [***REMOVED***
+            $files = [];
             $productHandler = self::getProductHandler($progress, $files, $filepath, $testrun);
 
             // apply producthandler to selected products

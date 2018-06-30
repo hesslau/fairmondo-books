@@ -1,9 +1,9 @@
-***REMOVED***
+<?php
 declare(strict_types=1);
 
 namespace App\Managers;
 
-use App\Http\Controllers\FtpController,
+use App\Services\FtpService,
     App\Http\Controllers\ZipController;
 
 // Models
@@ -66,7 +66,7 @@ class DownloadManager
         Download::where('success',0)->where('attempts', '>=', self::MAX_DOWNLOAD_ATTEMPTS)->where('updated_at','<',$fewHoursAgo)->delete();
 
         // get filelist
-        $this->ftpController = new FtpController($this->ftpSettings);
+        $this->ftpController = new FtpService($this->ftpSettings);
         $availableFiles = $this->ftpController->getFileList();
 
         if(is_callable($this->fileFilter)) {
@@ -134,7 +134,7 @@ class DownloadManager
 
     private function download($file) {
         // create FtpController instance if it doesn't exist yet
-        if(!isset($this->ftpController)) $this->ftpController = new FtpController($this->ftpSettings);
+        if(!isset($this->ftpController)) $this->ftpController = new FtpService($this->ftpSettings);
 
         // lookup file in downloads table
         $download = Download::find($file);

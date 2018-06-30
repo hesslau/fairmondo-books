@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Http\Controllers\Auth;
 

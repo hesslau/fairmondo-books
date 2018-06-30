@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Http;
 
@@ -15,7 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-***REMOVED***;
+    ];
 
     /**
      * The application's route middleware groups.
@@ -30,13 +30,13 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-***REMOVED***
+        ],
 
         'api' => [
             'throttle:60,1',
             'bindings',
-***REMOVED***
-***REMOVED***;
+        ],
+    ];
 
     /**
      * The application's route middleware.
@@ -52,5 +52,5 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-***REMOVED***;
+    ];
 }

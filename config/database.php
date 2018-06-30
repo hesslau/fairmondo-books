@@ -1,6 +1,6 @@
-***REMOVED***
+<?php
 
-***REMOVED***
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('fairmondoBooks')),
             'prefix' => '',
-***REMOVED***
+        ],
 
         'mysql' => [
             'driver' => 'mysql',
@@ -64,7 +64,7 @@
             'prefix' => '',
             'strict' => true,
             'engine' => null,
-***REMOVED***
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
@@ -77,9 +77,9 @@
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
-***REMOVED***
+        ],
 
-***REMOVED***,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -114,8 +114,8 @@
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),
             'database' => 0,
-***REMOVED***
+        ],
 
-***REMOVED***,
+    ],
 
-***REMOVED***
+];

@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -13,7 +13,7 @@ class AnnotationTest extends TestCase
         $productReference = "9780141024677";
         $annotationContent = "This sociopolitical comedy";
 
-        $annotation = AnnotationFactory::makeFromFile($testfile)[0***REMOVED***
+        $annotation = AnnotationFactory::makeFromFile($testfile)[0];
 
         $this->assertEquals($productReference, $annotation->ProductReference);
         $this->assertEquals($annotationContent, $annotation->AnnotationContent);
@@ -25,7 +25,7 @@ class AnnotationTest extends TestCase
 
         AnnotationFactory::store($annotations);
 
-        $annotation = $annotations[0***REMOVED***
+        $annotation = $annotations[0];
         $query = \App\Models\KtextAnnotation::where('ProductReference',$annotation->ProductReference);
         $this->assertNotEmpty($query->get(), "Couldn't find stored Annotation.");
     }

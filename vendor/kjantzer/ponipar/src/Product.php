@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 declare(encoding='UTF-8');
 namespace PONIpar;
@@ -121,7 +121,7 @@ class Product {
 			}
 			$this->subitems[$name] = $subitems;
 		}
-		return $this->subitems[$name***REMOVED***
+		return $this->subitems[$name];
 	}
 	
 	/**

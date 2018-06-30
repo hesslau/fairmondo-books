@@ -1,10 +1,10 @@
-***REMOVED***
+<?php
 
 namespace App\Models;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\FtpController,
+use App\Services\FtpService,
     App\Http\Controllers\Controller,
     App\Http\Controllers\ZipController;
 

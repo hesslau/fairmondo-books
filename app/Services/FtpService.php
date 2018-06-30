@@ -1,16 +1,12 @@
-***REMOVED***
+<?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
-use Illuminate\Http\Request;
-use Exception;
-use Illuminate\Routing\Controller as BaseController;
 use App\FtpSettings;
-use ErrorException;
 use Illuminate\Support\Facades\Log;
 use App\Facades\ConsoleOutput;
 
-class FtpController extends BaseController
+class FtpService
 {
     private $connection;
     private $settings;
@@ -138,7 +134,7 @@ class FtpController extends BaseController
             isset($http_response_header) &&
             preg_match($regex, implode("\n", $http_response_header), $matches)
         ) {
-            return (int)$matches[0***REMOVED***
+            return (int)$matches[0];
         }
         return strlen(stream_get_contents($fp));
     }

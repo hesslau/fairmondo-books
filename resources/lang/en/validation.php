@@ -1,6 +1,6 @@
-***REMOVED***
+<?php
 
-***REMOVED***
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@
         'file'    => 'The :attribute must be between :min and :max kilobytes.',
         'string'  => 'The :attribute must be between :min and :max characters.',
         'array'   => 'The :attribute must have between :min and :max items.',
-***REMOVED***,
+    ],
     'boolean'              => 'The :attribute field must be true or false.',
     'confirmed'            => 'The :attribute confirmation does not match.',
     'date'                 => 'The :attribute is not a valid date.',
@@ -51,7 +51,7 @@
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
         'string'  => 'The :attribute may not be greater than :max characters.',
         'array'   => 'The :attribute may not have more than :max items.',
-***REMOVED***,
+    ],
     'mimes'                => 'The :attribute must be a file of type: :values.',
     'mimetypes'            => 'The :attribute must be a file of type: :values.',
     'min'                  => [
@@ -59,7 +59,7 @@
         'file'    => 'The :attribute must be at least :min kilobytes.',
         'string'  => 'The :attribute must be at least :min characters.',
         'array'   => 'The :attribute must have at least :min items.',
-***REMOVED***,
+    ],
     'not_in'               => 'The selected :attribute is invalid.',
     'numeric'              => 'The :attribute must be a number.',
     'present'              => 'The :attribute field must be present.',
@@ -77,7 +77,7 @@
         'file'    => 'The :attribute must be :size kilobytes.',
         'string'  => 'The :attribute must be :size characters.',
         'array'   => 'The :attribute must contain :size items.',
-***REMOVED***,
+    ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'The :attribute has already been taken.',
@@ -98,8 +98,8 @@
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
-***REMOVED***
-***REMOVED***,
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -114,4 +114,4 @@
 
     'attributes' => [],
 
-***REMOVED***
+];

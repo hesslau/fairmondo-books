@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 /**
  * Created by PhpStorm.
  * User: hesslau
@@ -36,7 +36,7 @@ class AnnotationFactory implements IFactory
                 throw new Exception("Unsupported Annotation.");
         }
 
-        ***REMOVED***$annotation***REMOVED***
+        return [$annotation];
     }
 
     /*
@@ -44,7 +44,7 @@ class AnnotationFactory implements IFactory
      */
     private static function makePictureAnnotation($filepath) {
         $parts = explode('_',basename($filepath));
-        $productReference = $parts[1***REMOVED***
+        $productReference = $parts[1];
         list($annotationType,$extension) = explode('.',$parts[3]);
 
         $destination = 'app/media'.DIRECTORY_SEPARATOR

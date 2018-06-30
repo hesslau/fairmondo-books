@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 /**
  * Created by PhpStorm.
  * User: hesslau

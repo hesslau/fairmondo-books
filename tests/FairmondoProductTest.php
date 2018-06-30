@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -60,7 +60,7 @@ class FairmondoProductTest extends TestCase
             'payment_voucher'           => config('fairmondoproduct.default.payment_voucher'),
             'payment_details'           => config('fairmondoproduct.default.payment_details')
 
-    ***REMOVED***;
+        ];
 
         foreach($expectedData as $key => $value) {
             $this->assertEquals($value, $fairmondoProduct->$key, "testing $key");
@@ -144,22 +144,22 @@ class FairmondoProductTest extends TestCase
         $failedConditions = FairmondoProductBuilder::checkConditions($p);
         $this->assertNotContains("NotOnBlacklist",$failedConditions);
 
-        $p->PublisherName = config('fairmondoproduct.Blacklist.PublisherName')[0***REMOVED***
+        $p->PublisherName = config('fairmondoproduct.Blacklist.PublisherName')[0];
         $failedConditions = FairmondoProductBuilder::checkConditions($p);
         $this->assertContains("NotOnBlacklist",$failedConditions);
         $p->PublisherName = "Some Publisher";
 
-        $p->Author = config('fairmondoproduct.Blacklist.Author')[0***REMOVED***
+        $p->Author = config('fairmondoproduct.Blacklist.Author')[0];
         $failedConditions = FairmondoProductBuilder::checkConditions($p);
         $this->assertContains("NotOnBlacklist",$failedConditions);
         $p->Author = "Some Author";
 
-        $p->ProductReference = config('fairmondoproduct.Blacklist.ProductReference')[0***REMOVED***;
+        $p->ProductReference = config('fairmondoproduct.Blacklist.ProductReference')[0];;
         $failedConditions = FairmondoProductBuilder::checkConditions($p);
         $this->assertContains("NotOnBlacklist",$failedConditions);
         $p->ProductReference = "1111111111111";
 
-        $p->Blurb = config('fairmondoproduct.Blacklist.Blurb')[0***REMOVED***;
+        $p->Blurb = config('fairmondoproduct.Blacklist.Blurb')[0];;
         $failedConditions = FairmondoProductBuilder::checkConditions($p);
         $this->assertContains("NotOnBlacklist",$failedConditions);
     }
@@ -178,8 +178,8 @@ class FairmondoProductTest extends TestCase
         $offset = 5;
         for($i=0;$i<$offset;$i++) $csvIterator->next();
 
-        $productsToSkip = [9780008202132,9780008181833,9783125354029,9783125620421, 9783131669919, 9783125613096,4009750255766,9780007161850,9780199545469,9780295989075,9780300123999,9780393329810***REMOVED*** //['0028947920717','0028947970439','0028948303939','0042284302821','0091037567970','0602498717004','0602517810266'***REMOVED***
-        $fieldsToSkip = ['quantity','content','transport_time','action','price_cents','title'***REMOVED***
+        $productsToSkip = [9780008202132,9780008181833,9783125354029,9783125620421, 9783131669919, 9783125613096,4009750255766,9780007161850,9780199545469,9780295989075,9780300123999,9780393329810]; //['0028947920717','0028947970439','0028948303939','0042284302821','0091037567970','0602498717004','0602517810266'];
+        $fieldsToSkip = ['quantity','content','transport_time','action','price_cents','title'];
 
         while ($csvIterator->valid()) {
             // get current product
@@ -188,7 +188,7 @@ class FairmondoProductTest extends TestCase
             // advance to the next row for next iteration
             $csvIterator->next();
 
-            $gtin = $csvProduct[$headers['gtin']***REMOVED***
+            $gtin = $csvProduct[$headers['gtin']];
             ConsoleOutput::info(sprintf("checking %s (action %s)",$gtin,$csvProduct[$headers['action']]));
 
             if(in_array($gtin, $productsToSkip)) {
@@ -214,7 +214,7 @@ class FairmondoProductTest extends TestCase
                 // skip some fields that may vary
                 if(in_array($field,$fieldsToSkip)) continue;
 
-                $expected = $csvProduct[$headers[$field]***REMOVED***
+                $expected = $csvProduct[$headers[$field]];
                 $actual = $fProduct->$field;
 
                 // remove special character since they're a large source of minor mismatches

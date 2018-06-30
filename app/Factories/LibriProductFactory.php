@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Factories;
 
@@ -38,7 +38,7 @@ class LibriProductFactory implements IFactory {
         $progress = ConsoleOutput::progress($numberOfItems);
 
         // holds all products
-        $products = [***REMOVED***
+        $products = [];
         $productHandler = function($product) use ($progress,&$products,$dateOfCatalogUpdate, $catalogUpdateIdentifier) {
 
             ConsoleOutput::advance($progress);
@@ -105,7 +105,7 @@ class LibriProductFactory implements IFactory {
             {
                 $match = Null;
                 preg_match('/\<m182\>([0-9]{8})\<\/m182\>/',$line,$match);
-                if(isset($match[1])) return $match[1***REMOVED***
+                if(isset($match[1])) return $match[1];
             }
         }
         else
@@ -182,8 +182,8 @@ class LibriProductFactory implements IFactory {
         $tmpReference                           = $controller->getProductReference();
         if(!$tmpReference) return null;         // if no valid reference was found, this product is invalid
 
-        $libriProduct->ProductReference         = (String) $tmpReference[0***REMOVED***
-        $libriProduct->ProductReferenceType     = (String) $tmpReference[1***REMOVED***
+        $libriProduct->ProductReference         = (String) $tmpReference[0];
+        $libriProduct->ProductReferenceType     = (String) $tmpReference[1];
 
         // test required fields
         $requiredFields = [
@@ -191,7 +191,7 @@ class LibriProductFactory implements IFactory {
             'ProductReference',
             'DistinctiveTitle',
             'ProductForm'
-    ***REMOVED***;
+        ];
 
         foreach ($requiredFields as $field) {
             if ($libriProduct->$field === false) throw new MissingDataException("Content of `$field` not found or empty.", $recordReference);
@@ -291,7 +291,7 @@ class LibriProductFactory implements IFactory {
             PONIpar\ProductSubitem\ProductIdentifier::TYPE_ISBN13,      // 15
             PONIpar\ProductSubitem\ProductIdentifier::TYPE_GTIN13,      // 03
             PONIpar\ProductSubitem\ProductIdentifier::TYPE_ISBN10       // 02
-    ***REMOVED***;
+        ];
 
         $productReference = null;
         // loop through the allowed identifier types and pick the first successful match
@@ -331,7 +331,7 @@ class LibriProductFactory implements IFactory {
         $titles = $this->product->getTitles();
         foreach($titles as $title) {
             if($title->getType() == PONIpar\ProductSubitem\Title::TYPE_DISTINCTIVE_TITLE)
-                return $title->getValue()['title'***REMOVED***
+                return $title->getValue()['title'];
         }
         return false;
     }
@@ -349,10 +349,10 @@ class LibriProductFactory implements IFactory {
                 $value = $contributor->getValue();
 
                 if(key_exists('PersonName',$value)) {
-                    return $value['PersonName'***REMOVED***
+                    return $value['PersonName'];
                 }
                 elseif(key_exists('PersonNameInverted',$value)) {
-                    $inverted = $value['PersonNameInverted'***REMOVED***
+                    $inverted = $value['PersonNameInverted'];
                     $author = implode(' ',array_reverse(explode(', ',$inverted)));
                 }
 
@@ -563,7 +563,7 @@ class LibriProductFactory implements IFactory {
 
     public function getTaxRateCode1() {
         try {
-            return $this->CurrentPrice['j153'***REMOVED***
+            return $this->CurrentPrice['j153'];
         } catch (ErrorException $e) {
             return false;
         }
@@ -571,7 +571,7 @@ class LibriProductFactory implements IFactory {
 
     public function getPriceAmount() {
         try {
-            return $this->CurrentPrice['PriceAmount'***REMOVED***
+            return $this->CurrentPrice['PriceAmount'];
         } catch (ErrorException $e) {
             return false;
         }
@@ -579,7 +579,7 @@ class LibriProductFactory implements IFactory {
 
     public function getPriceTypeCode() {
         try {
-            return $this->CurrentPrice['PriceTypeCode'***REMOVED***
+            return $this->CurrentPrice['PriceTypeCode'];
         } catch (ErrorException $e) {
             return false;
         }
@@ -587,7 +587,7 @@ class LibriProductFactory implements IFactory {
 
     public function getDiscountPercent() {
         try {
-            return $this->CurrentPrice['DiscountPercent'***REMOVED***
+            return $this->CurrentPrice['DiscountPercent'];
         } catch (ErrorException $e) {
             return false;
         }

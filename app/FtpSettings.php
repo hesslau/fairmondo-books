@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 /**
  * Created by PhpStorm.
  * User: hesslau
@@ -26,11 +26,11 @@ class FtpSettings {
         if(!isset($config['directory'])) $config['directory'] = DIRECTORY_SEPARATOR;
         if(!isset($config['downloadDirectory'])) $config['downloadDirectory'] = storage_path('app/downloads');
 
-        $this->host = $config['host'***REMOVED***
-        $this->user = $config['user'***REMOVED***
-        $this->password = $config['password'***REMOVED***
-        $this->directory = $config['directory'***REMOVED***
-        $this->downloadDirectory = $config['downloadDirectory'***REMOVED***
+        $this->host = $config['host'];
+        $this->user = $config['user'];
+        $this->password = $config['password'];
+        $this->directory = $config['directory'];
+        $this->downloadDirectory = $config['downloadDirectory'];
     }
 
     public function setDirectory($dir) {

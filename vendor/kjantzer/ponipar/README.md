@@ -68,7 +68,7 @@ parse_product = function($product){
 	// get supply info
 	$supply_details = $product->getSupplyDetails();
 	
-	$supply_detail = $supply_details[0***REMOVED***
+	$supply_detail = $supply_details[0];
 	
 	$supply_detail->getOnSaleDate();
 	$supply_detail->getPrices();

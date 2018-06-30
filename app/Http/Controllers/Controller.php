@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Http\Controllers;
 
@@ -46,7 +46,7 @@ class Controller extends BaseController
             'numberOfDownloads'     => \App\Models\Download::count(),
             'latestDownload'          => \App\Models\Download::all()->last()
 
-    ***REMOVED***;
+        ];
         dd($stats); // todo make welcome page
         return var_export($stats);
     }

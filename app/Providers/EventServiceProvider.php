@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Providers;
 
@@ -15,8 +15,8 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
-***REMOVED***
-***REMOVED***;
+        ],
+    ];
 
     /**
      * Register any events for your application.

@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 declare(encoding='UTF-8');
 namespace PONIpar;
@@ -522,7 +522,7 @@ class XMLHandler {
 		if ($level == 0) {
 			
 			if( isset($attrs['release']) )
-				$this->version = $attrs['release'***REMOVED***
+				$this->version = $attrs['release'];
 			else
 				$this->version = '2.1';
 			
@@ -545,7 +545,7 @@ class XMLHandler {
 			// Load and split restriction.
 			$split = explode('@', $this->restrictions[$trans], 2);
 			// Check whether the parent is allowed.
-			$allowedParent = $split[0***REMOVED***
+			$allowedParent = $split[0];
 			if ($current != $allowedParent) {
 				throw new XMLException("element '$trans' not allowed under '$current'");
 			}

@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Http\Controllers;
 
@@ -80,7 +80,7 @@ class ZipController extends Controller
 
         $filenames = array();
         for($i=0; $i<$zipArchive->numFiles; $i++) {
-            $filenames[] = $zipArchive->statIndex($i)['name'***REMOVED***
+            $filenames[] = $zipArchive->statIndex($i)['name'];
         }
         return $filenames;
     }

@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Providers;
 
@@ -14,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-***REMOVED***;
+    ];
 
     /**
      * Register any authentication / authorization services.

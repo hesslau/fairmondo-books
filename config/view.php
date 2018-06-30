@@ -1,6 +1,6 @@
-***REMOVED***
+<?php
 
-***REMOVED***
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 
     'paths' => [
         realpath(base_path('resources/views')),
-***REMOVED***,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -30,4 +30,4 @@
 
     'compiled' => realpath(storage_path('framework/views')),
 
-***REMOVED***
+];

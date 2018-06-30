@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Log;
@@ -23,7 +23,7 @@ Artisan::command('inspire', function () {
 Artisan::command('import:onix {file}',function($file) {
     $products = \App\Factories\LibriProductFactory::makeFromFile($file);
 
-    $totalConditionsFailed = ['passed'=>0***REMOVED***
+    $totalConditionsFailed = ['passed'=>0];
 
     foreach ($products as $product) {
         $failedConditions = \App\Factories\FairmondoProductBuilder::checkConditions($product);
@@ -41,7 +41,7 @@ Artisan::command('pull:annotations {--test}', function($test){
         new \App\FtpSettings(config("ftp.annotations")),
         new \App\Factories\AnnotationFactory(),
         function($filepath) {
-            $annotationTypes = ["GKTEXT","GCBILD"***REMOVED***
+            $annotationTypes = ["GKTEXT","GCBILD"];
             return in_array(substr(basename($filepath),0,6),$annotationTypes);
         }
     );
@@ -72,7 +72,7 @@ Artisan::command('media:cleanup', function() {
                 preg_match('/EAN_([0-9]{10,13}).(jpg|JPG)/',$file,$matches);
 
                 if(count($matches) > 0) {
-                    $gtin = $matches[1***REMOVED***
+                    $gtin = $matches[1];
                     if(App\Models\FairmondoProduct::find($gtin)) {
                         continue;
                     } else {
@@ -100,7 +100,7 @@ Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function
 });
 
 Artisan::command('fairmondobooks:reexport {--file=0} {--gtin=0}', function($file,$gtin) {
-    $gtins = ($file) ? explode("\n",file_get_contents($file)) : [$gtin***REMOVED***
+    $gtins = ($file) ? explode("\n",file_get_contents($file)) : [$gtin];
     $gtins = array_map("trim", $gtins);
     return ExportService::exportProducts($gtins);
 });
@@ -140,7 +140,7 @@ Artisan::command('fairmondobooks:initialImport', function() {
             "payment_details"=> "",
             "custom_seller_identifier"=> "",
             "action"=> "create"
-    ***REMOVED***;
+        ];
 
         //if(App\Models\FairmondoProduct::find($gtin)) return;
         $fairProduct = new App\Models\FairmondoProduct();

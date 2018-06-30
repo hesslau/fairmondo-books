@@ -1,6 +1,6 @@
-***REMOVED***
+<?php
 
-***REMOVED***
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -184,7 +184,7 @@
          * Other Providers...
          */
         App\Providers\ConsoleOutputServiceProvider::class,
-***REMOVED***,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -235,6 +235,6 @@
          * Other Aliases...
          */
         'ConsoleOutput' => App\Facades\ConsoleOutput::class
-***REMOVED***,
+    ],
 
-***REMOVED***
+];

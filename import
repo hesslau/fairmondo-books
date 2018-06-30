@@ -5,8 +5,8 @@ echo $(date "+[%Y-%m-%d %H:%M:%S]") starting import
 
 function repeatUntilCleanExit {
 	EXITCODE=1
-	while [ $EXITCODE -ne 0 ***REMOVED*** do
-		if [ -d "$LOCKFILE_EXPORT" ***REMOVED*** then
+	while [ $EXITCODE -ne 0 ]; do
+		if [ -d "$LOCKFILE_EXPORT" ]; then
 			echo $(date "+[%Y-%m-%d %H:%M:%S]") "export lock active";
 			removeLockfile;
 			exit 0;

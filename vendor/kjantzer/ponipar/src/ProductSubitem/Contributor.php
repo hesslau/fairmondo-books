@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 declare(encoding='UTF-8');
 namespace PONIpar\ProductSubitem;
@@ -73,7 +73,7 @@ class Contributor extends Subitem {
 			return $this->name();
 			
 		if( $this->getValue()['PersonName'] )
-			return $this->name = $this->getValue()['PersonName'***REMOVED***
+			return $this->name = $this->getValue()['PersonName'];
 			
 		if( $this->getValue()['PersonNameInverted'] ){
 			return $this->name = preg_replace("/^(.+), (.+)$/", "$2 $1", $this->getValue()['PersonNameInverted']);

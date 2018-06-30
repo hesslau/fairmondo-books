@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Models;
 
@@ -10,7 +10,7 @@ class Export extends Model
         'created_at',
         'updated_at',
         'finished_at'
-***REMOVED***;
+    ];
 
     public function scopeLatest($query) {
         $query->orderBy('created_at','desc')->take(1);

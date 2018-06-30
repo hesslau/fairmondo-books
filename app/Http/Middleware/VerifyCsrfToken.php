@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Http\Middleware;
 
@@ -13,5 +13,5 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         //
-***REMOVED***;
+    ];
 }

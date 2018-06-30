@@ -1,4 +1,4 @@
-***REMOVED***
+<?php
 
 namespace App\Console\Commands;
 
@@ -64,7 +64,7 @@ class Pull extends Command
          * This is part of the workaround to free allocated memory.
          * The Bash command would look like this:
 
-           > php artisan pull --reverse; while [ $? -eq 2 ***REMOVED*** do php artisan pull --reverse; done;
+           > php artisan pull --reverse; while [ $? -eq 2 ]; do php artisan pull --reverse; done;
          */
         if($message != App\Managers\DownloadManager::FINISHED) exit(2);
         else exit(0);

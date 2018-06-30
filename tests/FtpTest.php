@@ -1,17 +1,17 @@
-***REMOVED***
+<?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Http\Controllers\FtpController;
+use App\Services\FtpService;
 
 class FtpTest extends TestCase
 {
 
     public function testFtpController()
     {
-        $ftpController = new FtpController();
+        $ftpController = new FtpService();
 
         // test connection
         $this->assertTrue($ftpController->connect());
