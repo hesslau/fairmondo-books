@@ -28,8 +28,6 @@ use PONIpar\Parser,
 
 class Controller extends BaseController
 {
-    private $isTestrun = false;
-
     public function __construct() {}
 
     public static function get() {
@@ -38,11 +36,6 @@ class Controller extends BaseController
             $controller = new Controller();
         }
         return $controller;
-    }
-
-    public function makeTestrun($isTestrun) {
-        $this->isTestrun = $isTestrun;
-        $this->testFiles = ['testing/updates/test/GTUPD00014945.zip'***REMOVED***
     }
 
     public function index() {

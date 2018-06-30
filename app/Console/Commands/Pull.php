@@ -40,13 +40,11 @@ class Pull extends Command
      */
     public function handle()
     {
-        $controller = \App\Http\Controllers\Controller::get();
-        $controller->makeTestrun($this->option('test'));
-
         try {
             $startTime = new DateTime($this->option('start'));
             $endTime = new DateTime($this->option('end'));
             $reverse = $this->option('reverse');
+            $test = $this->option('test');
         } catch(\Exception $e) {
             echo $e->getMessage();
             // todo: send notification to developer
@@ -59,7 +57,7 @@ class Pull extends Command
             new App\FtpSettings(config('ftp.'.$ftpConfig)),
             new App\Factories\LibriProductFactory());
 
-        $message = $libriProductDownloadManager->startPulling(compact('startTime','endTime','reverse'));
+        $message = $libriProductDownloadManager->startPulling(compact('startTime','endTime','reverse','test'));
 
         /* DownloadManager will return a message when all files have been downloaded.
          * If not, we're sending exit status 2 to tell the bash script that there is more to download.
