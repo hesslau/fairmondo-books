@@ -17,6 +17,14 @@ use ErrorException;
 
 class LibriProductFactory implements IFactory {
 
+    /**
+     * Builds LibriProducts from ONIX file.
+     *
+     * @param string $file
+     * @return array of LibriProducts
+     * @throws PONIpar\InternalException
+     * @throws PONIpar\ReadException
+     */
     public static function makeFromFile(string $file): array {
 
         // get catalog update identifier
@@ -82,6 +90,12 @@ class LibriProductFactory implements IFactory {
         return $products;
     }
 
+    /**
+     * Returns the catalogue update date.
+     *
+     * @param $file
+     * @return mixed
+     */
     private static function getDateOfCatalogUpdate($file) {
         $file = fopen($file, "r");
 
@@ -96,11 +110,11 @@ class LibriProductFactory implements IFactory {
         }
         else
         {
-            echo "Unable to open the file";
+            throw new Exception("Unable to open the file $file.");
         }
     }
 
-    /*
+    /**
      * Generate a fake Product for testing purposes.
      */
     public static function makeFakeProduct($attributes = []) {
@@ -111,7 +125,13 @@ class LibriProductFactory implements IFactory {
         return $product;
     }
 
-    // todo: implement memory friendly version of this
+    /**
+     * Store products to database.
+     *
+     * @param array $products
+     * @return bool
+     * @todo optimize for memory usage
+     */
     public static function store(array $products): bool {
         $progress = ConsoleOutput::progress(count($products));
 
@@ -139,6 +159,14 @@ class LibriProductFactory implements IFactory {
     }
 
     // todo: implement memory friendly version of this
+
+    /**
+     * Builds LibriProduct from ONIX object.
+     *
+     * @param PONIpar\Product $onix
+     * @return LibriProduct
+     * @throws MissingDataException
+     */
     static function create(PONIpar\Product $onix){
         $libriProduct = new LibriProduct;
         $controller = new LibriProductFactory();
@@ -201,10 +229,15 @@ class LibriProductFactory implements IFactory {
     }
 
 
-    public function __construct() {
-    }
+    public function __construct() {}
 
-    /* from http://www.bastian.name/2006/11/isbn10-zu-isbn13-umrechnung-mit-php.html */
+    /**
+     * Converts ISBN10 to ISBN13 string.
+     * Taken from http://www.bastian.name/2006/11/isbn10-zu-isbn13-umrechnung-mit-php.html
+     *
+     * @param $isbn10
+     * @return string
+     */
     private function isbn10to13($isbn10){
         $isbnclean = preg_replace("/([^d])/", "",substr($isbn10,0,-1));
 
@@ -222,7 +255,9 @@ class LibriProductFactory implements IFactory {
         return "978".substr($isbn10,0,-1).$check;
     }
 
-    /* returns nodeValue of first match if query is successful */
+    /**
+     * Returns nodeValue of first match if query is successful.
+     */
     private function _getFirstElement($query, $debug=false) {
         $result = $this->product->get($query);
         if($debug && env('APP_DEBUG')) var_dump($result);
@@ -232,7 +267,8 @@ class LibriProductFactory implements IFactory {
     }
 
     /**
-     * returns an array of childNodes of DOMElement with nodeName as key and nodeValue as value
+     * Returns an array of childNodes of DOMElement with nodeName as key and nodeValue as value.
+     *
      * @param \DOMElement $DOMElement
      */
     private function _childNodes2Array(\DOMElement $DOMElement) {
@@ -268,7 +304,6 @@ class LibriProductFactory implements IFactory {
             }
         }
         return false;
-        // throw new MissingDataException("No allowed product identifier for ".$this->getRecordReference());
     }
 
     /* Verarbeitungsregel für Feld "pr.ProductReference"
@@ -301,15 +336,10 @@ class LibriProductFactory implements IFactory {
         return false;
     }
 
-    /*
-     * @todo implement following sql selection
-     	update macSelectProducts
-	   set Contributor =
-	       cast((
-		   select Top 1 PersonName from refProductContributor tmp
-		   where macSelectProducts.ProductReference = tmp.ProductReference and tmp.SequenceNumber = 1
-		   and tmp.ContributorRole in ('A01') and PersonName not like '%Anonym%' and PersonName not like '%ohne Autor%' and PersonName not like '%nknown%' and PersonName not like '%ohne autor%'
-		   )as varchar(200))
+    /**
+     * Returns author of the title if available or null.
+     *
+     * @return null|string
      */
     public function getAuthor() {
         $contributors = $this->product->getContributors();
@@ -336,39 +366,35 @@ class LibriProductFactory implements IFactory {
         return null;
     }
 
-    /*	Get Link to highest resolution
-
-	Codelists
-		f114: MediaFileTypeCode
-			04, Image, front cover
-			06, Image, front cover, high quality
-			10, wenn der Annotationtyp = ‚BPROB‘
-			29, wenn der Annotationtyp = ‚VPROB‘
-			30, wenn der Annotationtyp = ‚HPROB‘
-
-		f115: MediaFileFormatCode
-			02 GIF
-			03 JPEG
-			04 PDF
-			05 TIF
-			06 REALAudio 28.8
-			07 MP3
-			08 MPEG-4
-	*/
+    /*	Get URL to highest resolution. */
     public function getCoverLink() {
         $link = $this->_getFirstElement('MediaFile[MediaFileTypeCode=06 or MediaFileTypeCode=04]/MediaFileLink');
         if($link) {
             return $link;
         } else return null;
+
+        /* From the docs:
+
+            Codelists
+                f114: MediaFileTypeCode
+                    04, Image, front cover
+                    06, Image, front cover, high quality
+                    10, wenn der Annotationtyp = ‚BPROB‘
+                    29, wenn der Annotationtyp = ‚VPROB‘
+                    30, wenn der Annotationtyp = ‚HPROB‘
+
+                f115: MediaFileFormatCode
+                    02 GIF
+                    03 JPEG
+                    04 PDF
+                    05 TIF
+                    06 REALAudio 28.8
+                    07 MP3
+                    08 MPEG-4
+            */
     }
 
-    /* Verarbeitungsregeln für Feld "pr.ProductLanguage"
-        1. erstes Language composite mit Role=01
-        2. <LanugageOfText>
-        3. Header, DefaulLanguageOfText
-        4. Defaultwert = "ger"
-        Immer genau eine Angabe. Wir für Selection DistinctiveTitle, MainText usw. verwendet
-    */
+
     public function getProductLanguage() {
         $result = $this->_getFirstElement('Language[LanguageRole=01]/LanguageCode');
         isset($result) or $result = $this->_getFirstElement('LanguageOfText');
@@ -376,18 +402,33 @@ class LibriProductFactory implements IFactory {
         isset($result) or $result = config('libriproduct.default.ProductLanguage');
 
         return $result;
+
+        /*  From the docs:
+
+            Verarbeitungsregeln für Feld "pr.ProductLanguage"
+            1. erstes Language composite mit Role=01
+            2. <LanugageOfText>
+            3. Header, DefaulLanguageOfText
+            4. Defaultwert = "ger"
+            Immer genau eine Angabe. Wir für Selection DistinctiveTitle, MainText usw. verwendet
+        */
     }
 
     public function getProductForm() {
         return $this->_getFirstElement('ProductForm');
     }
 
-    /* Verarbeitungsregel für Feld "pr.PublisherName"
-            1. <PublisherName> aus Publisher Composite mit PublishingRole = 01
-            2. <PublisherName> PR 19.6 (deprecated)
-        ONIX Reference: PR 19.7 / PublisherName / b081 */
+
     public function getPublisherName() {
         return $this->_getFirstElement('Publisher[PublishingRole=01]/PublisherName');
+
+        /* From the docs:
+
+        Verarbeitungsregel für Feld "pr.PublisherName"
+            1. <PublisherName> aus Publisher Composite mit PublishingRole = 01
+            2. <PublisherName> PR 19.6 (deprecated)
+        ONIX Reference: PR 19.7 / PublisherName / b081
+        */
     }
 
     public function getNumberOfPages() {
@@ -398,11 +439,12 @@ class LibriProductFactory implements IFactory {
         return $this->_getFirstElement('PublicationDate');
     }
 
-    /* Verarbeitungsregel für Feld "pr.VLBSchemeOld"
-        1. SubjectCode aus MainSubject Composite wenn SchemeIdentifier=26 und SchemeVersion=0 oder leer
-        2. SubjectCode aus Subject Composite wenn SchemeIdentifier=26 und SchemeVersion=0 oder leer
-        wenn 5-stellig und letzte Stelle "0" wird die letzte 0 entfernt */
-    // @todo test case 2
+    /**
+     * Returns the code for the outdated category scheme.
+     *
+     * @return bool|string
+     * @todo test case 2
+     */
     public function getVLBSchemeOld() {
         $result = $this->product->get("mainsubject[b191=26]/SubjectCode")
                     or $this->product->get("Subject[b191=26]/SubjectCode");
@@ -415,54 +457,72 @@ class LibriProductFactory implements IFactory {
             return $vlbSchemeOld;
         }
         else return false;
+
+        /* From the docs:
+            Verarbeitungsregel für Feld "pr.VLBSchemeOld"
+            1. SubjectCode aus MainSubject Composite wenn SchemeIdentifier=26 und SchemeVersion=0 oder leer
+            2. SubjectCode aus Subject Composite wenn SchemeIdentifier=26 und SchemeVersion=0 oder leer
+            wenn 5-stellig und letzte Stelle "0" wird die letzte 0 entfernt
+        */
     }
 
     public function isUnpricedItem() {
         return ($this->_getFirstElement('UnpricedItemType') == true);
     }
 
-    /* Verarbeitungsregel für Feld "pr.ProductWeight"
-        <Measurement> aus Measure Composite mit TypeCode = 08, in Gramm
-        ONIX Reference: PR 22.1 / Measurement / c094 */
+
     public function getProductWeight() {
         return $this->_getFirstElement('Measure[c093=08]/Measurement');
+        /* From the docs:
+            Verarbeitungsregel für Feld "pr.ProductWeight"
+            <Measurement> aus Measure Composite mit TypeCode = 08, in Gramm
+            ONIX Reference: PR 22.1 / Measurement / c094
+        */
     }
 
-    /* Verarbeitungsregeln für Feld "pr.ProductWidth"
-        <Measurement> aus Measure composite mit TypeCode=02, in mm
-        ONIX Reference: PR 22.1 / Measurement / c094 */
+
     public function getProductWidth() {
         return $this->_getFirstElement('Measure[c093=02]/Measurement');
+
+        /* From the docs:
+            Verarbeitungsregeln für Feld "pr.ProductWidth"
+            <Measurement> aus Measure composite mit TypeCode=02, in mm
+            ONIX Reference: PR 22.1 / Measurement / c094
+        */
     }
 
-    /* Verarbeitungsregeln für Feld "pr.ProductThickness"
-        <Measurement> aus Measure Composite mit TypeCode = 03, in mm
-        ONIX Reference: PR 22.1 / Measurement / c094 */
+
     public function getProductThickness() {
         return $this->_getFirstElement('Measure[c093=03]/Measurement');
+        /* From the docs:
+            Verarbeitungsregeln für Feld "pr.ProductThickness"
+            <Measurement> aus Measure Composite mit TypeCode = 03, in mm
+            ONIX Reference: PR 22.1 / Measurement / c094
+        */
     }
 
-    /* Verarbeitungsregeln für Feld "pr.OrderTime"
-         <OrderTime>
-         ONIX Reference: PR 24.36 / OrderTime / j144 */
+
     public function getOrderTime() {
         return $this->_getFirstElement('SupplyDetail/OrderTime');
+
+        /* From the docs:
+             Verarbeitungsregeln für Feld "pr.OrderTime"
+             <OrderTime>
+             ONIX Reference: PR 24.36 / OrderTime / j144
+        */
     }
 
-    /* Verarbeitungsregeln für Feld "pr.StockOnHand"
-         <OnHand> aus erstem StockQuantity Composite
-         ONIX Reference: PR 24.41 / Stock / j350 */
+
     public function getQuantityOnHand() {
         return $this->_getFirstElement('SupplyDetail/Stock/OnHand');
+
+        /* From the docs:
+             Verarbeitungsregeln für Feld "pr.StockOnHand"
+             <OnHand> aus erstem StockQuantity Composite
+             ONIX Reference: PR 24.41 / Stock / j350
+        */
     }
 
-    /*  Verarbeitungsregeln für Feld "pr.PriceDECurrent"
-        Status, Betrag, TaxCode, Text, gültig ab, gültig bis
-        Regeln: Preis mit TypeCode = 04 oder 02, MinOrder = 1 oder leer, Currency=EUR, Country=DE
-        Datum gültig ab <= heute oder leer, Datum gültig bis >= heute oder leer,
-        bei mehreren der Preis mit dem grössten Datum gültig ab
-        Wenn kein Preis gefunden wird, Subskriptionspreis übernehmen (als Typ 04)
-        ONIX Reference: nicht definiert / siehe Price Composite / nicht definiert */
     public function getPriceDeCurrent() {
         $today = date('Ymd');
         $prices = $this->getPrices();
@@ -486,8 +546,19 @@ class LibriProductFactory implements IFactory {
                 return $price;
             }
         }
-        // note: Libri doesn't use subscription price
         return false;
+
+        /* From the docs:
+            Verarbeitungsregeln für Feld "pr.PriceDECurrent"
+            Status, Betrag, TaxCode, Text, gültig ab, gültig bis
+            Regeln: Preis mit TypeCode = 04 oder 02, MinOrder = 1 oder leer, Currency=EUR, Country=DE
+            Datum gültig ab <= heute oder leer, Datum gültig bis >= heute oder leer,
+            bei mehreren der Preis mit dem grössten Datum gültig ab
+            Wenn kein Preis gefunden wird, Subskriptionspreis übernehmen (als Typ 04)
+            ONIX Reference: nicht definiert / siehe Price Composite / nicht definiert
+
+            note: Libri doesn't use subscription price
+        */
     }
 
     public function getTaxRateCode1() {
@@ -546,19 +617,11 @@ class LibriProductFactory implements IFactory {
         return $this->_getFirstElement("Audience/AudienceCodeValue");
     }
 
-    /*
+    /**
      * Retrieve Blurb Text from ONIX data
      * @todo implement
      * @todo test
      *
-     * respective SQL statement from spMacSelectProductsFairnopoly.sql:
-       > update macSelectProducts
-       > set Blurb =
-       >    cast((
-       >    select top 1 OtherText from refProductOtherText
-       >    where macSelectProducts.ProductReference = refProductOtherText.ProductReference
-       >    and refProductOtherText.TextTypeCode = '18')
-       >    as varchar(4000))
      */
     public function getBlurb() {
         // check if there is text available in the onix message
@@ -570,6 +633,17 @@ class LibriProductFactory implements IFactory {
             }
         }
         return false;
+
+        /* Original SQL statement from spMacSelectProductsFairnopoly.sql:
+
+           > update macSelectProducts
+           > set Blurb =
+           >    cast((
+           >    select top 1 OtherText from refProductOtherText
+           >    where macSelectProducts.ProductReference = refProductOtherText.ProductReference
+           >    and refProductOtherText.TextTypeCode = '18')
+           >    as varchar(4000))
+         */
     }
 
     public function getAvailabilityStatus() {

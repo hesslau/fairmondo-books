@@ -7,6 +7,7 @@
  */
 
 namespace App\Factories;
+
 use App\Facades\ConsoleOutput;
 use App\Models\Annotation;
 use App\Models\KtextAnnotation;
@@ -18,6 +19,9 @@ use Illuminate\Support\Facades\Storage;
 
 class AnnotationFactory implements IFactory
 {
+    /*
+     * Returns an Annotation wrapped in an array.
+     */
     public static function makeFromFile(string $filepath): array
     {
 
@@ -35,6 +39,9 @@ class AnnotationFactory implements IFactory
         ***REMOVED***$annotation***REMOVED***
     }
 
+    /*
+     * Copies the picture to storage.
+     */
     private static function makePictureAnnotation($filepath) {
         $parts = explode('_',basename($filepath));
         $productReference = $parts[1***REMOVED***
@@ -51,6 +58,9 @@ class AnnotationFactory implements IFactory
         return null;
     }
 
+    /*
+     * Returns a KtextAnnotation.
+     */
     private static function makeTextAnnotation($filepath) {
         $dom = new DOMDocument();
         libxml_use_internal_errors(true);   // don't throw errors on malformed html
@@ -87,6 +97,9 @@ class AnnotationFactory implements IFactory
         return $annotation;
     }
 
+    /*
+     * Saves an array of annotations to database.
+     */
     public static function store(array $annotations): bool
     {
         // display progress bar

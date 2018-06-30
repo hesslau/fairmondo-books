@@ -19,6 +19,9 @@ class FairmondoProductBuilder {
     const ACTION_UPDATE = 'update';
     const ACTION_CREATE = 'create';
 
+    /**
+     * Builds a FairmondoProduct from a LibriProduct.
+     */
     public static function create(LibriProduct $source) {
         $product = new FairmondoProduct;
 
@@ -60,6 +63,9 @@ class FairmondoProductBuilder {
 
     private function __construct() {}
 
+    /**
+     * Returns true if LibriProduct meets requirements to become a FairmondoProduct.
+     */
     public static function meetsRequirements(LibriProduct $product) {
         return (count(self::checkConditions($product)) === 0);
     }
@@ -67,28 +73,26 @@ class FairmondoProductBuilder {
     /**
      * Checks conditions required for being a valid Fairmondo Product and returns an array with
      * descriptions of the failed conditions.
+     *
      * @param LibriProduct The product which needs to be checked
      * @return array description of failed conditions
+     * @todo what happens when AvailabilityStatus changes?
      */
     public static function checkConditions(LibriProduct $product) {
 
-        // get settings from config
-        //$validProductForms = array_keys(config('fairmondoproduct.maps.ProductForm'));
-        //$validAvailabilityStatus = config('fairmondoproduct.conditions.AvailabilityStatus');
-        //$invalidAudienceCodeValues = config('fairmondoproduct.conditions.invalidAudienceCodeValues');
-        //$maxPriceCents = config('fairmondoproduct.conditions.maxPriceCents');
+        /*
+         * No need to check for ProductForm, AvailabilityStatus, AudienceCodeValue or valid Price since
+         * those are already considered in the selecting SQL query.
+         *
+         * HasDistinctiveTitle  // redundant condition since products without title will fail the previous import
+         * HasQuantityOnHand    // not a requirement, since existing products need to be updated with available quantity
+         */
 
         // description of condition with matching expression
         $conditions = array(
-            //"HasDistinctiveTitle"       => ($product->DistinctiveTitle != ''),     // note: useless condition since products without title will fail the previous import
-            //"HasValidProductForm"       => in_array($product->ProductForm,$validProductForms),
-            // todo What happens when AvailabilityStatus changes?
-            //"IsAvailable"               => in_array($product->AvailabilityStatus,$validAvailabilityStatus),
-            //"HasAppropriateAudience"    => (isset($product->AudienceCodeValue) and !in_array($product->AudienceCodeValue,$invalidAudienceCodeValues)),
-            //"HasQuantityOnHand"         => ($product->QuantityOnHand > 0) // or $product->Lib_MSNo = 15) // @todo what is Lib_MSNo???
-            "HasCategory"               => ($product->VLBSchemeOld !== 0 || key_exists($product->ProductForm,config('fairmondoproduct.maps.ProductForm2FairmondoCategory'))),
+            "HasCategory"               => ($product->VLBSchemeOld !== 0 ||
+                key_exists($product->ProductForm,config('fairmondoproduct.maps.ProductForm2FairmondoCategory'))),
             "NotOnBlacklist"            => !self::isBlacklisted($product),
-            //"ValidPrice"                => ($product->PriceAmount * 100 <= $maxPriceCents && $product->PriceAmount * 100 > 0)
         );
 
         // filter out the failed conditions
@@ -97,28 +101,11 @@ class FairmondoProductBuilder {
         }));
 
         return $failedConditions;
-
-        /*
-        ProductEAN is not Null
-	   and ProductEAN = ProductReference
-	   and DistinctiveTitle is not Null
-	   -- and ProductLanguage in ('ger', 'eng', 'fre', 'spa', 'ita', 'fin', 'tur', 'dan')
-	   and ProductForm in ('BA', 'BB', 'BC', 'BG', 'BH', 'BI', 'BP', 'BZ', 'AC', 'AI', 'VI', 'VO', 'ZE', 'DA', 'DG', 'PC')
-	   and AvailabilityStatus = 'LFB'
-	   and (AudienceCodeValue is Null or (AudienceCodeValue not like '%16%' and AudienceCodeValue not like '%17%' and AudienceCodeValue not like '%18%'))
-	   and (QuantityOnHand > 0 or Lib_MSNo = 15)
-	       )
-		or ( -- tolino Welt
-		   DistinctiveTitle like '%tolino%'
-	   and ProductForm in ('00', 'ZZ')
-	   and VLBSchemeOld <> 8000
-	   and AvailabilityStatus = 'LFB'
-	       )
-         */
     }
 
     /**
      * Checks if product is blacklisted.
+     *
      * @param LibriProduct $product
      * @return bool True if product is blacklisted.
      */
@@ -134,7 +121,11 @@ class FairmondoProductBuilder {
         return false;
     }
 
-    // @todo use templating engine
+    /**
+     * Builds the title string.
+     *
+     * @todo use templating engine
+     */
     public static function getTitle(LibriProduct $source) {
 
         $info = [***REMOVED***
@@ -160,14 +151,14 @@ class FairmondoProductBuilder {
         return self::removeForbiddenChars($title);
     }
 
-    /*
+    /**
      * Trim a string while making sure to not split any words or multibyte characters.
      */
     private static function cleanTrim($text,$number_of_characters) {
         return (strlen($text) < $number_of_characters) ? $text : substr($text, 0, strrpos(substr($text, 0, $number_of_characters - 3), ' '))."...";
     }
 
-    /*
+    /**
      * This method returns an array of integers which represent
      * the fairmondo market categories to which this product belongs to.
      *
@@ -219,6 +210,9 @@ class FairmondoProductBuilder {
         else return "";
     }
 
+    /*
+     * Returns a human readable description of the product language.
+     */
     private static function getProductLanguageDescription($productLanguage) {
         $map = config('fairmondoproduct.maps.ProductLanguage');
         if(key_exists($productLanguage,$map)) return $map[$productLanguage***REMOVED***
@@ -239,22 +233,23 @@ class FairmondoProductBuilder {
      */
     public static function getPriceCents(LibriProduct $source) {
 
-        $price_cents = intval(strval($source->PriceAmount * 100)); // strval() because of weird intval() behaviour. see http://php.net/manual/de/function.intval.php#101439
+        // Using strval() because of weird intval() behaviour.
+        // See http://php.net/manual/de/function.intval.php#101439
+        $price_cents = intval(strval($source->PriceAmount * 100));
 
-        // Preisanpassung +200 - Marge unter oder gleich 10% und Preis zwischen 20 und 40€ und keine Preisbindung
+        // Business Logic: Increase price by 200 cents if the following conditions are met
         if(
-            $price_cents>=2000
-            and $price_cents<4000
-            and $source->PriceTypeCode == 2         // 2 means no fixed price
-            and $source->DiscountPercent <= 10
+            $price_cents>=2000 and $price_cents<4000    // price between 20€ and 40€
+            and $source->PriceTypeCode == 2             // no fixed price (represented by PriceTypeCode 2)
+            and $source->DiscountPercent <= 10          // margin less than 10%
         ) {
             $price_cents += 200;
         }
 
-        // Preisanpassung +300 - Preis unter 20€ und keine Preisbindung
+        // Business Logic: Increasy price by 300 cents if the following conditions are met
         if(
-            $price_cents < 2000
-            and $source->PriceTypeCode == 2
+            $price_cents < 2000                         // costs less than 20€
+            and $source->PriceTypeCode == 2             // no fixed price
         ) {
             $price_cents += 300;
         }
@@ -262,6 +257,11 @@ class FairmondoProductBuilder {
         return $price_cents;
     }
 
+    /**
+     * Returns formatted date as string.
+     *
+     * @return string
+     */
     private static function formatDate($date) {
         $formatter = new IntlDateFormatter('de_DE', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
         $formatter->setPattern('MMMM y');
@@ -277,7 +277,8 @@ class FairmondoProductBuilder {
     }
 
     /**
-     * Builds the Content String from the patterns defined in the config.
+     * Builds the content from the patterns defined in the config.
+     *
      * @return string
      */
     public static function getContent(LibriProduct $source)
@@ -339,38 +340,6 @@ class FairmondoProductBuilder {
         }
         return $text;
     }
-    /*
-
-    ,'<h3>' + DistinctiveTitle + '</h3>' + isnull('<p>von <b>' + Contributor + '</b></p>', '') as content
-
-
-        update macSelectProductsFairnopoly
-   set content = cast(
-       content + '<p>'
-        + isnull(macSelectProducts.ProductLanguage + ', ', '')
-        + isnull(cast(macSelectProducts.NumberOfPages as varchar(20)) + ' Seiten, ', '')
-        + isnull(macSelectProducts.PublicationDate + ', ', '')
-        + isnull(macSelectProducts.PublisherName + ', ', '')
-       + ProductForm + ', ' + isnull('ISBN ' + macSelectProducts.ProductISBN + ', ', '')
-       + 'EAN ' + right('0000000000000' + cast(macSelectProductsFairnopoly.gtin as varchar(13)), 13) + '</p>'
-       + isnull('<p><b>Beschreibung</b></p><p>' + replace(replace(replace(replace(replace(replace(replace(replace(macSelectProducts.Blurb, char(13), '<br \>'), char(10), '<br \>'), '<br \><br \><br \><br \>', '<br \>'), '<br \><br \><br \>', '<br \>'), '<br \><br \>', '<br \>'), '    ', ' '), '   ', ' '), '  ', ' ') + '</p>', '')
-       as varchar(6000))
-  from macSelectProducts
- where macSelectProductsFairnopoly.gtin = macSelectProducts.ProductReference
-   and ProductForm in ('CD, Hörbuch', 'MP3 CD, Hörbuch', 'Audio CD, Hörbuch', 'Audio DVD, Hörbuch', 'Buch', 'Gebundenes Buch', 'Taschenbuch', 'Ledergebundenes Buch', 'Kalender')
-
-
-    update macSelectProductsFairnopoly
-   set content = cast(
-       content + '<p>'
-       + isnull(macSelectProducts.PublicationDate + ', ', '') + isnull(macSelectProducts.PublisherName + ', ', '')
-       + ProductForm + ', EAN ' + right('0000000000000' + cast(macSelectProductsFairnopoly.gtin as varchar(13)), 13) + '</p>'
-       + isnull('<p><b>Beschreibung</b></p><p>' + replace(replace(replace(replace(replace(replace(replace(replace(macSelectProducts.Blurb, char(13), '<br \>'), char(10), '<br \>'), '<br \><br \><br \><br \>', '<br \>'), '<br \><br \><br \>', '<br \>'), '<br \><br \>', '<br \>'), '    ', ' '), '   ', ' '), '  ', ' ') + '</p>', '')
-       as varchar(6000))
-  from macSelectProducts
- where macSelectProductsFairnopoly.gtin = macSelectProducts.ProductReference
-   and ProductForm in ('CD', 'MP3 CD', 'Audio CD', 'Audio DVD', 'Video DVD', 'Blue Ray', 'Spiel', 'Hardware')
-     */
 
     public static function getVat(LibriProduct $source) {
         switch($source->TaxRateCode1) {
@@ -403,45 +372,13 @@ class FairmondoProductBuilder {
         return sprintf($pattern,$source->ProductReference);
     }
 
+    /**
+     * Returns the appropiate action for the product.
+     *
+     * @param LibriProduct $source
+     * @return mixed|string
+     */
     public static function getAction(LibriProduct $source) {
-        /**
-        update macSelectProductsFairnopoly
-        set [action] = 'create'
-        where gtin in (select gtin from macSaveProductsFairnopoly where [action] = 'delete')
-
-        update macSaveProductsFairnopoly
-        set [action] = 'tobedeleted'
-        where gtin not in (select gtin from macSelectProductsFairnopoly)
-        and ([action] <> 'delete' or [action] is Null)
-
-        insert into macSelectProductsFairnopoly (title, categories, condition, content, quantity, price_cents, vat, external_title_image_url
-        ,transport_type1, transport_type1_provider, transport_type1_price_cents, transport_type1_number, transport_details, transport_time, unified_transport
-        ,payment_bank_transfer, payment_paypal, payment_invoice, payment_voucher, payment_details, gtin, custom_seller_identifier, [action]
-        )
-        select title, categories, condition, content, quantity, price_cents, vat, external_title_image_url
-        ,transport_type1, transport_type1_provider, transport_type1_price_cents, transport_type1_number, transport_details, transport_time, unified_transport
-        ,payment_bank_transfer, payment_paypal, payment_invoice, payment_voucher, payment_details, gtin, custom_seller_identifier, [action]
-        from macSaveProductsFairnopoly
-        where [action] = 'tobedeleted'
-
-        update macSelectProductsFairnopoly
-        set [action] = 'delete'
-        where [action] = 'tobedeleted'
-
-        update macSelectProductsFairnopoly
-        set [action] = 'donothing'
-        from macSaveProductsFairnopoly
-        where macSelectProductsFairnopoly.[action] = 'update'
-        and macSelectProductsFairnopoly.gtin = macSaveProductsFairnopoly.gtin
-        and macSelectProductsFairnopoly.title = macSaveProductsFairnopoly.title
-        and macSelectProductsFairnopoly.categories = macSaveProductsFairnopoly.categories
-        and macSelectProductsFairnopoly.price_cents = macSaveProductsFairnopoly.price_cents
-        and macSelectProductsFairnopoly.quantity = macSaveProductsFairnopoly.quantity
-        and macSelectProductsFairnopoly.transport_time = macSaveProductsFairnopoly.transport_time
-        and macSelectProductsFairnopoly.unified_transport = macSaveProductsFairnopoly.unified_transport
-        and macSelectProductsFairnopoly.content = macSaveProductsFairnopoly.content
-         */
-
         // check if the notification type is a deletion
         if($source->NotificationType == "05") {
             $action = self::ACTION_DELETE;
@@ -462,13 +399,15 @@ class FairmondoProductBuilder {
                 $action = self::ACTION_CREATE;
             }
         }
-
-
-        // @todo question: do all titles that existed in the previous update and do not exist in this update get $action = 'delete'?
         return $action;
     }
 
-    // todo ask why order time is grouped into 1-4 and 5-10
+    /**
+     * Returns estimated transport time as string.
+     *
+     * @param LibriProduct $source
+     * @return string
+     */
     public static function getTransportTime(LibriProduct $source) {
         if($source->OrderTime <= 4) {
             $transportTime = '1-4';
@@ -480,6 +419,12 @@ class FairmondoProductBuilder {
         return $transportTime;
     }
 
+    /**
+     * Returns additional description if available, otherwise null.
+     *
+     * @param LibriProduct $source
+     * @return string
+     */
     public static function getBlurb(LibriProduct $source) {
         $result = KtextAnnotation::where('ProductReference', $source->ProductReference)->take(1)->get();
         if(count($result) > 0) return $result[0]->AnnotationContent;
