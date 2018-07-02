@@ -13,5 +13,11 @@ return [
         "user" => env("FTP_ANNO_USER"),
         "password" => env("FTP_ANNO_PASSWORD"),
         "downloadDirectory" => storage_path("app/annotations")
+    ],
+    "storage" => [
+        "host" => env("FTP_STORAGE_HOST"),
+        "directory" => env("FTP_STORAGE_DIR"),
+        "user" => env("FTP_STORAGE_USER"),
+        "password" => env("FTP_STORAGE_PASSWORD")
     ]
 ];
