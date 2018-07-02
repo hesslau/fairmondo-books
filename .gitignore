@@ -7,4 +7,6 @@ Homestead.json
 Homestead.yaml
 .env
 /public/phpinfo.php
-storage
+storage/app/media/**
+storage/app/download/**
+storage/app/annotations/**
