@@ -1,24 +1,17 @@
 <?php
 return [
     "updates" => [
-        "host" => "ftp11.librinet.de",
-        "directory" => "/TUP/ONE",
-        "user" => "***REMOVED***",
-        "password" => "***REMOVED***",
+        "host" => env("FTP_TUP_HOST"),
+        "directory" => env("FTP_TUP_DIR"),
+        "user" => env("FTP_TUP_USER"),
+        "password" => env("FTP_TUP_PASSWORD"),
         "downloadDirectory" => storage_path("app/download")
         ],
     "annotations" => [
-        "host" => "ftp3.librinet.de",
-        "directory" => "/Anno/Tup",
-        "user" => "***REMOVED***",
-        "password" => "***REMOVED***",
+        "host" => env("FTP_ANNO_HOST"),
+        "directory" => env("FTP_ANNO_DIR"),
+        "user" => env("FTP_ANNO_USER"),
+        "password" => env("FTP_ANNO_PASSWORD"),
         "downloadDirectory" => storage_path("app/annotations")
-    ],
-    "initial" => [
-        "host" => "ftp3.librinet.de",
-        "directory" => "/***REMOVED***/full_load_Onix_ONE/20170503",
-        "user" => "***REMOVED***",
-        "password" => "***REMOVED***",
-        "downloadDirectory" => storage_path("app/download")
     ]
 ];
