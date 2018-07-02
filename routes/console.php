@@ -96,21 +96,13 @@ Artisan::command('fairmondobooks:import:file {filename}', function($filename) {
 });
 
 Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function($since, $test, $skip) {
-<<<<<<< HEAD
     ExportService::makeDelta($since, intval($skip), $test);
-=======
-    App\Http\Controllers\ExportController::makeDelta($since, intval($skip), $test);
->>>>>>> d16bcd92b713fb8df7184f6854318e6415ed325d
 });
 
 Artisan::command('fairmondobooks:reexport {--file=0} {--gtin=0}', function($file,$gtin) {
     $gtins = ($file) ? explode("\n",file_get_contents($file)) : [$gtin];
     $gtins = array_map("trim", $gtins);
-<<<<<<< HEAD
     return ExportService::exportProducts($gtins);
-=======
-    return App\Http\Controllers\ExportController::exportProducts($gtins);
->>>>>>> d16bcd92b713fb8df7184f6854318e6415ed325d
 });
 
 Artisan::command('fairmondobooks:test:file {filename}', function($filename) {
