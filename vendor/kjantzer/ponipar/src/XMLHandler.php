@@ -625,13 +625,8 @@ class XMLHandler {
 	 */
 	protected function handleProduct($dom) {
 		if ($this->productHandler) {
-			try {
-				$product = new Product($dom, $this->version);
-				call_user_func($this->productHandler, $product);
-			} catch (XMLException $e) {
-				// just skip this product instead of breaking the entire loop
-				return false;
-			}
+			$product = new Product($dom, $this->version);
+			call_user_func($this->productHandler, $product);
 		}
 	}
 
