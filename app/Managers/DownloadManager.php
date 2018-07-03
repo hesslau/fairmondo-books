@@ -83,14 +83,10 @@ class DownloadManager
         // get list of files
         $availableFiles = $storage->files($directory);
 
-        var_dump(count($availableFiles));
-
         // filter list of files if filter function is available
         if(is_callable($this->fileFilter)) {
             $availableFiles = array_filter($availableFiles,$this->fileFilter);
         }
-
-        var_dump(is_callable($this->fileFilter));
 
         // filter out all files that have been downloaded and imported already
         $availableFiles = array_filter($availableFiles,function($filepath) {
