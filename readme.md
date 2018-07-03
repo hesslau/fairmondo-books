@@ -60,6 +60,7 @@ otherwise the title needs to be deleted if it exists in the database.
 ## Explanation of ProductAvailability
 
 Note: in the database "ProductAvailability" is stored in the column "AvailabilityStatus"
+```
 +--------------------+----------+
 | AvailabilityStatus | count(*) |
 +--------------------+----------+
@@ -85,10 +86,12 @@ Note: in the database "ProductAvailability" is stored in the column "Availabilit
 | 51                 |   101334 |
 | 99                 |    26720 |
 +--------------------+----------+
+```
 
 
 
 ## Explanation of AvailabilityCode (Tag <j141>)
+```
 +------------------+----------+
 | AvailabilityCode | count(*) | Description                             Notes
 +------------------+----------+
@@ -113,4 +116,4 @@ Note: in the database "ProductAvailability" is stored in the column "Availabilit
 +------------------+----------+
 Note: Code (IP 	Available 	In-print and in stock) isn't represented in libri_products
 
-
+```
