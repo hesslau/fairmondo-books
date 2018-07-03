@@ -180,3 +180,7 @@ Artisan::command('fairmondobooks:initialImport', function() {
     }
     echo "All Done!";
 });
+
+Artisan::command('fairmondobooks:import_from_storage {remote_dir}', function($remote_dir) {
+    App\Services\ImportService::initialImportFromStorage($remote_dir);
+});
