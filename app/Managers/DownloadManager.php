@@ -22,6 +22,7 @@ use App\Exceptions\UnpackingFailedException;
 use App\Exceptions\RemovingFileFailedException;
 use App\Exceptions\DownloadFailedException;
 use ErrorException;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class DownloadManager
@@ -34,11 +35,6 @@ use ErrorException;
 class DownloadManager
 {
     /**
-     * @var FtpSettings
-     */
-    private $ftpSettings;
-
-    /**
      * @var IFactory
      */
     private $factory;
@@ -48,30 +44,53 @@ class DownloadManager
 
     public $chunksize = 50;
 
-    public function __construct(FtpSettings $ftpSettings, IFactory $factory, callable $fileFilter = null)
+    public function __construct(IFactory $factory, callable $fileFilter = null)
     {
-        $this->ftpSettings = $ftpSettings;
         $this->factory = $factory;
         $this->fileFilter = $fileFilter;
     }
 
-    /**
-     * Synchronizes the remote Files with Local Database
-     */
-    public function startPulling(array $options = []) {
-
+    private function cleanupFailedDownloads() {
         // remove all the failed download attempts from previous updates
         // todo: maybe restrict these only to download of current download type (annotation vs. update)
         $fewHoursAgo = (new \DateTime('now'))->modify('-20 hours')->format('Y-m-d H:m:s');
-        Download::where('success',0)->where('attempts', '>=', self::MAX_DOWNLOAD_ATTEMPTS)->where('updated_at','<',$fewHoursAgo)->delete();
+        Download::where('success',0)->where('attempts', '>=', self::MAX_DOWNLOAD_ATTEMPTS)
+            ->where('updated_at','<',$fewHoursAgo)->delete();
+    }
 
-        // get filelist
-        $this->ftpController = new FtpService($this->ftpSettings);
-        $availableFiles = $this->ftpController->getFileList();
+    /**
+     * Pulls remote files and processes them.
+     * @param string $source
+     * @param array $options
+     * @return string
+     */
+    public function startPulling($source = 'updates', array $options = []) {
 
+        // let's remove all previously failed downloads
+        self::cleanupFailedDownloads();
+
+        // get the storage
+        $storage = Storage::disk($source);
+
+        $availableFiles = self::getListOfAvailableFiles($storage, $options);
+        return self::processFiles($availableFiles,$storage);
+    }
+
+    private function getListOfAvailableFiles($storage, $options) {
+
+        $directory = isset($options['directory']) ? $options['directory'] : '';
+
+        // get list of files
+        $availableFiles = $storage->files($directory);
+
+        var_dump(count($availableFiles));
+
+        // filter list of files if filter function is available
         if(is_callable($this->fileFilter)) {
             $availableFiles = array_filter($availableFiles,$this->fileFilter);
         }
+
+        var_dump(is_callable($this->fileFilter));
 
         // filter out all files that have been downloaded and imported already
         $availableFiles = array_filter($availableFiles,function($filepath) {
@@ -87,6 +106,10 @@ class DownloadManager
             $availableFiles = array_slice($availableFiles,0,1);
         }
 
+        return $availableFiles;
+    }
+
+    private function processFiles($availableFiles, $storage) {
         // iterate through filelist and download updates
         $index = 0;
         foreach($availableFiles as $filepath) {
@@ -97,7 +120,7 @@ class DownloadManager
 
             try {
                 ConsoleOutput::section("Downloading $filepath ($index of ".count($availableFiles).")");
-                $localFile = $this->download($filepath);    // zipFile
+                $localFile = $this->download($filepath,$storage);    // zipFile
 
                 ConsoleOutput::section("Extracting $filepath");
                 $unpackedFiles = $this->unpack($localFile);
@@ -125,6 +148,7 @@ class DownloadManager
             }
 
         }
+
         return self::FINISHED;
     }
 
@@ -132,45 +156,37 @@ class DownloadManager
         // TODO: implement haltPulling();
     }
 
-    private function download($file) {
-        // create FtpController instance if it doesn't exist yet
-        if(!isset($this->ftpController)) $this->ftpController = new FtpService($this->ftpSettings);
-
+    private function download($remote_filepath,$storage) {
         // lookup file in downloads table
-        $download = Download::find($file);
+        $download = Download::firstOrNew(['remote_filepath' => $remote_filepath]);
 
-        // if file wasn't found, create a new Download object
-        if(is_null($download)) {
-            $download = new Download();
-            $download->remote_filepath = $file;
-            $download->save();
-
-            // make sure we're dealing with the object from the database
-            $download = Download::find($file);
-        }
+        // build local filepath
+        $local_filepath = storage_path('app/download/').basename($remote_filepath);
 
         // set a limit to maximum download attempts
         if($download->attempts >= self::MAX_DOWNLOAD_ATTEMPTS)
-            throw new DownloadFailedException("Reached maximum number of attempts (".self::MAX_DOWNLOAD_ATTEMPTS.") to download $file.");
+            throw new DownloadFailedException(
+                "Reached maximum number of attempts (".self::MAX_DOWNLOAD_ATTEMPTS.") to download $remote_filepath.");
 
-        // download the file
-        try {
-            $download->attempts++;
-            $download->save();
-            $local_filepath = $this->ftpController->downloadFile($file);
-        } catch (ErrorException $e) {
-            // todo inspect this error
-            // sometimes ftp_get() fails with an ErrorException for no apparent reason
-            // let's just try again
-            ConsoleOutput::error('ftp_get() failed with ErrorException: '.$e->getMessage());
-            ConsoleOutput::info('Retrying to download in 5 seconds...');
-            sleep(5);
-            $this->ftpController->reconnect();
-            $local_filepath = $this->ftpController->downloadFile($file);
+        while(!file_exists($local_filepath) && $download->attempts < self::MAX_DOWNLOAD_ATTEMPTS) {
+
+            try {
+                $download->attempts++;
+                $download->save();
+                file_put_contents($local_filepath, $storage->get($remote_filepath));   // stores the file to local disk
+            } catch (ErrorException $e) {
+                // todo inspect this error
+                // sometimes ftp_get() fails with an ErrorException for no apparent reason
+                // let's just try again
+                ConsoleOutput::error('ftp_get() failed with ErrorException: '.$e->getMessage());
+                ConsoleOutput::info('Retrying to download in 5 seconds...');
+                sleep(5);
+            }
         }
 
         // if it didn't work after reconnecting, the download failed
-        if(!$local_filepath or !file_exists($local_filepath)) throw new DownloadFailedException("Downloaded file '$file' not found at '$local_filepath'.");
+        if(!file_exists($local_filepath))
+            throw new DownloadFailedException("Downloaded file '$remote_filepath' not found at '$local_filepath'.");
 
         // return path to downloaded file
         return $local_filepath;

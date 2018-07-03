@@ -62,6 +62,33 @@ return [
             'bucket' => 'your-bucket',
         ],
 
+        'storage' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_STORAGE_HOST'),
+            'directory' => env('FTP_STORAGE_DIR'),
+            'username' => env('FTP_STORAGE_USER'),
+            'password' => env('FTP_STORAGE_PASSWORD'),
+            'root' => env('FTP_STORAGE_DIR')
+        ],
+
+        'updates' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_TUP_HOST'),
+            'directory' => env('FTP_TUP_DIR'),
+            'username' => env('FTP_TUP_USER'),
+            'password' => env('FTP_TUP_PASSWORD'),
+            'root' => env('FTP_TUP_DIR')
+        ],
+
+        'annotations' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_ANNO_HOST'),
+            'directory' => env('FTP_ANNO_DIR'),
+            'username' => env('FTP_ANNO_USER'),
+            'password' => env('FTP_ANNO_PASSWORD'),
+            'root' => env('FTP_ANNO_DIR')
+        ],
+
     ],
 
 ];

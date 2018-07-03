@@ -54,10 +54,10 @@ class Pull extends Command
         $ftpConfig = $this->options()['initial'] ? 'initial' : 'updates';
 
         $libriProductDownloadManager = new App\Managers\DownloadManager(
-            new App\FtpSettings(config('ftp.'.$ftpConfig)),
             new App\Factories\LibriProductFactory());
 
-        $message = $libriProductDownloadManager->startPulling(compact('startTime','endTime','reverse','test'));
+        $message = $libriProductDownloadManager->startPulling(
+            'updates', compact('startTime', 'endTime', 'reverse', 'test'));
 
         /* DownloadManager will return a message when all files have been downloaded.
          * If not, we're sending exit status 2 to tell the bash script that there is more to download.

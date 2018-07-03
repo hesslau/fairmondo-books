@@ -11,24 +11,18 @@ namespace App\Services;
 use App\Facades\ConsoleOutput;
 use App\Managers\DownloadManager;
 use App\Factories\LibriProductFactory;
-use App\FtpSettings;
 
 
 class ImportService
 {
-    public static function importAnnotationsFromStorage($remoteDir) {
-
-        $ftpSettings = new FtpSettings(config("ftp.storage"));
-        $ftpSettings->directory = $remoteDir;
-        $ftpSettings->downloadDirectory = storage_path("app/annotations");
+    public static function importAnnotationsFromStorage($directory) {
 
         $downloadManager = new DownloadManager(
-            $ftpSettings,
             new \App\Factories\AnnotationFactory()
         );
 
         $downloadManager->chunksize = 5;
-        $exitCode = $downloadManager->startPulling(compact('test'));
+        $exitCode = $downloadManager->startPulling('storage', compact('directory'));
 
         if($exitCode == $downloadManager::FINISHED) exit(0);
         else exit(2);
@@ -42,19 +36,15 @@ class ImportService
      * @param $pathToZipArchive
      * @throws \Exception
      */
-    public static function initialImportFromStorage($pathToZipArchive) {
-
-        $ftpSettings = new FtpSettings(config('ftp.storage'));
-        $ftpSettings->directory = dirname($pathToZipArchive);
-        $ftpSettings->downloadDirectory = storage_path("app/download");
+    public static function importUpdatesFromStorage($pathToZipArchive) {
 
         $libriProductDownloadManager = new DownloadManager(
-            $ftpSettings, new LibriProductFactory(),
+            new LibriProductFactory(),
             function($filepath) use ($pathToZipArchive) {
                 return ($filepath == $pathToZipArchive);        // select only the zip archive
             });
 
-        $message = $libriProductDownloadManager->startPulling();
+        $message = $libriProductDownloadManager->startPulling('storage');
         if($message != DownloadManager::FINISHED) {
             ConsoleOutput::error("Initial import didn't complete!");
             exit(2);
