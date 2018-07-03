@@ -10,3 +10,4 @@ Homestead.yaml
 storage/app/media/**
 storage/app/download/**
 storage/app/annotations/**
+database/fairmondoBooks
