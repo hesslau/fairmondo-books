@@ -94,6 +94,11 @@ Artisan::command('fairmondobooks:import:file {filename}', function($filename) {
     $importManager->importFile($filename);
 });
 
+Artisan::command('fairmondobooks:import:cbild {filepath}', function($filepath) {
+    $factory = new App\Factories\AnnotationFactory();
+    $factory::store($factory::makeFromFile($filepath));
+});
+
 Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function($since, $test, $skip) {
     ExportService::makeDelta($since, intval($skip), $test);
 });
