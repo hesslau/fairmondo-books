@@ -102,15 +102,10 @@ class AnnotationFactory implements IFactory
      */
     public static function store(array $annotations): bool
     {
-        // display progress bar
-        $progress = ConsoleOutput::progress(count($annotations));
 
         foreach ($annotations as $annotation) {
 
-            // adance progress bar
-            ConsoleOutput::advance($progress);
-
-            if(is_null($annotation) or is_array($annotation)) continue;
+            if(is_null($annotation) or is_array($annotation)) continue;     // todo: should throw exception
 
             // delete previous records
             KtextAnnotation::where('ProductReference',$annotation->ProductReference)->delete();
@@ -119,7 +114,6 @@ class AnnotationFactory implements IFactory
             $annotation->save();
         }
 
-        ConsoleOutput::finish($progress);
         return true;
     }
 
