@@ -22,7 +22,7 @@ class AnnotationFactory implements IFactory
     /*
      * Returns an Annotation wrapped in an array.
      */
-    public static function makeFromFile(string $filepath): array
+    public static function makeFromFile(string $filepath, $deleteOriginalFile = false): array
     {
 
         switch (substr($filepath,-3,3)) {
@@ -30,7 +30,7 @@ class AnnotationFactory implements IFactory
                 $annotation = self::makeTextAnnotation($filepath);
                 break;
             case "JPG":
-                $annotation = self::makePictureAnnotation($filepath);
+                $annotation = self::makePictureAnnotation($filepath, $deleteOriginalFile);
                 break;
             default:
                 throw new Exception("Unsupported Annotation.");
@@ -42,7 +42,7 @@ class AnnotationFactory implements IFactory
     /*
      * Copies the picture to storage.
      */
-    private static function makePictureAnnotation($filepath) {
+    private static function makePictureAnnotation($filepath, $deleteOriginalFile) {
         $parts = explode('_',basename($filepath));
         $productReference = $parts[1];
         list($annotationType,$extension) = explode('.',$parts[3]);
@@ -53,6 +53,10 @@ class AnnotationFactory implements IFactory
 
         @mkdir(dirname(storage_path($destination)));
         copy($filepath,storage_path($destination));
+
+        if($deleteOriginalFile) {
+            unlink($filepath);
+        }
 
         // no need to return an object since we're not storing picture annotations in the database
         return null;
