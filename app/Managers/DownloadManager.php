@@ -22,6 +22,7 @@ use App\Exceptions\UnpackingFailedException;
 use App\Exceptions\RemovingFileFailedException;
 use App\Exceptions\DownloadFailedException;
 use ErrorException;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -137,7 +138,7 @@ class DownloadManager
 
                 // Write log Message
                 Log::info("Imported ".count($items)." products from file $filepath.");
-            } catch(\Exception $e) {
+            } catch(Exception $e) {
                 ConsoleOutput::error($e->getMessage());
                 Log::error($e->getMessage());
                 continue;
