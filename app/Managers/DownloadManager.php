@@ -137,7 +137,7 @@ class DownloadManager
 
                 // Write log Message
                 Log::info("Imported ".count($items)." products from file $filepath.");
-            } catch(DownloadFailedException $e) {
+            } catch(\Exception $e) {
                 ConsoleOutput::error($e->getMessage());
                 Log::error($e->getMessage());
                 continue;
