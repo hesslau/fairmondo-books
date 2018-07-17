@@ -355,11 +355,17 @@ class FairmondoProductBuilder {
     public static function getExternalTitleImageUrl(LibriProduct $source) {
         if($source->CoverLink) return $source->CoverLink;
         else {
-            // if no CoverLink available, build it from ProductReference (EAN)
-            $link = config('fairmondoproduct.CoverLinkBaseUrl')
-                .substr($source->ProductReference, -3,3)
-                .sprintf('/EAN_%013s.jpg',$source->ProductReference);
-            return $link;
+
+            $filepath = substr($source->ProductReference, -3,3)
+                        .sprintf('/EAN_%013s.jpg',$source->ProductReference);
+
+
+            if(file_exists(storage('app/media/').$filepath)) {
+                // if no CoverLink available, build it from ProductReference (EAN)
+                return config('fairmondoproduct.CoverLinkBaseUrl').$filepath;
+            } else {
+                return "";
+            }
         }
     }
 
