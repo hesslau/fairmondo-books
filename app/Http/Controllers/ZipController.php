@@ -21,11 +21,10 @@ class ZipController extends Controller
         if(is_bool($zipOpen) && $zipOpen == true) {
             $zip->extractTo($target);
             $zip->close();
-
             return true;
         }
         else {
-
+            $errorNo = $zipOpen;
             $zipFileFunctionsErrors = array(
                 'ZIPARCHIVE::ER_MULTIDISK' => 'Multi-disk zip archives not supported.',
                 'ZIPARCHIVE::ER_RENAME' => 'Renaming temporary file failed.',
@@ -53,7 +52,8 @@ class ZipController extends Controller
             );
 
             $zipFileFunctionsErrors = array_values($zipFileFunctionsErrors);
-            throw new Exception("Could not extract file '$source' to '$target'. ErrorNo: $resource (".$zipFileFunctionsErrors[$resource].")");
+            throw new Exception("Could not extract file '$source' to '$target'. ErrorNo: $errorNo (".$zipFileFunctionsErrors[$errorNo].")");
+            return false;
         }
     }
 
