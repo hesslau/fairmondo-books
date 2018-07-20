@@ -84,20 +84,21 @@ class AnnotationFactory implements IFactory
             }
         }
 
-        // if ProductReference wasn't found, there might be something wrong with the file, let's store it for further inspection.
-        if($annotation->ProductReference === NULL) {
-            $failedFile = storage_path('failed_imports').'/'.basename($filepath);
-            @mkdir(dirname($failedFile));
-            copy($filepath,$failedFile);
-            throw new Exception("Annotation doesn't contain ProductReference. Malformed file was copied to $failedFile.");
-        }
-
         try {
+            // if ProductReference wasn't found, there might be something wrong with the file, let's store it for further inspection.
+            if($annotation->ProductReference === NULL) {
+                $failedFile = storage_path('failed_imports').'/'.basename($filepath);
+                @mkdir(dirname($failedFile));
+                copy($filepath,$failedFile);
+                throw new Exception("Annotation doesn't contain ProductReference. Malformed file was copied to $failedFile.");
+            }
+
             $annotation->AnnotationContent = trim($dom->getElementsByTagName("body")->item(0)->nodeValue);
-        } catch (ErrorException $e) {
-            Log::info("ErrorException parsing $filepath",[$e]);
+        } catch (Exception $e) {
+            Log::info("Exception parsing $filepath",[$e]);
             return null;
         }
+
 
         return $annotation;
     }
