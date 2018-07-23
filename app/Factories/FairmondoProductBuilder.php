@@ -360,7 +360,7 @@ class FairmondoProductBuilder {
                         .sprintf('/EAN_%013s.jpg',$source->ProductReference);
 
 
-            if(file_exists(storage('app/media/').$filepath)) {
+            if(file_exists(storage_path('app/media/').$filepath)) {
                 // if no CoverLink available, build it from ProductReference (EAN)
                 return config('fairmondoproduct.CoverLinkBaseUrl').$filepath;
             } else {
