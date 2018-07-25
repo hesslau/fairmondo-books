@@ -68,9 +68,10 @@ Note: in the database "ProductAvailability" is stored in the column "Availabilit
 | 1                  |      384 |
 | 10                 |    49080 |
 | 11                 |     1144 |
-| 20                 |   567786 |   Available
+| 20                 |   973607 |   Available
+| 21                 |        9 |   Available from us as a stock item
 | 22                 |  1482714 |   Available as Special Order
-| 23                 |   796776 |   Available as Print on Demand
+| 23                 |  4668051 |   Available as Print on Demand - don't include in FairmondoBooks
 | 30                 |     2618 |
 | 31                 |     8282 |
 | 32                 |     2565 |

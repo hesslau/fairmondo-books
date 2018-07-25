@@ -202,7 +202,7 @@ class ExportController extends Controller
         ConsoleOutput::info("Selecting Products eligible for Fairmondo Market updated since $dateOfLatestExport.");
         $filterLibriProducts = self::query("insert into selected_products select ProductReference, 'create' from libri_products where 
                                             created_at > '$dateOfLatestExport' 
-                                            and AvailabilityStatus in ('20','21','23')
+                                            and AvailabilityStatus in ('20','21','22')
                                             and ProductForm in ('BA','BB','BC','BG','BH','BI','BP','BZ','AC','DA','AI','VI','VO','ZE','DG','PC')
                                             and NotificationType in ('03','05')
                                             and AudienceCodeValue not in ('16','17','18')
