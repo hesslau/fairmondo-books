@@ -13,6 +13,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use League\Csv\Writer;
+use App\Http\Controllers\ZipController;
 use App\Models\FairmondoProduct;
 use App\Models\LibriProduct;
 use App\Factories\FairmondoProductBuilder;
