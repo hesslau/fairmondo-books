@@ -103,10 +103,10 @@ Artisan::command('fairmondobooks:export {--since} {--test} {--skip=0}', function
     ExportService::makeDelta($since, intval($skip), $test);
 });
 
-Artisan::command('fairmondobooks:reexport {--file=0} {--gtin=0}', function($file,$gtin) {
-    $gtins = ($file) ? explode("\n",file_get_contents($file)) : [$gtin];
-    $gtins = array_map("trim", $gtins);
-    return ExportService::exportProducts($gtins);
+Artisan::command('fairmondobooks:reexport {--file=0} {--custom_seller_identifier=0}', function($file,$custom_seller_identifier) {
+    $custom_seller_identifiers = ($file) ? explode("\n",file_get_contents($file)) : [$custom_seller_identifier];
+    $custom_seller_identifiers = array_map("trim", $custom_seller_identifiers);
+    return ExportService::exportProducts($custom_seller_identifiers);
 });
 
 Artisan::command('fairmondobooks:test:file {filename}', function($filename) {
@@ -120,7 +120,7 @@ Artisan::command('fairmondobooks:test:file {filename}', function($filename) {
 Artisan::command('fairmondobooks:initialImport', function() {
 
 
-    function c($gtin) {
+    function c($custom_seller_identifier) {
         $attributes = [
             "title" => "TEST",
             "categories"=> "0,0",
@@ -142,7 +142,7 @@ Artisan::command('fairmondobooks:initialImport', function() {
             "payment_invoice"=> 0,
             "payment_voucher"=> 1,
             "payment_details"=> "",
-            "custom_seller_identifier"=> "",
+            "custom_seller_identifier"=> "A1",
             "action"=> "create"
         ];
 
@@ -151,14 +151,14 @@ Artisan::command('fairmondobooks:initialImport', function() {
         foreach ($attributes as $attribute => $value) {
             $fairProduct->$attribute = $value;
         }
-        $fairProduct->gtin = $gtin;
+        $fairProduct->custom_seller_identifier = $custom_seller_identifier;
 
         try {
             $fairProduct->save();
         }
         catch (\Illuminate\Database\QueryException $e) {
             //\App\Facades\ConsoleOutput::error($e->getMessage());
-            Log::error("duplicate entry $gtin");
+            Log::error("duplicate entry $custom_seller_identifier");
         }
     }
 
@@ -167,8 +167,8 @@ Artisan::command('fairmondobooks:initialImport', function() {
         $handle = fopen($file, "r");
         ob_start();
         $progress = \App\Facades\ConsoleOutput::progress();
-        while(($gtin=fgets($handle)) !== false) {
-            c(trim($gtin));
+        while(($custom_seller_identifier=fgets($handle)) !== false) {
+            c(trim($custom_seller_identifier));
             \App\Facades\ConsoleOutput::advance($progress);
         }
         ob_end_clean();

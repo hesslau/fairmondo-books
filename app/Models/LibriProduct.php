@@ -9,7 +9,7 @@ use phpDocumentor\Reflection\Types\Null_;
 
 class LibriProduct extends Model
 {
-    protected $primaryKey = 'ProductReference';
+    protected $primaryKey = 'RecordReference';
     public $incrementing = false;
 
     // make sure the ProductReference is a String

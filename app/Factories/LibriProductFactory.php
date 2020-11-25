@@ -136,7 +136,7 @@ class LibriProductFactory implements IFactory {
         $progress = ConsoleOutput::progress(count($products));
 
         foreach ($products as $product) {
-            $existingProduct = LibriProduct::find($product->ProductReference);
+            $existingProduct = LibriProduct::find($product->RecordReference);
 
             // if this product doesn't exists, save it
             if(!$existingProduct) $product->save();

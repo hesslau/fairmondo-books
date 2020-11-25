@@ -170,17 +170,17 @@ class ExportService
         return DB::unprepared(DB::raw($query));
     }
 
-    public static function exportProducts($gtins) {
+    public static function exportProducts($custom_seller_identifiers) {
         $export = self::getExportBuffer();
 
-        foreach ($gtins as $gtin) {
-            $libriProduct = LibriProduct::find($gtin);
-            if(!$libriProduct) ConsoleOutput::error("Prduct with reference '$gtin' not found.");
+        foreach ($custom_seller_identifiers as $custom_seller_identifier) {
+            $libriProduct = LibriProduct::find($custom_seller_identifier);
+            if(!$libriProduct) ConsoleOutput::error("Prduct with reference '$custom_seller_identifier' not found.");
             else {
                 $fairmondoProduct = FairmondoProductBuilder::create($libriProduct);
                 /* TODO: Should the changes be written to the replication database in this use case? */
                 // self::storeFairmondoProduct($fairmondoProduct);
-                if(!$fairmondoProduct) ConsoleOutput::error("Failed to create FairmondoProduct for '$gtin'.");
+                if(!$fairmondoProduct) ConsoleOutput::error("Failed to create FairmondoProduct for '$custom_seller_identifier'.");
                 else $export->insertOne($fairmondoProduct->toArray());
             }
         }
@@ -195,9 +195,9 @@ class ExportService
     public static function selectProducts($dateOfLatestExport) {
 
         $createTempTable = self::query("CREATE TABLE IF NOT EXISTS `selected_products` (
-                                              `gtin` varchar(13) NOT NULL,
+                                              `custom_seller_identifier` varchar(13) NOT NULL,
                                               `action` varchar(6) DEFAULT NULL,
-                                              PRIMARY KEY (`gtin`)
+                                              PRIMARY KEY (`custom_seller_identifier`)
                                             ); TRUNCATE TABLE selected_products;");
 
 
@@ -205,7 +205,7 @@ class ExportService
         //print $createTempTable;
 
         ConsoleOutput::info("Selecting Products eligible for Fairmondo Market updated since $dateOfLatestExport.");
-        $filterLibriProducts = self::query("insert into selected_products select ProductReference, 'create' from libri_products where 
+        $filterLibriProducts = self::query("insert into selected_products select RecordReference, 'create' from libri_products where 
                                             created_at > '$dateOfLatestExport' 
                                             and AvailabilityStatus in ('20','21','23')
                                             and ProductForm in ('BA','BB','BC','BG','BH','BI','BP','BZ','AC','DA','AI','VI','VO','ZE','DG','PC')
@@ -216,13 +216,13 @@ class ExportService
         // mark products for deletion which were updated in libri_products and exist in the current market fairmondo_products but didn't make it into selected_products
         // skip the products where were previously marked for deletion.
         ConsoleOutput::info("Marking ineligible Products in Market for deletion.");
-        $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select gtin,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$dateOfLatestExport' and fairmondo_products.created_at > '$dateOfLatestExport' and gtin=ProductReference and fairmondo_products.action<>'delete';");
+        $deleteUnqualifiedFairmondoProducts = self::query("insert ignore into selected_products select custom_seller_identifier,'delete' from fairmondo_products,libri_products where libri_products.created_at > '$dateOfLatestExport' and fairmondo_products.created_at > '$dateOfLatestExport' and custom_seller_identifier=RecordReference and fairmondo_products.action<>'delete';");
 
         // mark products for update which are selected for market and already exist in the market
         ConsoleOutput::info("Marking eligible Products in Market for update.");
-        $updateQualifiedFairmondoProducts = self::query("update selected_products,fairmondo_products set selected_products.action='update' where selected_products.gtin=fairmondo_products.gtin and selected_products.action<>'delete';");
+        $updateQualifiedFairmondoProducts = self::query("update selected_products,fairmondo_products set selected_products.action='update' where selected_products.custom_seller_identifier=fairmondo_products.custom_seller_identifier and selected_products.action<>'delete';");
 
-        return DB::table('selected_products')->join('libri_products','ProductReference','=','gtin');
+        return DB::table('selected_products')->join('libri_products','RecordReference','=','custom_seller_identifier');
     }
 
     /*
@@ -256,7 +256,7 @@ class ExportService
 
     private static function storeFairmondoProduct($product) {
         // delete previous records
-        FairmondoProduct::destroy($product->gtin);
+        FairmondoProduct::destroy($product->custom_seller_identifier);
 
         // save new record
         try {

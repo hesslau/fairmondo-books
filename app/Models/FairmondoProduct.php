@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FairmondoProduct extends Model
 {
-    protected $primaryKey = 'gtin';
+    protected $primaryKey = 'custom_seller_identifier';
     public $incrementing = false;
 
     public function toArray($fields = null) {

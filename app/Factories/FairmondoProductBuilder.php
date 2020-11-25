@@ -374,8 +374,7 @@ class FairmondoProductBuilder {
     }
 
     public static function getCustomSellerIdentifier(LibriProduct $source) {
-        $pattern = config('fairmondoproduct.CustomSellerIdentifierTemplate');
-        return sprintf($pattern,$source->ProductReference);
+        return $source->RecordReference;
     }
 
     /**
@@ -393,7 +392,7 @@ class FairmondoProductBuilder {
             $action = $source->action;
         } else {
             // try to get product details from database
-            $previousRecord = FairmondoProduct::where('gtin',self::getGtin($source))->first();
+            $previousRecord = FairmondoProduct::find(self::getCustomSellerIdentifier($source));
 
             // all other notification types signal an update to an old record or a new record
             // if the old record was found and it wasn't meant to be deleted, set action to 'update'
