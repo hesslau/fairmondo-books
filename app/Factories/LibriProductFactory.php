@@ -249,7 +249,7 @@ class LibriProductFactory implements IFactory {
 
         $check=0;
         for ($i=0;$i<12;$i++) {
-            $check+=(($i%2)*2+1)*$isbn{$i};
+            $check+=(($i%2)*2+1)*$isbn[$i];
         }
         $check=(10-($check%10))%10;
         return "978".substr($isbn10,0,-1).$check;
