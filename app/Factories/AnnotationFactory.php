@@ -16,6 +16,7 @@ use ErrorException;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use XMLReader;
 
 class AnnotationFactory implements IFactory
 {
@@ -26,6 +27,9 @@ class AnnotationFactory implements IFactory
     {
 
         switch (substr($filepath,-3,3)) {
+            case "xml":
+                $annotation = self::makeCbildAnnotation($filepath);
+                break;
             case "HTM":
                 $annotation = self::makeTextAnnotation($filepath);
                 break;
@@ -61,6 +65,43 @@ class AnnotationFactory implements IFactory
 
         // no need to return an object since we're not storing picture annotations in the database
         return null;
+    }
+
+    /*
+     * Returns CBILD Urls
+     */
+    private static function makeCbildAnnotation($filepath) {
+        $reader = new XMLReader();
+        $reader->open($filepath);
+
+        $search = array('$$URL$$','$$USER$$');
+        $replace = array('http://media.librinet.de','V97483/');
+
+        $cblid = array();
+        while($reader->read()) {
+            if($reader->name === 'content')  {
+                $xml = simplexml_load_string($reader->readOuterXml());
+
+                foreach($xml->link as $link) {
+                    if((string) $link->url != "") {
+                        $cbild[] = array(
+                            'docid' => (string) $xml->docid,
+                            'ean'   => (string) $xml->ean,
+                            'type'  => (string) $link->type,
+                            'size'  => (string) $link->size,
+                            'url'   => str_replace($search,$replace,(string) $link->url)
+                        );
+                        file_put_contents(
+                            "storage/app/media/EAN_".(string) $xml->ean.".jpg",
+                            file_get_contents(str_replace($search,$replace,(string) $link->url)));
+                        //http://V97483:7G410ZX8KY95YDLV9W92@media.librinet.de/2d7fa85d-0729-42d2-82f3-be409d5e0ed6/6/V97483/
+                    }
+                }
+
+            }
+        }
+        $reader->close();
+        return 0;//$cbild;
     }
 
     /*
@@ -117,7 +158,7 @@ class AnnotationFactory implements IFactory
             KtextAnnotation::where('ProductReference',$annotation->ProductReference)->delete();
 
             // insert new record
-            $annotation->save();
+            var_dump($annotation->save());
         }
 
         return true;
