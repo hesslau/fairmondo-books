@@ -11,6 +11,7 @@ namespace App\Factories;
 use App\Facades\ConsoleOutput;
 use App\Models\Annotation;
 use App\Models\KtextAnnotation;
+use App\Models\LibriProduct;
 use DOMDocument;
 use ErrorException;
 use Exception;
@@ -74,39 +75,42 @@ class AnnotationFactory implements IFactory
         $reader = new XMLReader();
         $reader->open($filepath);
 
-        $user = env("LIBRI_USER");
-        $password = env('LIBRI_MEDIA_PASSWORD');
+        $userflag = env("LIBRI_MEDIAS_FLAG");
         $needle = array('$$URL$$','$$USER$$');
-        $replace = array("http://$user:$password@media.librinet.de","$user/");
+        $replace = array(env("LIBRI_MEDIAS_URL"),$userflag);
 
-        $cblid = array();
         while($reader->read()) {
             if($reader->name === 'content')  {
                 $xml = simplexml_load_string($reader->readOuterXml());
-
                 foreach($xml->link as $link) {
-                    if((string) $link->url != "" && (string) $link->size == 'xl') {
-                        /*$cbild[] = array(
-                            'docid' => (string) $xml->docid,
-                            'ean'   => (string) $xml->ean,
-                            'type'  => (string) $link->type,
-                            'size'  => (string) $link->size,
-                            'url'   => str_replace($search,$replace,(string) $link->url)
-                        );*/
-                        $remote_url = str_replace($needle,$replace,(string) $link->url);
-                        $local_path = "storage/app/media/EAN_".(string) $xml->ean.".jpg";
-                        if(file_put_contents($local_path,file_get_contents($remote_url))) {
-                            print "Downloaded $remote_url to $local_path\n";
-                        } else {
-                            print "Failed to download $remote_url\n";
+                    if((string) $link->url != ""
+                        && (string) $link->type == "CBILD"
+                        && (string) $link->size == 'xl') {
+
+                        /*
+                           (string) $xml->docid,
+                           (string) $xml->ean,
+                           (string) $link->type,
+                           (string) $link->size,
+                        */
+
+                        $record_reference = (string) $xml->docid;
+                        $product = LibriProduct::find($record_reference);
+
+                        if($product) {
+                            $remote_url = str_replace($needle,$replace,(string) $link->url);
+                            $product->CoverLink = $remote_url;
+                            $product->save();
+                            ConsoleOutput::info("saved $record_reference");
                         }
+                        continue;   // we only need one image here
                     }
                 }
 
             }
         }
         $reader->close();
-        return 0;//$cbild;
+        return null;    // no need to further process files
     }
 
     /*
