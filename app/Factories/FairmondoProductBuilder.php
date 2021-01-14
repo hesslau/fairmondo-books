@@ -356,8 +356,7 @@ class FairmondoProductBuilder {
         if($source->CoverLink) return $source->CoverLink;
         else {
 
-            $filepath = substr($source->ProductReference, -3,3)
-                        .sprintf('/EAN_%013s.jpg',$source->ProductReference);
+            $filepath = /*substr($source->ProductReference, -3,3).*/ sprintf('%s.jpg',$source->RecordReference);
 
 
             if(file_exists(storage_path('app/media/').$filepath)) {
