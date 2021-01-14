@@ -90,11 +90,6 @@ class ExportService
             // update export object
             $exportInfo->export_file = basename($zipArchive);
 
-            // delete the csv files
-            foreach ($files as $file) {
-                @unlink($file);
-            }
-
             // If we got to here, we can assume that everything went well.
             Log::info("Export #{$exportInfo->id} finished. (Products: {$exportInfo->number_of_products} File: {$exportInfo->export_file})");
 
