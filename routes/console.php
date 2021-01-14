@@ -40,7 +40,7 @@ Artisan::command('pull:annotations {--test}', function($test){
     $downloadManager = new App\Managers\DownloadManager(
         new \App\Factories\AnnotationFactory(),
         function($filepath) {
-            $annotationTypes = ["GKTEXT","GCBILD"];
+            $annotationTypes = ["GKTEXT","TCBILD"];
             return in_array(substr(basename($filepath),0,6),$annotationTypes);
         }
     );
