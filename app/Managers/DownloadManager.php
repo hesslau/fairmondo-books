@@ -111,7 +111,7 @@ class DownloadManager
         $index = 0;
         foreach($availableFiles as $filepath) {
 
-            if(str_contains(basename($filepath),"GTUPD")) continue; // skip Gesamtkatalog Updates
+            if(str_contains(basename($filepath),"TTUPD")) continue; // skip TOP Catalogue Updates
 
             // to avoid memory allocation failures, break the download after
             // a few files and let the parent function call this again
