@@ -36,11 +36,13 @@ Artisan::command('import:onix {file}',function($file) {
     dd(array_slice($products,0,5),$totalConditionsFailed);
 });
 
-Artisan::command('pull:annotations {--test}', function($test){
+Artisan::command('pull:annotations:text {--test}', function($test){
+
+    // get GKTEXT annotations
     $downloadManager = new App\Managers\DownloadManager(
         new \App\Factories\AnnotationFactory(),
         function($filepath) {
-            $annotationTypes = ["GKTEXT","TCBILD"];
+            $annotationTypes = ["GKTEXT"];
             return in_array(substr(basename($filepath),0,6),$annotationTypes);
         }
     );
