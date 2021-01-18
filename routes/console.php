@@ -3,6 +3,14 @@
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Log;
 use App\Services\ExportService;
+use App\Services\ImportService;
+use App\Managers\DownloadManager;
+use App\Managers\ImportManager;
+use App\Factories\AnnotationFactory;
+use App\Factories\LibriProductFactory;
+use App\Factories\FairmondoProductBuilder;
+use App\Facades\ConsoleOutput;
+use App\Models\FairmondoProduct;
 
 ini_set('memory_limit','512M');
 /*
@@ -21,12 +29,12 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('import:onix {file}',function($file) {
-    $products = \App\Factories\LibriProductFactory::makeFromFile($file);
+    $products = LibriProductFactory::makeFromFile($file);
 
     $totalConditionsFailed = ['passed'=>0];
 
     foreach ($products as $product) {
-        $failedConditions = \App\Factories\FairmondoProductBuilder::checkConditions($product);
+        $failedConditions = FairmondoProductBuilder::checkConditions($product);
         if(!$failedConditions) $totalConditionsFailed['passed']++;
         foreach ($failedConditions as $failedCondition) {
             if(!key_exists($failedCondition,$totalConditionsFailed)) $totalConditionsFailed[$failedCondition] = 0;
@@ -39,8 +47,8 @@ Artisan::command('import:onix {file}',function($file) {
 Artisan::command('pull:annotations:text {--test}', function($test){
 
     // get GKTEXT annotations
-    $downloadManager = new App\Managers\DownloadManager(
-        new \App\Factories\AnnotationFactory(),
+    $downloadManager = new DownloadManager(
+        new AnnotationFactory(),
         function($filepath) {
             $annotationTypes = ["GKTEXT"];
             return in_array(substr(basename($filepath),0,6),$annotationTypes);
@@ -56,8 +64,8 @@ Artisan::command('pull:annotations:text {--test}', function($test){
 
 // get CBILD, ABILD and RUECK annotations
 Artisan::command('pull:annotations:media {--initial}', function($initial) {
-    $downloadManager = new App\Managers\DownloadManager(
-        new \App\Factories\AnnotationFactory(),
+    $downloadManager = new DownloadManager(
+        new AnnotationFactory(),
         function($filepath) { return str_contains(basename($filepath),"lib_gesamt_"); });
 
     $source = ($initial) ? "media_initial" : "media_updates";
@@ -86,7 +94,7 @@ Artisan::command('media:cleanup', function() {
 
                 if(count($matches) > 0) {
                     $gtin = $matches[1];
-                    if(App\Models\FairmondoProduct::find($gtin)) {
+                    if(FairmondoProduct::find($gtin)) {
                         continue;
                     } else {
                         unlink($mediaDir.$subdir.'/'.$file);
@@ -104,12 +112,12 @@ Artisan::command('media:cleanup', function() {
  * @todo support annotation files
  */
 Artisan::command('fairmondobooks:import:file {filename}', function($filename) {
-    $importManager = new \App\Managers\ImportManager(new App\Factories\LibriProductFactory());
+    $importManager = new ImportManager(new LibriProductFactory());
     $importManager->importFile($filename);
 });
 
 Artisan::command('fairmondobooks:import:cbild {filepath} {--rename}', function($filepath) {
-    $factory = new App\Factories\AnnotationFactory();
+    $factory = new AnnotationFactory();
     $factory::store($factory::makeFromFile($filepath, $this->option('rename')));
 });
 
@@ -125,8 +133,8 @@ Artisan::command('fairmondobooks:reexport {--file=0} {--custom_seller_identifier
 
 Artisan::command('fairmondobooks:test:file {filename}', function($filename) {
     if(!file_exists($filename)) throw new Exception("File doesn't exist.");
-    $libriProduct = App\Factories\LibriProductFactory::makeFromFile($filename);
-    $fairmondoProduct = \App\Factories\FairmondoProductBuilder::create($libriProduct[0]);
+    $libriProduct = LibriProductFactory::makeFromFile($filename);
+    $fairmondoProduct = FairmondoProductBuilder::create($libriProduct[0]);
     echo strlen($fairmondoProduct->title);
     var_dump($fairmondoProduct);
 });
@@ -161,7 +169,7 @@ Artisan::command('fairmondobooks:initialImport', function() {
         ];
 
         //if(App\Models\FairmondoProduct::find($gtin)) return;
-        $fairProduct = new App\Models\FairmondoProduct();
+        $fairProduct = new FairmondoProduct();
         foreach ($attributes as $attribute => $value) {
             $fairProduct->$attribute = $value;
         }
@@ -180,13 +188,13 @@ Artisan::command('fairmondobooks:initialImport', function() {
     function importFile($file) {
         $handle = fopen($file, "r");
         ob_start();
-        $progress = \App\Facades\ConsoleOutput::progress();
+        $progress = ConsoleOutput::progress();
         while(($custom_seller_identifier=fgets($handle)) !== false) {
             c(trim($custom_seller_identifier));
-            \App\Facades\ConsoleOutput::advance($progress);
+            ConsoleOutput::advance($progress);
         }
         ob_end_clean();
-        \App\Facades\ConsoleOutput::finish($progress);
+        ConsoleOutput::finish($progress);
         fclose($handle);
         Illuminate\Support\Facades\Log::info("Done with initial import!");
     }
@@ -201,8 +209,8 @@ Artisan::command('fairmondobooks:initialImport', function() {
 
 Artisan::command('fairmondobooks:import_from_storage {--annotation} {directory}', function($directory) {
     if($this->option('annotation')) {
-        App\Services\ImportService::importAnnotationsFromStorage($directory);
+        ImportService::importAnnotationsFromStorage($directory);
     } else {
-        App\Services\ImportService::importUpdatesFromStorage($directory);
+        ImportService::importUpdatesFromStorage($directory);
     }
 });
