@@ -55,6 +55,7 @@ class FairmondoProductBuilder {
         $product->content = self::getContent($source);                      // timekiller!
         $product->vat = self::getVat($source);
         $product->external_title_image_url = self::getExternalTitleImageUrl($source);
+        $product->external_image_2_url = self::getExternalImage2Url($source);
         $product->price_cents = self::getPriceCents($source);
         $product->transport_time = self::getTransportTime($source);
 
@@ -236,24 +237,6 @@ class FairmondoProductBuilder {
         // Using strval() because of weird intval() behaviour.
         // See http://php.net/manual/de/function.intval.php#101439
         $price_cents = intval(strval($source->PriceAmount * 100));
-
-        // Business Logic: Increase price by 200 cents if the following conditions are met
-        if(
-            $price_cents>=2000 and $price_cents<4000    // price between 20€ and 40€
-            and $source->PriceTypeCode == 2             // no fixed price (represented by PriceTypeCode 2)
-            and $source->DiscountPercent <= 10          // margin less than 10%
-        ) {
-            $price_cents += 200;
-        }
-
-        // Business Logic: Increasy price by 300 cents if the following conditions are met
-        if(
-            $price_cents < 2000                         // costs less than 20€
-            and $source->PriceTypeCode == 2             // no fixed price
-        ) {
-            $price_cents += 300;
-        }
-
         return $price_cents;
     }
 
@@ -353,11 +336,10 @@ class FairmondoProductBuilder {
     }
 
     public static function getExternalTitleImageUrl(LibriProduct $source) {
-        if($source->CoverLink) return $source->CoverLink;
+        if($source->AntCbildUrl) return $source->AntCbildUrl;
         else {
 
-            $filepath = substr($source->ProductReference, -3,3)
-                        .sprintf('/EAN_%013s.jpg',$source->ProductReference);
+            $filepath = /*substr($source->ProductReference, -3,3).*/ sprintf('%s.jpg',$source->RecordReference);
 
 
             if(file_exists(storage_path('app/media/').$filepath)) {
@@ -367,6 +349,12 @@ class FairmondoProductBuilder {
                 return "";
             }
         }
+    }
+
+    public static function getExternalImage2Url(LibriProduct $source) {
+        if($source->AntRueckUrl) return $source->AntRueckUrl;
+        if($source->AntAbildUrl) return $source->AntAbildUrl;
+        return null;
     }
 
     public static function getGtin(LibriProduct $source) {

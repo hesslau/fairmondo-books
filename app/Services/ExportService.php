@@ -90,11 +90,6 @@ class ExportService
             // update export object
             $exportInfo->export_file = basename($zipArchive);
 
-            // delete the csv files
-            foreach ($files as $file) {
-                @unlink($file);
-            }
-
             // If we got to here, we can assume that everything went well.
             Log::info("Export #{$exportInfo->id} finished. (Products: {$exportInfo->number_of_products} File: {$exportInfo->export_file})");
 
@@ -206,7 +201,7 @@ class ExportService
 
         ConsoleOutput::info("Selecting Products eligible for Fairmondo Market updated since $dateOfLatestExport.");
         $filterLibriProducts = self::query("insert into selected_products select RecordReference, 'create' from libri_products where 
-                                            created_at > '$dateOfLatestExport' 
+                                            updated_at > '$dateOfLatestExport'
                                             and AvailabilityStatus in ('20','21','23')
                                             and ProductForm in ('BA','BB','BC','BG','BH','BI','BP','BZ','AC','DA','AI','VI','VO','ZE','DG','PC')
                                             and NotificationType in ('03','05')

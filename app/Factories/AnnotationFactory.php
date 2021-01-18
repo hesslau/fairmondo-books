@@ -11,6 +11,7 @@ namespace App\Factories;
 use App\Facades\ConsoleOutput;
 use App\Models\Annotation;
 use App\Models\KtextAnnotation;
+use App\Models\LibriProduct;
 use DOMDocument;
 use ErrorException;
 use Exception;
@@ -74,34 +75,68 @@ class AnnotationFactory implements IFactory
         $reader = new XMLReader();
         $reader->open($filepath);
 
-        $search = array('$$URL$$','$$USER$$');
-        $replace = array('http://media.librinet.de','V97483/');
+        $userflag = env("LIBRI_MEDIAS_FLAG");
+        $needle = array('$$URL$$','$$USER$$');
+        $replace = array(env("LIBRI_MEDIAS_URL"),$userflag);
+        $preferred_size_order = array("original","xl","large","middle","small");
 
-        $cblid = array();
         while($reader->read()) {
             if($reader->name === 'content')  {
                 $xml = simplexml_load_string($reader->readOuterXml());
 
+                // build array of available media for this article
+                // this will catch all types, including BPR's
+                $available_media = array();
                 foreach($xml->link as $link) {
-                    if((string) $link->url != "") {
-                        $cbild[] = array(
-                            'docid' => (string) $xml->docid,
-                            'ean'   => (string) $xml->ean,
-                            'type'  => (string) $link->type,
-                            'size'  => (string) $link->size,
-                            'url'   => str_replace($search,$replace,(string) $link->url)
-                        );
-                        file_put_contents(
-                            "storage/app/media/EAN_".(string) $xml->ean.".jpg",
-                            file_get_contents(str_replace($search,$replace,(string) $link->url)));
-                        //http://V97483:7G410ZX8KY95YDLV9W92@media.librinet.de/2d7fa85d-0729-42d2-82f3-be409d5e0ed6/6/V97483/
+
+                    /* Relevant attributes:
+                       (string) $xml->docid,
+                       (string) $xml->ean,
+                       (string) $link->type,
+                       (string) $link->size,
+                       (string) $link->url; */
+
+                    $type = (string) $link->type;
+                    $size = (string) $link->size;
+                    $url  = (string) $link->url;
+
+                    if ($type != "") {
+                        if (!isset($available_media[$type]))
+                            $available_media[$type] = array();
+
+                        // build array, e.g. $media["CBILD"]["original"] = "http....";
+                        $available_media[$type][$size] = str_replace($needle,$replace,$url);
                     }
                 }
 
+                // pick the best media
+                foreach ($available_media as $type => $available_sizes) {
+                    foreach ($preferred_size_order as $size) {
+                        if (isset($available_sizes[$size])) {
+                            $available_media[$type]["best_size"] = $available_sizes[$size];
+                            break; // break out of this loop once we have our best size
+                        }
+                    }
+                }
+
+                // get the article from our database
+                $record_reference = (string) $xml->docid;
+                $product = LibriProduct::find($record_reference);
+
+                // if found, build remote_url and store
+                if($product) {
+
+                    if(isset($available_media["CBILD"])) $product->AntCbildUrl = $available_media["CBILD"]["best_size"];
+                    if(isset($available_media["ABILD"])) $product->AntAbildUrl = $available_media["ABILD"]["best_size"];
+                    if(isset($available_media["RUECK"])) $product->AntRueckUrl = $available_media["RUECK"]["best_size"];
+
+                    $product->save();
+                    ConsoleOutput::info("saved $record_reference");
+                }
             }
         }
         $reader->close();
-        return 0;//$cbild;
+        return null;    // no need to further process files
     }
 
     /*

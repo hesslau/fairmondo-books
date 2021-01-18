@@ -9,6 +9,7 @@ return [
         'price_cents',
         'vat',
         'external_title_image_url',
+        'external_image_2_url',
         'transport_type1',
         'transport_type1_provider',
         'transport_type1_price_cents',
@@ -131,7 +132,7 @@ return [
                     %Blurb
                  </p>',
     'DigitalTemplate' => '%DistinctiveTitle%Author<p>%PublicationDate%PublisherName%ProductForm%ProductReference</p>%Blurb',
-    'CoverLinkBaseUrl' => 'http://mitmachen.fairmondo.de:8080/media/',
+    'CoverLinkBaseUrl' => 'http://10.0.0.4/media/',
     'AudiobookDescription' => 'Hörbuch',
     'Blacklist' => [
         "DistinctiveTitle" => ['Ron Hubbard'],
