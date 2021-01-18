@@ -107,6 +107,9 @@ class LibriProduct extends Model
             "AvailabilityCode",
             "DateOfData",
             "PublishingStatus",
+            "AntCbildUrl",
+            "AntAbildUrl",
+            "AntRueckUrl"
         ]);
 
         // fill $this->attributes array

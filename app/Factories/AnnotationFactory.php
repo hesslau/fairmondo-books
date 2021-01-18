@@ -78,35 +78,61 @@ class AnnotationFactory implements IFactory
         $userflag = env("LIBRI_MEDIAS_FLAG");
         $needle = array('$$URL$$','$$USER$$');
         $replace = array(env("LIBRI_MEDIAS_URL"),$userflag);
+        $preferred_size_order = array("original","xl","large","middle","small");
 
         while($reader->read()) {
             if($reader->name === 'content')  {
                 $xml = simplexml_load_string($reader->readOuterXml());
+
+                // build array of available media for this article
+                // this will catch all types, including BPR's
+                $available_media = array();
                 foreach($xml->link as $link) {
-                    if((string) $link->url != ""
-                        && (string) $link->type == "CBILD"
-                        && (string) $link->size == 'xl') {
 
-                        /*
-                           (string) $xml->docid,
-                           (string) $xml->ean,
-                           (string) $link->type,
-                           (string) $link->size,
-                        */
+                    /* Relevant attributes:
+                       (string) $xml->docid,
+                       (string) $xml->ean,
+                       (string) $link->type,
+                       (string) $link->size,
+                       (string) $link->url; */
 
-                        $record_reference = (string) $xml->docid;
-                        $product = LibriProduct::find($record_reference);
+                    $type = (string) $link->type;
+                    $size = (string) $link->size;
+                    $url  = (string) $link->url;
 
-                        if($product) {
-                            $remote_url = str_replace($needle,$replace,(string) $link->url);
-                            $product->CoverLink = $remote_url;
-                            $product->save();
-                            ConsoleOutput::info("saved $record_reference");
-                        }
-                        continue;   // we only need one image here
+                    if ($type != "") {
+                        if (!isset($available_media[$type]))
+                            $available_media[$type] = array();
+
+                        // build array, e.g. $media["CBILD"]["original"] = "http....";
+                        $available_media[$type][$size] = str_replace($needle,$replace,$url);
                     }
                 }
 
+                // pick the best media
+                foreach ($available_media as $type => $available_sizes) {
+                    foreach ($preferred_size_order as $size) {
+                        if (isset($available_sizes[$size])) {
+                            $available_media[$type]["best_size"] = $available_sizes[$size];
+                            break; // break out of this loop once we have our best size
+                        }
+                    }
+                }
+
+                // get the article from our database
+                $record_reference = (string) $xml->docid;
+                $product = LibriProduct::find($record_reference);
+
+                // if found, build remote_url and store
+                if($product) {
+
+                    if(isset($available_media["CBILD"])) $product->AntCbildUrl = $available_media["CBILD"]["best_size"];
+                    if(isset($available_media["ABILD"])) $product->AntAbildUrl = $available_media["ABILD"]["best_size"];
+                    if(isset($available_media["RUECK"])) $product->AntRueckUrl = $available_media["RUECK"]["best_size"];
+
+                    $product->save();
+                    ConsoleOutput::info("saved $record_reference");
+                }
             }
         }
         $reader->close();

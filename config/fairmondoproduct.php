@@ -9,6 +9,7 @@ return [
         'price_cents',
         'vat',
         'external_title_image_url',
+        'external_image_2_url',
         'transport_type1',
         'transport_type1_provider',
         'transport_type1_price_cents',

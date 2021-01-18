@@ -55,6 +55,7 @@ class FairmondoProductBuilder {
         $product->content = self::getContent($source);                      // timekiller!
         $product->vat = self::getVat($source);
         $product->external_title_image_url = self::getExternalTitleImageUrl($source);
+        $product->external_image_2_url = self::getExternalImage2Url($source);
         $product->price_cents = self::getPriceCents($source);
         $product->transport_time = self::getTransportTime($source);
 
@@ -335,7 +336,7 @@ class FairmondoProductBuilder {
     }
 
     public static function getExternalTitleImageUrl(LibriProduct $source) {
-        if($source->CoverLink) return $source->CoverLink;
+        if($source->AntCbildUrl) return $source->AntCbildUrl;
         else {
 
             $filepath = /*substr($source->ProductReference, -3,3).*/ sprintf('%s.jpg',$source->RecordReference);
@@ -348,6 +349,12 @@ class FairmondoProductBuilder {
                 return "";
             }
         }
+    }
+
+    public static function getExternalImage2Url(LibriProduct $source) {
+        if($source->AntRueckUrl) return $source->AntRueckUrl;
+        if($source->AntAbildUrl) return $source->AntAbildUrl;
+        return null;
     }
 
     public static function getGtin(LibriProduct $source) {
