@@ -89,6 +89,22 @@ return [
             'root' => env('FTP_ANNO_DIR')
         ],
 
-    ],
+        'media_updates' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_MEDIA_HOST'),
+            'directory' => env('FTP_MEDIA_DIR_UPDATES'),
+            'username' => env('FTP_MEDIA_USER'),
+            'password' => env('FTP_MEDIA_PASSWORD'),
+            'root' => env('FTP_MEDIA_DIR_UPDATES')
+        ],
 
+        'media_initial' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_MEDIA_HOST'),
+            'directory' => env('FTP_MEDIA_DIR_INITIAL'),
+            'username' => env('FTP_MEDIA_USER'),
+            'password' => env('FTP_MEDIA_PASSWORD'),
+            'root' => env('FTP_MEDIA_DIR_INITIAL')
+        ]
+    ]
 ];

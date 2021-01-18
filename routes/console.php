@@ -52,6 +52,18 @@ Artisan::command('pull:annotations {--test}', function($test){
     else exit(2);
 });
 
+// get CBILD, ABILD and RUECK annotations
+Artisan::command('pull:annotations:media {--initial}', function($initial) {
+    $downloadManager = new App\Managers\DownloadManager(
+        new \App\Factories\AnnotationFactory(),
+        function($filepath) { return str_contains(basename($filepath),"lib_gesamt_"); });
+
+    $source = ($initial) ? "media_initial" : "media_updates";
+    $exitCode = $downloadManager->startPulling($source);
+    if($exitCode == $downloadManager::FINISHED) exit(0);
+    else exit(2);
+});
+
 Artisan::command('media:cleanup', function() {
     $mediaDir = storage_path('app/media/');
 
