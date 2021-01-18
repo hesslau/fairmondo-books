@@ -30,7 +30,8 @@ if [ ! -d "$LOCKFILE_EXPORT" ] && mkdir "$LOCKFILE_UPDATE"; then
         repeatUntilCleanExit php artisan pull -vv;
 
         # import annotations
-        repeatUntilCleanExit php artisan pull:annotations -vv;
+        repeatUntilCleanExit php artisan pull:annotations:text -vv;
+        repeatUntilCleanExit php artisan pull:annotations:media -vv;
 
         # remove lockfile
         removeLockfile;
