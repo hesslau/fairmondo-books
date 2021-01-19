@@ -126,6 +126,21 @@ class LibriProductFactory implements IFactory {
     }
 
     /**
+     * Copy existing Annotation Urls from old to new product,
+     * since they are usually not included in the catalog update.
+     *
+     * @param $existing_product
+     * @param $new_product
+     */
+    private static function copyAnnotationUrls($existing_product, $new_product) {
+        foreach(["AntCbildUrl","AntAbildUrl","AntRueckUrl"] as $ant) {
+            if(isset($existing_product->$ant) && !property_exists($new_product,$ant)) {
+                $new_product->$ant = $existing_product->$ant;
+            }
+        }
+    }
+
+    /**
      * Store products to database.
      *
      * @param array $products
@@ -145,6 +160,8 @@ class LibriProductFactory implements IFactory {
             // delete existing product and save the new one
             elseif( is_null($existingProduct->DateOfData) || is_null($product->DateOfData)
                     || $existingProduct->DateOfData < $product->DateOfData) {
+
+                self::copyAnnotationUrls($existingProduct,$product);
                 $existingProduct->delete();
                 $product->save();
             }
