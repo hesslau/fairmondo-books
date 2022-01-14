@@ -127,8 +127,7 @@ return [
                     %AudioBook 
                     %PublisherName
                     %ProductForm
-                    %ProductReference
-                    %PrintOnDemand
+                    %ProductReference%PrintOnDemand
                 </p>
                 <p>
                     %Blurb
