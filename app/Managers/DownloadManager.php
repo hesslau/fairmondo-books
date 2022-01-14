@@ -43,7 +43,7 @@ class DownloadManager
     const MAX_DOWNLOAD_ATTEMPTS = 3;
     const FINISHED = 'Synchronization finished.';
 
-    public $chunksize = 50;
+    public $chunksize = 5000;
 
     public function __construct(IFactory $factory, callable $fileFilter = null)
     {
