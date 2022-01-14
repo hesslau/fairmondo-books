@@ -114,7 +114,8 @@ return [
         'ProductForm'       => '%s, ',
         'ProductReference'  => 'EAN %s',
         'Blurb'             => '<p><b>Beschreibung</b></p><p>%s</p>',
-        'AudioBook'         => 'Hörbuch, '
+        'AudioBook'         => 'Hörbuch, ',
+        'PrintOnDemand'     => ', Print On Demand'
     ],
     'CustomSellerIdentifierTemplate' => 'LIB-%013s',
     'TitleTemplate' => "%Author%Title (%ProductForm%AudioBook%ProductReference)",
@@ -126,7 +127,7 @@ return [
                     %AudioBook 
                     %PublisherName
                     %ProductForm
-                    %ProductReference
+                    %ProductReference%PrintOnDemand
                 </p>
                 <p>
                     %Blurb
