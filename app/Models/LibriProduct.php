@@ -39,6 +39,10 @@ class LibriProduct extends Model
         }
     }
 
+    public function isPrintOnDemand() {
+        return ($this->attributes['AvailabilityStatus'] == 23);
+    }
+
     public function scopeUpdatedSince($query,$date) {
         return $query->where('updated_at','>',$date);
     }

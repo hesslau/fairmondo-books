@@ -290,6 +290,9 @@ class FairmondoProductBuilder {
                 case 'ProductLanguage':
                     $value = self::getProductLanguageDescription($source->ProductLanguage);
                     break;
+                case 'PrintOnDemand':
+                    $value = $source->isPrintOnDemand();
+                    break;
                 default:
                     // e.G. $value = $source->Author
                     $value = $source->$attribute;
