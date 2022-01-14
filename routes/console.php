@@ -62,6 +62,18 @@ Artisan::command('pull:annotations:text {--test}', function($test){
     else exit(2);
 });
 
+// export each article and it's categories to a file in format
+// $custom_seller_identifier|$cateogories (e.g. "A100|33,19")
+Artisan::command("export:articlecategories", function() {
+   $myfile = fopen("cid-categories.txt", "w");
+   FairmondoProduct::chunk(100,function($col) use($myfile) {
+       foreach($col as $res) {
+           fwrite($myfile,$res->custom_seller_identifier."|".$res->categories."\n");
+       }
+   });
+   fclose($myfile);
+});
+
 // get CBILD, ABILD and RUECK annotations
 Artisan::command('pull:annotations:media {--initial}', function($initial) {
     $downloadManager = new DownloadManager(
