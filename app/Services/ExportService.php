@@ -229,7 +229,7 @@ class ExportService
         $export = Export::all()->last();
 
         // find all records that were created in this export
-        $products = FairmondoProduct::where('created_at','>',$export['created_at']);
+        $products = FairmondoProduct::where('created_at','>=',$export['created_at']);
 
         // delete records with action = delete
         $deleteCreated = $products->where('action','create')->delete();
