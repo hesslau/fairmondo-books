@@ -221,8 +221,7 @@ class FairmondoProductBuilder {
     }
 
     public static function getQuantity(LibriProduct $source) {
-        if((Integer) $source->QuantityOnHand === 0) return 1;     // see spMacSelectProducts.sql:213 -- tolino Welt evtl. kein Bestand  oder "fehlt kurzfristig am Lager", trotzdem anbieten
-        else return $source->QuantityOnHand;
+        return $source->QuantityOnHand;
     }
 
     /**
