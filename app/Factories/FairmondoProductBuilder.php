@@ -16,8 +16,11 @@ use App\Facades\ConsoleOutput;
 class FairmondoProductBuilder {
 
     const ACTION_DELETE = 'delete';
-    const ACTION_UPDATE = 'update';
     const ACTION_CREATE = 'create';
+    const ACTION_UPDATE = '';
+    # ACTION_UPDATE was set to 'update'; but if we leave it blank, the market will create the article
+    # if the custom_seller_identifier wasn't found. this would catch all the cases where
+    # a previous 'create' action was missed
 
     /**
      * Builds a FairmondoProduct from a LibriProduct.
