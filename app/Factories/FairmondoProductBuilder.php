@@ -300,6 +300,9 @@ class FairmondoProductBuilder {
                     $value = $source->$attribute;
             }
 
+            // remove forbidden characters which could later break the CSV
+            $value = self::removeForbiddenChars($value);
+
             // insert the attribute and store it in an array for later
             $renderedTemplates[$attribute] = ($value) ? sprintf($template, $value) : "";
 
