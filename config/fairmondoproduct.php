@@ -30,7 +30,7 @@ return [
         'condition'                 => 'new',
         'transport_type1'           => true,
         'transport_type1_provider'  => 'Post/DHL',
-        'transport_type1_price_cents'=> 0,
+        'transport_type1_price_cents'=> 290,
         'transport_type1_number'    => 9,
         'transport_details'         => '',
         'unified_transport'         => true,
